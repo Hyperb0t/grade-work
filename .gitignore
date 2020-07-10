@@ -7,7 +7,7 @@ out
 *.log
 
 #Properties
-*.properties
+application.properties
 
 # BlueJ files
 *.ctxt
@@ -27,6 +27,7 @@ out
 # Intelij IDEA files
 .idea
 *.iml
+*.md
 .mvn
 mvnw*
 
