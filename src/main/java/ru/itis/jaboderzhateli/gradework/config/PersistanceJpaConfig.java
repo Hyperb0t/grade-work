@@ -1,4 +1,4 @@
-package ru.itis.springcinemanavigator.config;
+package ru.itis.jaboderzhateli.gradework.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -20,7 +20,7 @@ import java.util.Properties;
 public class PersistanceJpaConfig {
 
     @Autowired
-    Environment environment;
+    private Environment environment;
 
     @Bean
     public HikariConfig hikariConfig() {
@@ -42,8 +42,7 @@ public class PersistanceJpaConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(hikariDataSource());
-        em.setPackagesToScan("ru.itis.springcinemanavigator");
-
+        em.setPackagesToScan("ru.itis.jaboderzhateli.gradework");
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());
@@ -58,9 +57,9 @@ public class PersistanceJpaConfig {
         return transactionManager;
     }
 
-    Properties additionalProperties() {
+    private Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
+        properties.setProperty("hibernate.hbm2ddl.auto", "create");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
 
         return properties;

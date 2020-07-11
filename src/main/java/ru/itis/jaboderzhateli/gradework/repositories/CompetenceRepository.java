@@ -1,4 +1,9 @@
 package ru.itis.jaboderzhateli.gradework.repositories;
 
-public interface CompetenceRepo {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+import ru.itis.jaboderzhateli.gradework.models.Competence;
+
+@Repository
+public interface CompetenceRepository extends CrudRepository<Competence, Long> {
 }

@@ -1,4 +1,9 @@
 package ru.itis.jaboderzhateli.gradework.repositories;
 
-public interface TeacherRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+import ru.itis.jaboderzhateli.gradework.models.Teacher;
+
+@Repository
+public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 }
