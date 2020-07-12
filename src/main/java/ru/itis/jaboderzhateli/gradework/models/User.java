@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 /**
  * @author Vitaly
+ * Entity for using with spring-security. Student, Teacher and Employer are bound
+ * (have a link column) to it.
  */
 
 @Data
@@ -19,8 +21,7 @@ import javax.persistence.*;
 @Table(name = "user", schema = "public")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-    @SequenceGenerator(name="user_generator", sequenceName = "user_seq", allocationSize=50)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login;
     private String password;
