@@ -16,6 +16,7 @@ import java.util.concurrent.Executors;
 
 @Configuration
 @PropertySource("classpath:application.properties")
+
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = "ru.itis.jaboderzhateli.gradework")
 public class RootConfig {
