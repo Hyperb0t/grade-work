@@ -28,6 +28,6 @@ public class User {
     private Role role;
 
     public enum Role {
-        STUDENT, TEACHER, EMPLOYER
+        STUDENT, TEACHER, EMPLOYER, ADMINISTRATION
     }
 }

@@ -31,4 +31,6 @@ public class Employer {
     private String phone;
     @OneToMany(mappedBy = "employer")
     private List<JobApplication> jobApplications;
+    @OneToOne
+    private User user;
 }

@@ -32,4 +32,6 @@ public class Teacher {
     @ManyToMany
     @JoinTable
     private List<Competence> competences;
+    @OneToOne
+    private User user;
 }

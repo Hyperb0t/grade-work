@@ -49,4 +49,6 @@ public class Student {
     private List<Project> projects;
     @OneToMany(mappedBy = "student")
     private List<JobApplication> jobApplications;
+    @OneToOne
+    private User user;
 }
