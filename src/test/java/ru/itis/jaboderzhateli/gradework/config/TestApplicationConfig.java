@@ -1,4 +1,4 @@
-package ru.itdrive.web.config;
+package ru.itis.jaboderzhateli.gradework.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,9 +26,9 @@ import java.util.Properties;
  * @version v1.0
  */
 @Configuration
-@ComponentScan("ru.itdrive.web.repositories")
+@ComponentScan("ru.itis.jaboderzhateli.gradework.repositories")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "ru.itdrive.web.repositories")
+@EnableJpaRepositories(basePackages = "ru.itis.jaboderzhateli.gradework.repositories")
 public class TestApplicationConfig {
 
     @Bean
@@ -46,7 +46,7 @@ public class TestApplicationConfig {
         hibernateJpaVendorAdapter.setDatabase(Database.HSQL);
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(testDataSourceForJpa());
-        entityManagerFactory.setPackagesToScan("ru.itdrive.web.models");
+        entityManagerFactory.setPackagesToScan("ru.itis.jaboderzhateli.gradework.models");
         entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter);
         entityManagerFactory.setJpaProperties(hibernateProperties());
         return entityManagerFactory;
