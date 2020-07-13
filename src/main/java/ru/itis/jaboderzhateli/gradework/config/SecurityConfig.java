@@ -55,19 +55,18 @@ public class SecurityConfig {
             http.authorizeRequests();
 
             http.formLogin()
-                    .loginPage("/signIn")
-                    .usernameParameter("email")
+                    .loginPage("/sign_In")
+                    .usernameParameter("login")
+                    .passwordParameter("password")
                     .permitAll();
 
             http.logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/signOut", "GET"))
                     .permitAll();
 
             http.rememberMe()
                     .alwaysRemember(true)
                     .tokenRepository(persistentTokenRepository());
-
-            http.csrf().ignoringAntMatchers("/signOut");
         }
 
         @Override

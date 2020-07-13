@@ -47,7 +47,7 @@ public class WebConfig implements WebMvcConfigurer {
     public LocaleResolver localeResolver() {
         var resolver = new CookieLocaleResolver();
 
-        resolver.setDefaultLocale(Locale.ENGLISH);
+        resolver.setDefaultLocale(new Locale("ru"));
         resolver.setCookieName("locale");
 
         return resolver;
