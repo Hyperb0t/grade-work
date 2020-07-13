@@ -55,7 +55,7 @@ public class SecurityConfig {
             http.authorizeRequests();
 
             http.formLogin()
-                    .loginPage("/sign_In")
+                    .loginPage("/sign_in")
                     .usernameParameter("login")
                     .passwordParameter("password")
                     .permitAll();
