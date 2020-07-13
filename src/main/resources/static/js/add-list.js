@@ -1,4 +1,4 @@
-jQuery.fn.outerHTML = function() {
+jQuery.fn.outerHTML = function () {
     return jQuery('<div />').append(this.eq(0).clone()).html();
 };
 // var elementPrefix = "";
@@ -24,7 +24,7 @@ function addList(elementPrefix) {
 
 function removeList(button, elementPrefix) {
     let n = $("div[id^=" + elementPrefix + "]").length;
-    if(n > 1) {
+    if (n > 1) {
         $(button).closest("div[id^=" + elementPrefix + "]").remove();
     }
 }
