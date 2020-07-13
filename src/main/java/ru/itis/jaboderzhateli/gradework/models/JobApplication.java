@@ -22,12 +22,14 @@ public class JobApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn
     private Student student;
     @ManyToOne
     @JoinColumn
     private Employer employer;
+
     private Boolean read;
     private Instant sentAt;
 }

@@ -17,10 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Teacher extends User {
+
     @Column(length = 40)
     private String name;
     @Column(length = 40)
@@ -29,9 +27,9 @@ public class Teacher {
     private String email;
     @Column(length = 13)
     private String phone;
+
     @ManyToMany
     @JoinTable
-    private List<Competence> competences;
-    @OneToOne
-    private User user;
+    private List<Competence> competence;
+
 }

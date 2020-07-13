@@ -20,28 +20,29 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Student extends User{
+
     @Column(length = 40)
     private String name;
     @Column(length = 40)
     private String surname;
-    @ManyToOne
-    @JoinColumn
-    @JsonManagedReference
-    private Institute institute;
-    private Byte course;
     @Column(length = 10, name = "study_group")
     private String group;
-    private Short yearStart;
-    private Short yearGraduate;
     @Column(length = 50)
     private String email;
     @Column(length = 13)
     private String phone;
+
+    private Short yearStart;
+    private Short yearGraduate;
+    private Byte course;
     private String bio;
+
+    @ManyToOne
+    @JoinColumn
+    @JsonManagedReference
+    private Institute institute;
+
     @OneToMany(mappedBy = "student")
     private List<StudentCompetence> studentCompetences;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
@@ -49,6 +50,5 @@ public class Student {
     private List<Project> projects;
     @OneToMany(mappedBy = "student")
     private List<JobApplication> jobApplications;
-    @OneToOne
-    private User user;
+
 }

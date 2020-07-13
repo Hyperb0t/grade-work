@@ -18,13 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Competence {
+public class Competence{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     @OneToMany(mappedBy = "competence")
     private List<StudentCompetence> studentCompetences;
-    @ManyToMany(mappedBy = "competences", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "competence", cascade = CascadeType.ALL)
     private List<Teacher> teachers;
 }

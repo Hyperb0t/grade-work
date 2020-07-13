@@ -17,10 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Employer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Employer extends User {
+
     @Column(length = 50)
     private String companyName;
     private String bio;
@@ -31,6 +29,4 @@ public class Employer {
     private String phone;
     @OneToMany(mappedBy = "employer")
     private List<JobApplication> jobApplications;
-    @OneToOne
-    private User user;
 }
