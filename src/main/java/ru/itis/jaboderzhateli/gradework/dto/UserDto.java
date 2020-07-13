@@ -8,19 +8,11 @@ import ru.itis.jaboderzhateli.gradework.models.Role;
 import ru.itis.jaboderzhateli.gradework.models.User;
 
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public abstract class UserDto {
 
     private String login;
-    private Role role;
+    private String password;
 
-    public static UserDto from(User user) {
-        return UserDto.builder()
-                .login(user.getLogin())
-                .role(user.getRole())
-                .build();
-    }
+    private Role role;
 
 }

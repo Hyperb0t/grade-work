@@ -15,6 +15,7 @@ import java.util.List;
  * that student owns a comptence. Watch boolean "confirmed" field.
  * Also useful to read: https://stackoverflow.com/questions/23837561/jpa-2-0-many-to-many-with-extra-column.
  */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

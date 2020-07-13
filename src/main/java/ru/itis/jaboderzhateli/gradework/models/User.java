@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 /**
  * @author Vitaly
+ * @author Zagir
  * Entity for using with spring-security. Student, Teacher and Employer are bound
  * (have a link column) to it.
  */
