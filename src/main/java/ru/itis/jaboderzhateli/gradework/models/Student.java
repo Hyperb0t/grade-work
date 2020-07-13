@@ -22,6 +22,11 @@ import java.util.List;
 @Entity
 public class Student extends User{
 
+    private Short yearStart;
+    private Short yearGraduate;
+    private Byte course;
+    private String bio;
+
     @Column(length = 40)
     private String name;
     @Column(length = 40)
@@ -32,11 +37,6 @@ public class Student extends User{
     private String email;
     @Column(length = 13)
     private String phone;
-
-    private Short yearStart;
-    private Short yearGraduate;
-    private Byte course;
-    private String bio;
 
     @ManyToOne
     @JoinColumn

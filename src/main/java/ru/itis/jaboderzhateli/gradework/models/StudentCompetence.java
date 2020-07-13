@@ -26,6 +26,8 @@ public class StudentCompetence {
     @EmbeddedId
     private StudentCompetenceKey id;
 
+    private Boolean confirmed;
+
     @ManyToOne
     @MapsId("student_id")
     @JoinColumn
@@ -35,8 +37,6 @@ public class StudentCompetence {
     @MapsId("competence_id")
     @JoinColumn
     private Competence competence;
-
-    private Boolean confirmed;
 
     @Embeddable
     public class StudentCompetenceKey implements Serializable {

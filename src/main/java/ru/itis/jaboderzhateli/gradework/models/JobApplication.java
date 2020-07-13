@@ -19,9 +19,13 @@ import java.time.Instant;
 @Builder
 @Entity
 public class JobApplication {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Boolean read;
+    private Instant sentAt;
 
     @ManyToOne
     @JoinColumn
@@ -29,7 +33,4 @@ public class JobApplication {
     @ManyToOne
     @JoinColumn
     private Employer employer;
-
-    private Boolean read;
-    private Instant sentAt;
 }

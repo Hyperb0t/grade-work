@@ -20,6 +20,7 @@ import javax.persistence.*;
 @Table(name = "user", schema = "public")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

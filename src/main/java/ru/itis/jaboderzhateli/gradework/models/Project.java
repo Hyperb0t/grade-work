@@ -18,11 +18,14 @@ import javax.persistence.*;
 @Builder
 @Entity
 public class Project {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String link;
+
     @ManyToOne
     @JoinColumn
     @JsonManagedReference

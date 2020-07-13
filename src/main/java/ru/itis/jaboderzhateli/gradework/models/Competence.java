@@ -19,6 +19,7 @@ import java.util.List;
 @Builder
 @Entity
 public class Competence{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +28,7 @@ public class Competence{
 
     @OneToMany(mappedBy = "competence")
     private List<StudentCompetence> studentCompetences;
+
     @ManyToMany(mappedBy = "competence", cascade = CascadeType.ALL)
     private List<Teacher> teachers;
 }

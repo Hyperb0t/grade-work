@@ -19,14 +19,17 @@ import java.util.List;
 @Entity
 public class Employer extends User {
 
-    @Column(length = 50)
-    private String companyName;
+
     private String bio;
     private String juristicInfo;
+
+    @Column(length = 50)
+    private String companyName;
     @Column(length = 50)
     private String email;
     @Column(length = 13)
     private String phone;
+
     @OneToMany(mappedBy = "employer")
     private List<JobApplication> jobApplications;
 }
