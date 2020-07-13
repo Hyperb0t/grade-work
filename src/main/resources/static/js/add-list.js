@@ -19,7 +19,7 @@ $(document).ready(function () {
 function addList(elementPrefix) {
     let element = $("div[id^=" + elementPrefix + "]").last();
     let index = element.attr("id").substring(elementPrefix.length);
-    element.after(element.outerHTML().replaceAll(elementPrefix + index, elementPrefix + (parseInt(index) + 1)));
+    element.after(element.outerHTML().replace(new RegExp( elementPrefix + index, 'g'), elementPrefix + (parseInt(index) + 1)));
 }
 
 function removeList(button, elementPrefix) {

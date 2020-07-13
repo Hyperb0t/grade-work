@@ -5,7 +5,7 @@
 </#assign>
 <@p.page title=title>
     <@p.navbar/>
-    <script src="../static/js/add-list.js"></script>
+    <script src="${rc.getContextPath()}/static/js/add-list.js"></script>
     <script>
         window.onload = function () {
             $("#link-adder").click(function () {
