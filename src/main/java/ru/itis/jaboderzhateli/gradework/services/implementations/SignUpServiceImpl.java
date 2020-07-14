@@ -39,7 +39,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .bio(form.getBio())
                 .companyName(form.getCompanyName())
                 .email(form.getEmail())
-                .juristicInfo(form.getJuristicInfo())
+                .psrn(form.getJuristicInfo())
                 .phone(form.getPhone())
                 .build();
 
