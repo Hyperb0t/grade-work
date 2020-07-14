@@ -17,6 +17,7 @@ import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -52,20 +53,31 @@ public class SignUpServiceImpl implements SignUpService {
         var fileName = file.getOriginalFilename();
         var filenamePostfix = Objects.requireNonNull(fileName).substring(fileName.lastIndexOf('.'));
 
-        //TODO Придумать абстракцию для ниженаписаного (для разных типов в т.ч. JSON)
+        //TODO Review код
 
-        Enum header;
-        if (filenamePostfix.equals("xls")) {
-            header = PoijiExcelType.XLS;
-        } else if (filenamePostfix.equals("xlsx")) {
-            header = PoijiExcelType.XLSX;
+        Enum<?> header;
+
+        switch (filenamePostfix) {
+            case ("xlsx"):
+                header = PoijiExcelType.XLSX;
+                break;
+//            case ("xls"):
+//                header = PoijiExcelType.XLS;
+//                break;
+            default:
+                header = PoijiExcelType.XLS;
+                break;
         }
 
-//        try {
-//            var students = poiHandler.upload(file.getInputStream(), StudentPoijiDto.class, header);
-//            studentRepository.saveAll(students);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            var studentsTemp = poiHandler.upload(file.getInputStream(), StudentPoijiDto.class, header);
+            var students = studentsTemp.stream()
+                    .map(converterService::convert)
+                    .collect(Collectors.toList());
+
+            studentRepository.saveAll(students);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
