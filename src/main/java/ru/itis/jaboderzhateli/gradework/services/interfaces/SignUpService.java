@@ -6,6 +6,9 @@ import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpEmployerForm;
 public interface SignUpService {
 
     void signUp(SignUpEmployerForm signUpEmployerForm);
+
     void signUpStudent(MultipartFile file);
+
+    void signUpTeacher(MultipartFile file);
 
 }
