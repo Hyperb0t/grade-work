@@ -12,7 +12,7 @@ import ru.itis.jaboderzhateli.gradework.models.Student;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentPoijiDto {
+public class StudentPoijiDto{
 
     @ExcelCellName("Год начала обучения")
     private Integer yearStart;
@@ -39,16 +39,16 @@ public class StudentPoijiDto {
 
     public static StudentPoijiDto from(StudentDto student) {
         return StudentPoijiDto.builder()
-                .login(student.getLogin())
+//                .login(student.getLogin())
                 .yearStart(student.getYearStart().intValue())
                 .yearGraduate(student.getYearGraduate().intValue())
                 .course(student.getCourse().intValue())
                 .bio(student.getBio())
-                .name(student.getName())
-                .surname(student.getSurname())
+//                .name(student.getName())
+//                .surname(student.getSurname())
                 .group(student.getGroup())
-                .email(student.getEmail())
-                .phone(student.getPhone())
+//                .email(student.getEmail())
+//                .phone(student.getPhone())
                 .institute(student.getInstitute().getName())
                 .build();
     }

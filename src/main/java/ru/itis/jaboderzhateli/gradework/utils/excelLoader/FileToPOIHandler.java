@@ -5,10 +5,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.File;
 import java.util.List;
 
-public interface FileToPOIHandler<T> {
+public interface FileToPOIHandler {
 
-    List<? extends T> load(File file, T targetObject);
+    List<?> upload(File file, Class<?> clazz);
 
-    void upload(Workbook workbook);
+    void download(Workbook workbook);
 
 }

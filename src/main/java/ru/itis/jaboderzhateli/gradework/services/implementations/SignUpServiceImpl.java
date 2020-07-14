@@ -3,6 +3,7 @@ package ru.itis.jaboderzhateli.gradework.services.implementations;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpEmployerForm;
 import ru.itis.jaboderzhateli.gradework.models.Employer;
 import ru.itis.jaboderzhateli.gradework.models.Role;
@@ -32,5 +33,10 @@ public class SignUpServiceImpl implements SignUpService {
         employer.setRole(Role.EMPLOYER);
 
         employerRepository.save(employer);
+    }
+
+    @Override
+    public void signUp(MultipartFile file) {
+
     }
 }
