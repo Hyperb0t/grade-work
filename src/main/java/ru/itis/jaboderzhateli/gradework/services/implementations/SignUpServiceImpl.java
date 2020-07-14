@@ -10,6 +10,8 @@ import ru.itis.jaboderzhateli.gradework.dto.poijiDto.StudentPoijiDto;
 import ru.itis.jaboderzhateli.gradework.models.Employer;
 import ru.itis.jaboderzhateli.gradework.models.Role;
 import ru.itis.jaboderzhateli.gradework.repositories.EmployerRepository;
+import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.ConverterService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.SignUpService;
 import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
 
@@ -20,9 +22,11 @@ import java.util.Objects;
 @AllArgsConstructor
 public class SignUpServiceImpl implements SignUpService {
 
-    private final EmployerRepository employerRepository;
+    private final StudentRepository studentRepository;
+    private EmployerRepository employerRepository;
     private final PasswordEncoder passwordEncoder;
     private final FileToPOJOHandler poiHandler;
+    private final ConverterService converterService;
 
     @Override
     public void signUp(SignUpEmployerForm form) {
@@ -48,18 +52,20 @@ public class SignUpServiceImpl implements SignUpService {
         var fileName = file.getOriginalFilename();
         var filenamePostfix = Objects.requireNonNull(fileName).substring(fileName.lastIndexOf('.'));
 
+        //TODO Придумать абстракцию для ниженаписаного (для разных типов в т.ч. JSON)
+
+        Enum header;
         if (filenamePostfix.equals("xls")) {
-            try {
-                poiHandler.upload(file.getInputStream(), StudentPoijiDto.class, PoijiExcelType.XLS);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            header = PoijiExcelType.XLS;
         } else if (filenamePostfix.equals("xlsx")) {
-            try {
-                poiHandler.upload(file.getInputStream(), StudentPoijiDto.class, PoijiExcelType.XLSX);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            header = PoijiExcelType.XLSX;
         }
+
+//        try {
+//            var students = poiHandler.upload(file.getInputStream(), StudentPoijiDto.class, header);
+//            studentRepository.saveAll(students);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
