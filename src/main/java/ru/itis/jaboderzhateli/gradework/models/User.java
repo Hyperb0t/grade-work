@@ -24,11 +24,11 @@ public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
-    private String login;
-    private String password;
+    protected String login;
+    protected String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    protected Role role;
 }

@@ -22,6 +22,8 @@ public class StudentDto extends UserDto {
     private String email;
     private String phone;
     private Date birthday;
+    private Byte average;
+    private String link;
 
     private Institute institute;
 
@@ -44,6 +46,8 @@ public class StudentDto extends UserDto {
                 .email(student.getEmail())
                 .phone(student.getPhone())
                 .birthday(student.getBirthday())
+                .average(student.getAverage())
+                .link(student.getLink())
                 .institute(student.getInstitute())
                 .faculty(student.getFaculty())
                 .competences(student.getCompetences())
