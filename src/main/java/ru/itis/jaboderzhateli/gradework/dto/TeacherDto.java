@@ -18,6 +18,7 @@ import java.util.List;
 public class TeacherDto extends UserDto {
 
     private String name;
+    private String middleName;
     private String surname;
     private String email;
     private String phone;
@@ -27,6 +28,7 @@ public class TeacherDto extends UserDto {
     public static TeacherDto from(Teacher teacher) {
         var tempTeacherDto = TeacherDto.builder()
                 .name(teacher.getName())
+                .middleName(teacher.getMiddleName())
                 .surname(teacher.getSurname())
                 .email(teacher.getEmail())
                 .phone(teacher.getPhone())

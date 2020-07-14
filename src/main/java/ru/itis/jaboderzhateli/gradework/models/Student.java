@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +32,8 @@ public class Student extends User{
     @Column(length = 40)
     private String name;
     @Column(length = 40)
+    private String middleName;
+    @Column(length = 40)
     private String surname;
     @Column(length = 10, name = "study_group")
     private String group;
@@ -38,14 +41,20 @@ public class Student extends User{
     private String email;
     @Column(length = 13)
     private String phone;
+    private Date birthday;
 
     @ManyToOne
     @JoinColumn
     @JsonManagedReference
     private Institute institute;
 
+    @ManyToOne
+    @JoinColumn
+    @JsonManagedReference
+    private Faculty faculty;
+
     @OneToMany(mappedBy = "student")
-    private List<StudentCompetence> studentCompetences;
+    private List<StudentCompetence> competences;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Project> projects;

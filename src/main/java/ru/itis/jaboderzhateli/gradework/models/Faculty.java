@@ -9,28 +9,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * @author Vitaly
- */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Institute {
-
+public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "institute", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Student> students;
-
-    @OneToMany(mappedBy = "institute", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Teacher> teachers;
 }

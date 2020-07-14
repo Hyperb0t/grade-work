@@ -44,6 +44,7 @@ out
 *.log
 
 #Properties
+#do not remove properties file from test folder! Jenkins blows up
 src/main/resources/application.properties
 
 # BlueJ files

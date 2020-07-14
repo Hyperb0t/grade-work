@@ -22,28 +22,23 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "student_competence")
+@IdClass(StudentCompetence.StudentCompetenceKey.class)
 public class StudentCompetence {
-
-    @EmbeddedId
-    private StudentCompetenceKey id;
 
     private Boolean confirmed;
 
+    @Id
     @ManyToOne
-    @MapsId("student_id")
     @JoinColumn
     private Student student;
 
+    @Id
     @ManyToOne
-    @MapsId("competence_id")
     @JoinColumn
     private Competence competence;
 
-    @Embeddable
     public class StudentCompetenceKey implements Serializable {
-        @Column(name = "student_id")
-        private Long studentId;
-        @Column(name = "competence_id")
-        private Long competenceId;
+        private Student student;
+        private Competence competence;
     }
 }

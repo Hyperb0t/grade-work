@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import ru.itis.jaboderzhateli.gradework.models.*;
 
-import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,14 +16,18 @@ public class StudentDto extends UserDto {
     private Byte course;
     private String bio;
     private String name;
+    private String middleName;
     private String surname;
     private String group;
     private String email;
     private String phone;
+    private Date birthday;
 
     private Institute institute;
 
-    private List<StudentCompetence> studentCompetences;
+    private Faculty faculty;
+
+    private List<StudentCompetence> competences;
     private List<Project> projects;
     private List<JobApplication> jobApplications;
 
@@ -34,12 +38,15 @@ public class StudentDto extends UserDto {
                 .course(student.getCourse())
                 .bio(student.getBio())
                 .name(student.getName())
+                .middleName(student.getMiddleName())
                 .surname(student.getSurname())
                 .group(student.getGroup())
                 .email(student.getEmail())
                 .phone(student.getPhone())
+                .birthday(student.getBirthday())
                 .institute(student.getInstitute())
-                .studentCompetences(student.getStudentCompetences())
+                .faculty(student.getFaculty())
+                .competences(student.getCompetences())
                 .projects(student.getProjects())
                 .jobApplications(student.getJobApplications())
                 .build();

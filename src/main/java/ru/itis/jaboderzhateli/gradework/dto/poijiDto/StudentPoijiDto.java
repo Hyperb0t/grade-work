@@ -28,6 +28,8 @@ public class StudentPoijiDto{
     private String name;
     @ExcelCellName("Фамилия")
     private String surname;
+    @ExcelCellName("Отчество")
+    private String middleName;
     @ExcelCellName("Группа")
     private String group;
     @ExcelCellName("Email")

@@ -20,9 +20,8 @@ import java.util.List;
 @Entity
 public class Employer extends User {
 
-
-    private String bio;
-    private String juristicInfo;
+    private String bio; //they write links and other stuff here
+    private String psrn;
 
     @Column(length = 50)
     private String companyName;
@@ -30,6 +29,13 @@ public class Employer extends User {
     private String email;
     @Column(length = 13)
     private String phone;
+
+    @Column(length = 40)
+    private String name;
+    @Column(length = 40)
+    private String middleName;
+    @Column(length = 40)
+    private String surname;
 
     @OneToMany(mappedBy = "employer")
     private List<JobApplication> jobApplications;

@@ -18,6 +18,8 @@ public class TeacherPoijiDto{
     private String name;
     @ExcelCellName("Фамилия")
     private String surname;
+    @ExcelCellName("Отчество")
+    private String middleName;
     @ExcelCellName("Email")
     private String email;
     @ExcelCellName("Телефон")
