@@ -1,24 +1,10 @@
 jQuery.fn.outerHTML = function () {
     return jQuery('<div />').append(this.eq(0).clone()).html();
 };
-// var elementPrefix = "";
-
-$(document).ready(function () {
-    $("#competence-adder").click(function () {
-        addList();
-    });
-});
-//
-// function setElementPrefix(elPrefix) {
-//     elementPrefix = elPrefix;
-//     $("#" + elPrefix + "adder").click(function () {
-//         addList();
-//     });
-// }
 
 function addList(elementPrefix) {
     let element = $("div[id^=" + elementPrefix + "]").last();
-    let index = element.attr("id").substring(elementPrefix.length);
+    let index = element.attr("id").substring(element.attr("id").indexOf(elementPrefix) + elementPrefix.length);
     element.after(element.outerHTML().replace(new RegExp( elementPrefix + index, 'g'), elementPrefix + (parseInt(index) + 1)));
 }
 

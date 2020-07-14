@@ -136,6 +136,13 @@ hr {
     border-width: 3px;
     border-color: var(--sec-white);
 }
+.link {
+    text-decoration: none;
+    color: var(--main-blue);
+}
+.link:hover {
+    text-decoration: none;
+}
 
 /* INPUTS */
 .input-group-prepend .input-group-text {
@@ -214,6 +221,9 @@ hr {
     border-color: var(--main-blue);
     background-color: var(--sec-white);
     color: var(--main-blue);
+}
+.right-border-none {
+    border-right-style: none;
 }
 
 /* ALERTS */

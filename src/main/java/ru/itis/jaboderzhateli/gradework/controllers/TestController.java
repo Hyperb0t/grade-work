@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.itis.jaboderzhateli.gradework.models.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -86,5 +88,132 @@ public class TestController {
     @GetMapping("/")
     public String getLanding() {
         return "main/landing";
+    }
+
+    @GetMapping("/student")
+    public String getStudentPage(ModelMap map) {
+        Student student = Student.builder()
+                .name("Михаил")
+                .surname("Счастливцев")
+                .middleName("Александрович")
+                .birthday(new Date(944611200000L))
+                .institute(Institute.builder().id(1L).name("ВШ ИТИС").build())
+                .faculty(Faculty.builder().id(1L).name("Программная инженерия").build())
+                .group("11-804")
+                .yearStart((short)2018)
+                .yearGraduate((short)2020)
+                .average((byte)93)
+                .phone("89503135579")
+                .email("rodsher111@gmail.com")
+                .bio("Гений<br>Гигант мысли<br>Отец русской демократии")
+                .link("https://vk.com").build();
+        student.setId(1L);
+        List<StudentCompetence> competences = new ArrayList<>();
+        competences.add(new StudentCompetence(false, student, Competence.builder().id(1L).name("Java").build()));
+        competences.add(new StudentCompetence(false, student, Competence.builder().id(2L).name("Data mining").build()));
+        student.setCompetences(competences);
+        Student me = Student.builder().build();
+        me.setId(1L);
+        map.put("me", me);
+        map.put("student", student);
+        return "main/student_page";
+    }
+
+    @GetMapping("/teacher")
+    public String getTeacherPage(ModelMap map) {
+        Teacher teacher = Teacher.builder()
+                .name("Михаил")
+                .surname("Счастливцев")
+                .middleName("Александрович")
+                .institute(Institute.builder().id(1L).name("ВШ ИТИС").build())
+                .experience((byte) 30)
+                .position("Основной работник, гений")
+                .phone("89503135579")
+                .email("rodsher111@gmail.com")
+                .link("https://vk.com").build();
+        teacher.setId(1L);
+        List<Competence> competences = new ArrayList<>();
+        competences.add(Competence.builder().id(1L).name("Java").build());
+        competences.add(Competence.builder().id(2L).name("Data mining").build());
+        teacher.setCompetence(competences);
+        Teacher me = Teacher.builder().build();
+        me.setId(1L);
+        map.put("me", me);
+        map.put("teacher", teacher);
+        return "main/teacher_page";
+    }
+
+    @GetMapping("/employer")
+    public String getEmployerPage(ModelMap map) {
+        Employer employer = Employer.builder()
+                .name("Михаил")
+                .surname("Счастливцев")
+                .middleName("Александрович")
+                .phone("89503135579")
+                .email("rodsher111@gmail.com")
+                .companyName("ООО 'ГЕНИЕПРОИЗВОДСТВО'")
+                .psrn("1231241352361").build();
+        employer.setId(1L);
+        Employer me = Employer.builder().build();
+        me.setId(1L);
+        map.put("me", me);
+        map.put("employer", employer);
+        return "main/employer_page";
+    }
+
+    @GetMapping("/administration")
+    public String getAdministrationPage(ModelMap map) {
+        Administration administration = new Administration(1L, "gggg", "123");
+        Administration me = new Administration(1L, null, null);
+        map.put("me", me);
+        map.put("administration", administration);
+        return "main/administration_page";
+    }
+
+    @GetMapping("/resume/create")
+    public String getResumeCreateForm(ModelMap map) {
+        List<String> competences = new ArrayList<>();
+        competences.add("Программная инженерия");
+        competences.add("Физика");
+        competences.add("Биология");
+        competences.add("Математика");
+        map.put("competences", competences);
+        return "main/resume_create";
+    }
+
+    public class Administration {
+        private Long id;
+        private String login;
+        private String password;
+
+        public Administration(Long id, String login, String password) {
+            this.id = id;
+            this.login = login;
+            this.password = password;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getLogin() {
+            return login;
+        }
+
+        public void setLogin(String login) {
+            this.login = login;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 }
