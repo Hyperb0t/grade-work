@@ -71,11 +71,10 @@ public class SignUpServiceImpl implements SignUpService {
 
         try {
             var studentsTemp = poiHandler.upload(file.getInputStream(), StudentPoijiDto.class, header);
-            var students = studentsTemp.stream()
-                    .map(converterService::convert)
-                    .collect(Collectors.toList());
+            var students = converterService.convertStudents(studentsTemp);
 
             studentRepository.saveAll(students);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
