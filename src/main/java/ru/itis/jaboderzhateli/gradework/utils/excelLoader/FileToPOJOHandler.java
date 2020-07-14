@@ -1,6 +1,7 @@
 package ru.itis.jaboderzhateli.gradework.utils.excelLoader;
 
 import com.poiji.exception.PoijiExcelType;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.hibernate.jdbc.Work;
 
@@ -11,8 +12,9 @@ import java.util.List;
 
 public interface FileToPOJOHandler {
 
-    List<?> upload(File file, Class<?> clazz);
-    List<?> upload (InputStream stream, Class<?> clazz, PoijiExcelType excelType);
+    <T> List<T> upload(File file, Class<T> clazz);
+
+    <T> List<T> upload(InputStream stream, Class<T> clazz, Enum excelType);
 
     void download(Workbook workbook);
 

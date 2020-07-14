@@ -15,17 +15,17 @@ import java.util.List;
 public class ExcelToPOJO implements FileToPOJOHandler {
 
     @Override
-    public List<?> upload(File file, Class<?> clazz) {
+    public <T> List<T> upload(File file, Class<T> clazz) {
         return Poiji.fromExcel(file, clazz);
     }
 
     @Override
-    public List<?> upload(InputStream stream, Class<?> clazz, PoijiExcelType excelType) {
-        return Poiji.fromExcel(stream, excelType, clazz);
+    public <T> List<T> upload(InputStream stream, Class<T> clazz, Enum excelType) {
+        return Poiji.fromExcel(stream, (PoijiExcelType) excelType, clazz);
     }
 
     @Override
     public void download(Workbook workbook) {
-        
+
     }
 }
