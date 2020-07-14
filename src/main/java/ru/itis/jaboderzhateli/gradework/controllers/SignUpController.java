@@ -39,13 +39,13 @@ public class SignUpController {
 
     @PostMapping("/teacher/file")
     public String signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile, BindingResult bindingResult) {
-
+        signUpService.signUpTeacher(multipartFile);
         return "";
     }
 
     @PostMapping("/student/file")
     public String signUpStudentFile(@RequestParam("file") MultipartFile multipartFile, BindingResult bindingResult) {
-
+        signUpService.signUpStudent(multipartFile);
         return "";
     }
 
