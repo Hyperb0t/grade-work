@@ -29,7 +29,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="password-repeat"><@s.message 'sign.password.repeat'/></span>
                     </div>
-                    <input type="password" class="form-control" minlength="8" name="password-repeat" aria-describedby="password-repeat" placeholder="<@s.message 'sign.password.repeat.placeholder'/>" required>
+                    <input type="password" class="form-control" minlength="8" name="passwordRepeat" aria-describedby="password-repeat" placeholder="<@s.message 'sign.password.repeat.placeholder'/>" required>
                 </div>
 
                 <div class="input-group mb-2">
