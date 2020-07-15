@@ -2,10 +2,7 @@ package ru.itis.jaboderzhateli.gradework.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Type;
 
@@ -56,12 +53,15 @@ public class Student extends User{
     @JsonManagedReference
     private Faculty faculty;
 
-    @OneToMany(mappedBy = "studentId")
+    @OneToMany(mappedBy = "student")
+    @ToString.Exclude
     private List<StudentCompetence> competences;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonBackReference
+    @ToString.Exclude
     private List<Project> projects;
     @OneToMany(mappedBy = "student")
+    @ToString.Exclude
     private List<JobApplication> jobApplications;
 
 }

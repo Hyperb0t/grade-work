@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -86,10 +87,16 @@ public class RootConfig {
         competenceRepository.save(competence1);
         competenceRepository.save(competence2);
         studentRepository.save(student);
-        StudentCompetence studentCompetence1 = StudentCompetence.builder().confirmed(false).studentId(student.getId()).competenceId(competence1.getId()).build();
-        StudentCompetence studentCompetence2 = StudentCompetence.builder().confirmed(false).studentId(student.getId()).competenceId(competence2.getId()).build();
+        StudentCompetence studentCompetence1 = StudentCompetence.builder().confirmed(false).student(student).competence(competence1).build();
+        StudentCompetence studentCompetence2 = StudentCompetence.builder().confirmed(false).student(student).competence(competence2).build();
         studentCompetenceRepository.save(studentCompetence1);
         studentCompetenceRepository.save(studentCompetence2);
+
+        ///////////////// CHECK HERE
+        Optional<StudentCompetence> studentCompetence3 = studentCompetenceRepository.findById(new StudentCompetenceId(2L, 1L));
+        System.out.println("#################### sc3:" + studentCompetence3.get().getStudent());/// .getCompetences()); // @OneToMany - F
+        ////////////////////////
+
         List<StudentCompetence> competences = new ArrayList<>();
         competences.add(studentCompetence1);
         competences.add(studentCompetence2);

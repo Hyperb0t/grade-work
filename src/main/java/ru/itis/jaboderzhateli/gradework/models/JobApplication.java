@@ -30,6 +30,7 @@ public class JobApplication {
     @ManyToOne
     @JoinColumn
     private Student student;
+
     @ManyToOne
     @JoinColumn
     private Employer employer;

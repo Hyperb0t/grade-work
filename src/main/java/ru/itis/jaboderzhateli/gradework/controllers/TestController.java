@@ -137,9 +137,9 @@ public class TestController {
                 .link("https://vk.com").build();
         student.setId(1L);
         List<StudentCompetence> competences = new ArrayList<>();
-        competences.add(new StudentCompetence(false, student, Competence.builder().id(1L).name("Java").build(), student.getId(), 1L));
-        competences.add(new StudentCompetence(false, student, Competence.builder().id(2L).name("Data mining").build(), student.getId(), 2L));
-        student.setCompetences(competences);
+//        competences.add(new StudentCompetence(false, student, Competence.builder().id(1L).name("Java").build(), student.getId(), 1L));
+//        competences.add(new StudentCompetence(false, student, Competence.builder().id(2L).name("Data mining").build(), student.getId(), 2L));
+//        student.setCompetences(competences);
         Student me = Student.builder().build();
         me.setId(1L);
         map.put("me", me);

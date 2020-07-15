@@ -1,9 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -39,5 +36,6 @@ public class Employer extends User {
     private String surname;
 
     @OneToMany(mappedBy = "employer")
+    @ToString.Exclude
     private List<JobApplication> jobApplications;
 }

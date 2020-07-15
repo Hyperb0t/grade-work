@@ -1,10 +1,7 @@
 package ru.itis.jaboderzhateli.gradework.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -43,6 +40,7 @@ public class Teacher extends User {
 
     @ManyToMany
     @JoinTable
+    @ToString.Exclude
     private List<Competence> competence;
 
 }

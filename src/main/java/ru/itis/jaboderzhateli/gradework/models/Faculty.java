@@ -1,10 +1,7 @@
 package ru.itis.jaboderzhateli.gradework.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,5 +20,6 @@ public class Faculty {
 
     @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
     @JsonBackReference
+    @ToString.Exclude
     private List<Student> students;
 }

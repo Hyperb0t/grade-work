@@ -1,10 +1,7 @@
 package ru.itis.jaboderzhateli.gradework.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,9 +23,11 @@ public class Competence{
 
     private String name;
 
-    @OneToMany(mappedBy = "competenceId")
+    @OneToMany(mappedBy = "competence")
+    @ToString.Exclude
     private List<StudentCompetence> studentCompetences;
 
     @ManyToMany(mappedBy = "competence", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Teacher> teachers;
 }
