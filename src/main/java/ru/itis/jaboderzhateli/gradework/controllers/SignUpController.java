@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpEmployerForm;
 import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpStudentForm;
+import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpTeacherForm;
 import ru.itis.jaboderzhateli.gradework.models.Competence;
 import ru.itis.jaboderzhateli.gradework.models.Faculty;
 import ru.itis.jaboderzhateli.gradework.models.Institute;
@@ -85,8 +86,8 @@ public class SignUpController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
 
-        System.out.println("forwarding to /sign_in");
-        return "forward:/sign_in";
+        System.out.println("Successfully saved employer");
+        return "redirect:/signIn";
     }
 
     @PostMapping("/student")
@@ -97,20 +98,20 @@ public class SignUpController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
 
-        System.out.println("forwarding to /sign_in");
-        return "forward:/sign_in";
+        System.out.println("Successfully saved student");
+        return "redirect:/signIn";
     }
 
     @PostMapping("/teacher")
-    public String signUpTeacher(@Valid SignUpStudentForm form, BindingResult bindingResult) {
+    public String signUpTeacher(@Valid SignUpTeacherForm form, BindingResult bindingResult) {
         try {
             signUpService.signUp(form);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
 
-        System.out.println("forwarding to /sign_in");
-        return "forward:/sign_in";
+        System.out.println("Successfully saved teacher");
+        return "redirect:/signIn";
     }
 
     @PostMapping("/teacher/file")

@@ -10,13 +10,8 @@ import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpStudentForm;
 import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpTeacherForm;
 import ru.itis.jaboderzhateli.gradework.dto.poijiDto.StudentPoijiDto;
 import ru.itis.jaboderzhateli.gradework.dto.poijiDto.TeacherPoijiDto;
-import ru.itis.jaboderzhateli.gradework.models.Employer;
-import ru.itis.jaboderzhateli.gradework.models.Role;
-import ru.itis.jaboderzhateli.gradework.models.Student;
-import ru.itis.jaboderzhateli.gradework.models.Teacher;
-import ru.itis.jaboderzhateli.gradework.repositories.EmployerRepository;
-import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
-import ru.itis.jaboderzhateli.gradework.repositories.TeacherRepository;
+import ru.itis.jaboderzhateli.gradework.models.*;
+import ru.itis.jaboderzhateli.gradework.repositories.*;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.ConverterService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.SignUpService;
 import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
@@ -34,9 +29,11 @@ public class SignUpServiceImpl implements SignUpService {
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
     private final EmployerRepository employerRepository;
+    private final FacultyRepository facultyRepository;
     private final PasswordEncoder passwordEncoder;
     private final FileToPOJOHandler poiHandler;
     private final ConverterService converterService;
+    private final InstituteRepository instituteRepository;
 
     @Override
     public Employer signUp(SignUpEmployerForm form) {
@@ -51,6 +48,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .phone(form.getPhone())
                 .psrn(form.getPsrn())
                 .surname(form.getSurname())
+                .middleName(form.getMiddleName())
                 .build();
 
         employer.setRole(Role.EMPLOYER);
@@ -61,8 +59,35 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public Student signUp(SignUpStudentForm form) {
 
+        Institute institute;
+        var instituteCandidate = instituteRepository.findByName(form.getInstitute());
+        institute = instituteCandidate.orElseGet(() -> instituteRepository.save(Institute.builder()
+                .name(form.getInstitute())
+                .build()));
+
+        Faculty faculty;
+        var facultyCandidate = facultyRepository.findByName(form.getFaculty());
+        faculty = facultyCandidate.orElseGet(() -> facultyRepository.save(Faculty.builder()
+                .name(form.getFaculty())
+                .build()));
+
         var student = Student.builder()
+                .name(form.getName())
+                .surname(form.getSurname())
+                .middleName(form.getMiddleName())
+                .login(form.getLogin())
+                .link(form.getLink())
+                .institute(institute)
+                .group(form.getGroup())
+                .faculty(faculty)
+                .average(form.getAverage())
+                .yearStart(form.getYearStart())
+                .yearGraduate(form.getYearGraduate())
+                .birthday(form.getBirth())
+                .password(passwordEncoder.encode(form.getPassword()))
                 .build();
+
+        student.setRole(Role.STUDENT);
 
         return studentRepository.save(student);
     }
@@ -70,7 +95,26 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public Teacher signUp(SignUpTeacherForm form) {
 
-        var teacher = Teacher.builder().build();
+        Institute institute;
+        var instituteCandidate = instituteRepository.findByName(form.getInstitute());
+        institute = instituteCandidate.orElseGet(() -> instituteRepository.save(Institute.builder()
+                .name(form.getInstitute())
+                .build()));
+
+        var teacher = Teacher.builder()
+//                .competence(form.getCompetence())
+                .institute(institute)
+                .link(form.getLink())
+                .login(form.getLogin())
+                .middleName(form.getMiddleName())
+                .name(form.getName())
+                .password(passwordEncoder.encode(form.getPassword()))
+                .position(form.getPosition())
+                .surname(form.getSurname())
+                .experience(form.getExperience())
+                .build();
+
+        teacher.setRole(Role.TEACHER);
 
         return teacherRepository.save(teacher);
     }
@@ -91,6 +135,8 @@ public class SignUpServiceImpl implements SignUpService {
         }
     }
 
+
+    //TODO validation
     @Override
     public List<Teacher> signUpTeachers(MultipartFile file) {
 

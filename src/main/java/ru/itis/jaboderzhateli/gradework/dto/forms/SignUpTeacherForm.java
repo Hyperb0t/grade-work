@@ -15,7 +15,7 @@ public class SignUpTeacherForm {
     private String name;
     private String surname;
     private String middleName;
-    private Integer yearStart;
+    private Byte experience;
     private String institute;
     private String position;
     private String link;
