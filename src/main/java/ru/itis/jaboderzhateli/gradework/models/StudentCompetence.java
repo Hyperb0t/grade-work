@@ -27,13 +27,16 @@ public class StudentCompetence {
 
     private Boolean confirmed;
 
-    @Id
-    @ManyToOne
-    @JoinColumn
+    @Transient
     private Student student;
+    @Transient
+    private Competence competence;
 
     @Id
-    @ManyToOne
-    @JoinColumn
-    private Competence competence;
+    @Column(name = "student_id")
+    private Long studentId;
+
+    @Id
+    @Column(name = "competence_id")
+    private Long competenceId;
 }

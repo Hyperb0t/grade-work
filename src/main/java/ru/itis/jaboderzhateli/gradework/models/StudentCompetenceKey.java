@@ -11,20 +11,20 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentCompetenceKey implements Serializable {
-    private Student student;
-    private Competence competence;
+    private Long studentId;
+    private Long competenceId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentCompetenceKey that = (StudentCompetenceKey) o;
-        return student.equals(that.student) &&
-                competence.equals(that.competence);
+        return studentId.equals(that.studentId) &&
+                competenceId.equals(that.competenceId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(student, competence);
+        return Objects.hash(studentId, competenceId);
     }
 }

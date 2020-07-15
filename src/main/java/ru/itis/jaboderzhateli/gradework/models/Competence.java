@@ -26,7 +26,7 @@ public class Competence{
 
     private String name;
 
-    @OneToMany(mappedBy = "competence")
+    @OneToMany(mappedBy = "competenceId")
     private List<StudentCompetence> studentCompetences;
 
     @ManyToMany(mappedBy = "competence", cascade = CascadeType.ALL)

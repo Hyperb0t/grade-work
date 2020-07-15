@@ -56,7 +56,7 @@ public class Student extends User{
     @JsonManagedReference
     private Faculty faculty;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "studentId")
     private List<StudentCompetence> competences;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonBackReference
