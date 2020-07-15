@@ -1,34 +1,35 @@
 package ru.itis.jaboderzhateli.gradework.dto.forms;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.itis.jaboderzhateli.gradework.utils.FieldMatch;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Data
 @FieldMatch(first = "password", second = "passwordRepeat")
-public class SignUpEmployerForm {
+public class SignUpStudentForm {
 
     @NotBlank(message = "Данное поле не может быть пустым")
     private String login;
     @Size(min = 6, max = 40, message = "Минимальная длина пароля 6 символов")
     private String password;
     private String passwordRepeat;
-    @NotBlank(message = "Поле \"наименование организации\" не может быть пустым")
-    private String organisationName;
-    private String psrn;
     private String name;
     private String surname;
     private String middleName;
-    private String phone;
-    @Email(message = "Введите корректную почту")
-    private String email;
-    private List<String> link;
-    @AssertTrue(message = "Вы должны принять согласие на обработку, чтобы продолжить")
-    private boolean agreement;
-
+    private String faculty;
+    private String institute;
+    private String group;
+    private String link;
+    private Short yearStart;
+    private Short yearGraduate;
+    private Byte average;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birth;
 }

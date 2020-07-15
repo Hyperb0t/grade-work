@@ -16,7 +16,7 @@
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="m-0 regular text-center mb-2"><@s.message 'sign.up.teacher.header'/></h3>
-            <form method="POST">
+            <form method="POST" action="/signUp/teacher">
                 <input id="csrf" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="input-group mb-2">
@@ -37,7 +37,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="password-repeat"><@s.message 'sign.password.repeat'/></span>
                     </div>
-                    <input type="password" class="form-control" minlength="8" name="password-repeat" aria-describedby="password-repeat" placeholder="<@s.message 'sign.password.repeat.placeholder'/>" required>
+                    <input type="password" class="form-control" minlength="8" name="passwordRepeat" aria-describedby="password-repeat" placeholder="<@s.message 'sign.password.repeat.placeholder'/>" required>
                 </div>
 
                 <div class="input-group mb-2">
@@ -58,14 +58,14 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="middle-name"><@s.message 'sign.middle.name'/></span>
                     </div>
-                    <input type="text" class="form-control" name="middle-name" aria-describedby="middle-name" required>
+                    <input type="text" class="form-control" name="middleName" aria-describedby="middle-name" required>
                 </div>
 
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="year-start"><@s.message 'sign.up.teacher.experience'/></span>
                     </div>
-                    <input type="number" max="100" class="form-control" name="year-start" aria-describedby="year-start" placeholder="<@s.message 'sign.up.teacher.experience.placeholder'/>" required>
+                    <input type="number" max="100" class="form-control" name="experience" aria-describedby="year-start" placeholder="<@s.message 'sign.up.teacher.experience.placeholder'/>" required>
                 </div>
 
                 <div class="input-group mt-2">
