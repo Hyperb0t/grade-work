@@ -37,6 +37,7 @@ public class TestController {
         return "redirect:/";
     }
 
+
     @GetMapping("/signUp/student")
     public String getStudentSignUpForm(ModelMap map) {
 //        Student student = Student.builder()
@@ -127,17 +128,17 @@ public class TestController {
                 .institute(Institute.builder().id(1L).name("ВШ ИТИС").build())
                 .faculty(Faculty.builder().id(1L).name("Программная инженерия").build())
                 .group("11-804")
-                .yearStart((short)2018)
-                .yearGraduate((short)2020)
-                .average((byte)93)
+                .yearStart((short) 2018)
+                .yearGraduate((short) 2020)
+                .average((byte) 93)
                 .phone("89503135579")
                 .email("rodsher111@gmail.com")
                 .bio("Гений<br>Гигант мысли<br>Отец русской демократии")
                 .link("https://vk.com").build();
         student.setId(1L);
         List<StudentCompetence> competences = new ArrayList<>();
-        competences.add(new StudentCompetence(false, student, Competence.builder().id(1L).name("Java").build()));
-        competences.add(new StudentCompetence(false, student, Competence.builder().id(2L).name("Data mining").build()));
+        competences.add(new StudentCompetence(false, student, Competence.builder().id(1L).name("Java").build(), student.getId(), 1L));
+        competences.add(new StudentCompetence(false, student, Competence.builder().id(2L).name("Data mining").build(), student.getId(), 2L));
         student.setCompetences(competences);
         Student me = Student.builder().build();
         me.setId(1L);

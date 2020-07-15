@@ -24,6 +24,8 @@ import java.util.Map;
 @RequestMapping("/signUp")
 public class SignUpController {
 
+    private final SignUpService signUpService;
+
     @GetMapping("/teacher")
     public String getTeacherSignUpForm(ModelMap map) {
         List<String> institutes = new ArrayList<>();
@@ -63,8 +65,6 @@ public class SignUpController {
         return "auth/sign_up_student";
     }
 
-    private final SignUpService signUpService;
-
     @PostMapping("/employer")
     public String signUpEmployer(@Valid SignUpEmployerForm form, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -81,14 +81,24 @@ public class SignUpController {
         return "forward:/sign_in";
     }
 
-    @PostMapping("/teacher/file")
-    public String signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile, BindingResult bindingResult) {
-        signUpService.signUpTeacher(multipartFile);
+    @PostMapping("/student")
+    public String signUpStudent(){
         return "";
     }
 
+    @PostMapping
+    public String signUpTeacher(){
+        return "";
+    }
+
+    @PostMapping("/teacher/file")
+    public String signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile) {
+        signUpService.signUpTeacher(multipartFile);
+        return "forward:/";
+    }
+
     @PostMapping("/student/file")
-    public String signUpStudentFile(@RequestParam("file") MultipartFile multipartFile, BindingResult bindingResult) {
+    public String signUpStudentFile(@RequestParam("file") MultipartFile multipartFile) {
         signUpService.signUpStudent(multipartFile);
         return "";
     }

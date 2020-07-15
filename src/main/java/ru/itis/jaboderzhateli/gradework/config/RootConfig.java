@@ -86,8 +86,8 @@ public class RootConfig {
         competenceRepository.save(competence1);
         competenceRepository.save(competence2);
         studentRepository.save(student);
-        StudentCompetence studentCompetence1 = StudentCompetence.builder().confirmed(false).competenceId(competence1.getId()).studentId(student.getId()).build();
-        StudentCompetence studentCompetence2 = StudentCompetence.builder().confirmed(false).competenceId(competence2.getId()).studentId(student.getId()).build();
+        StudentCompetence studentCompetence1 = StudentCompetence.builder().confirmed(false).studentId(student.getId()).competenceId(competence1.getId()).build();
+        StudentCompetence studentCompetence2 = StudentCompetence.builder().confirmed(false).studentId(student.getId()).competenceId(competence2.getId()).build();
         studentCompetenceRepository.save(studentCompetence1);
         studentCompetenceRepository.save(studentCompetence2);
         List<StudentCompetence> competences = new ArrayList<>();
