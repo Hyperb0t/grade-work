@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpEmployerForm;
+import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpStudentForm;
+import ru.itis.jaboderzhateli.gradework.models.Competence;
+import ru.itis.jaboderzhateli.gradework.models.Faculty;
+import ru.itis.jaboderzhateli.gradework.models.Institute;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.CompetenceService;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.FacultieService;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.InstituteService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.SignUpService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -25,19 +30,22 @@ import java.util.Map;
 public class SignUpController {
 
     private final SignUpService signUpService;
+    private final InstituteService instituteService;
+    private final FacultieService facultieService;
+    private final CompetenceService competenceService;
 
     @GetMapping("/teacher")
     public String getTeacherSignUpForm(ModelMap map) {
-        List<String> institutes = new ArrayList<>();
-        institutes.add("ИТИС");
-        institutes.add("ИВМИИТ");
-        institutes.add("Юрфак");
-        institutes.add("Эконом");
-        List<String> competences = new ArrayList<>();
-        competences.add("Программная инженерия");
-        competences.add("Физика");
-        competences.add("Биология");
-        competences.add("Математика");
+
+        var institutes = instituteService.getAllInstitutes()
+                .stream()
+                .map(Institute::getName)
+                .collect(Collectors.toList());
+        var competences = competenceService.getAllCompetences()
+                .stream()
+                .map(Competence::getName)
+                .collect(Collectors.toList());
+
         map.put("institutes", institutes);
         map.put("competences", competences);
         return "auth/sign_up_teacher";
@@ -50,16 +58,16 @@ public class SignUpController {
 
     @GetMapping("/student")
     public String getStudentSignUpForm(ModelMap map) {
-        List<String> institutes = new ArrayList<>();
-        institutes.add("ИТИС");
-        institutes.add("ИВМИИТ");
-        institutes.add("Юрфак");
-        institutes.add("Эконом");
-        List<String> faculties = new ArrayList<>();
-        faculties.add("Программная инженерия");
-        faculties.add("Физика");
-        faculties.add("Биология");
-        faculties.add("Математика");
+
+        var institutes = instituteService.getAllInstitutes()
+                .stream()
+                .map(Institute::getName)
+                .collect(Collectors.toList());
+        var faculties = facultieService.getAllFaculties()
+                .stream()
+                .map(Faculty::getName)
+                .collect(Collectors.toList());
+
         map.put("institutes", institutes);
         map.put("faculties", faculties);
         return "auth/sign_up_student";
@@ -67,9 +75,9 @@ public class SignUpController {
 
     @PostMapping("/employer")
     public String signUpEmployer(@Valid SignUpEmployerForm form, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "";
-        }
+//        if (bindingResult.hasErrors()) {
+//            return "auth/sign_up_employer";
+//        }
 
         try {
             signUpService.signUp(form);
@@ -82,25 +90,39 @@ public class SignUpController {
     }
 
     @PostMapping("/student")
-    public String signUpStudent(){
-        return "";
+    public String signUpStudent(@Valid SignUpStudentForm form, BindingResult bindingResult) {
+        try {
+            signUpService.signUp(form);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
+
+        System.out.println("forwarding to /sign_in");
+        return "forward:/sign_in";
     }
 
-    @PostMapping
-    public String signUpTeacher(){
-        return "";
+    @PostMapping("/teacher")
+    public String signUpTeacher(@Valid SignUpStudentForm form, BindingResult bindingResult) {
+        try {
+            signUpService.signUp(form);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
+
+        System.out.println("forwarding to /sign_in");
+        return "forward:/sign_in";
     }
 
     @PostMapping("/teacher/file")
     public String signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile) {
-        signUpService.signUpTeacher(multipartFile);
+        signUpService.signUpTeachers(multipartFile);
         return "forward:/";
     }
 
     @PostMapping("/student/file")
     public String signUpStudentFile(@RequestParam("file") MultipartFile multipartFile) {
-        signUpService.signUpStudent(multipartFile);
-        return "";
+        signUpService.signUpStudents(multipartFile);
+        return "forward:/";
     }
 
 }
