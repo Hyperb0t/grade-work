@@ -6,13 +6,17 @@
 <#assign me_title>
     <@s.message 'page.my.title'/> - Grade&Work
 </#assign>
-<#if me.id == student.id>
+<#if me?? && me.id == student.id>
     <#assign title = me_title>
 <#else>
     <#assign title = student_title>
 </#if>
 <@p.page title=title>
-    <@p.navbar exit=true />
+    <#if me??>
+        <@p.navbar exit=true/>
+    <#else>
+        <@p.navbar/>
+    </#if>
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="text-center"><@s.message 'page.student.header'/></h3>
@@ -52,13 +56,13 @@
                 <span>${student.bio}</span>
                 <hr>
             </#if>
-            <#if me.id == student.id>
-                <#if student.competences?? || student.competences?size gt 0>
-                    <a class="btn btn-outline-light mt-2" href="/requests"><@s.message 'page.student.requests'/></a>
-                    <a class="btn btn-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.edit'/></a>
-                <#else>
+            <#if me?? && me.id == student.id>
+<#--                <#if student.competences?? || student.competences?size gt 0>-->
+<#--                    <a class="btn btn-outline-light mt-2" href="/requests"><@s.message 'page.student.requests'/></a>-->
+<#--                    <a class="btn btn-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.edit'/></a>-->
+<#--                <#else>-->
                     <a class="btn btn-outline-light mt-2" href="/resume/create"><@s.message 'page.student.resume.create'/></a>
-                </#if>
+<#--                </#if>-->
                 <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.student.info.edit'/></a>
             <#else>
                 <a class="btn btn-outline-light mt-2" href="/chat/${student.id}"><@s.message 'page.chat'/></a>

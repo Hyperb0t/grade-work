@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.itis.jaboderzhateli.gradework.models.*;
+import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
+import ru.itis.jaboderzhateli.gradework.repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +19,12 @@ import java.util.Map;
 @Controller
 @RequestMapping("/test")
 public class TestController {
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/signIn")
     public String getSignInForm() {
@@ -30,6 +39,24 @@ public class TestController {
 
     @GetMapping("/signUp/student")
     public String getStudentSignUpForm(ModelMap map) {
+//        Student student = Student.builder()
+//                .name("bob")
+//                .surname("bib")
+//                .middleName("bub")
+//                .group("11-804")
+//                .yearStart((short) 2018)
+//                .yearGraduate((short) 2020).build();
+//        student.setLogin("gg");
+//        student.setPassword("bb");
+//        student.setRole(Role.STUDENT);
+//        studentRepository.save(student);
+//        User user = new User(null, "gg", "bb", Role.STUDENT);
+//        userRepository.save(user);
+//        Student student = Student.builder().login("bb").password("gg").name("bob").build();
+//        studentRepository.save(student);
+//        User user = User.builder().role(Role.STUDENT).login("tt").password("rr").build();
+//        userRepository.save(user);
+//        studentRepository.save(Student.builder().id(2L).name("TOM").build());
         List<String> institutes = new ArrayList<>();
         institutes.add("ИТИС");
         institutes.add("ИВМИИТ");

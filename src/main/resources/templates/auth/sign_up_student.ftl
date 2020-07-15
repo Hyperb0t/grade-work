@@ -4,7 +4,7 @@
     <@s.message 'sign.up.student.title'/> - Grade&Work
 </#assign>
 <@p.page title=title>
-    <@p.navbar/>
+    <@p.navbar exit=true/>
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="m-0 regular text-center mb-2"><@s.message 'sign.up.student.header'/></h3>

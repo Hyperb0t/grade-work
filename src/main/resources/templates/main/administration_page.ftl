@@ -6,17 +6,21 @@
 <#assign me_title>
     <@s.message 'page.my.title'/> - Grade&Work
 </#assign>
-<#if me.id == administration.id>
+<#if me?? && me.id == administration.id>
     <#assign title = me_title>
 <#else>
     <#assign title = administration_title>
 </#if>
 <@p.page title=title>
-    <@p.navbar exit=true />
+    <#if me??>
+        <@p.navbar exit=true/>
+    <#else>
+        <@p.navbar/>
+    </#if>
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="text-center"><@s.message 'page.administration.header'/></h3>
-            <#if me.id == administration.id>
+            <#if me?? && me.id == administration.id>
                 <a class="btn btn-outline-light mt-2" href="/confirmations/resumes"><@s.message 'page.administration.confirmations.resumes'/></a>
                 <a class="btn btn-outline-light mt-2" href="/confirmations/accounts"><@s.message 'page.administration.confirmations.accounts'/></a>
                 <div class="d-inline-flex">

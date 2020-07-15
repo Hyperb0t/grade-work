@@ -6,13 +6,17 @@
 <#assign me_title>
     <@s.message 'page.my.title'/> - Grade&Work
 </#assign>
-<#if me.id == teacher.id>
+<#if me?? && me.id == teacher.id>
     <#assign title = me_title>
 <#else>
     <#assign title = teacher_title>
 </#if>
 <@p.page title=title>
-    <@p.navbar exit=true />
+    <#if me??>
+        <@p.navbar exit=true/>
+    <#else>
+        <@p.navbar/>
+    </#if>
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="text-center"><@s.message 'page.teacher.header'/></h3>
@@ -29,7 +33,7 @@
                 </#list>
                 <hr>
             </#if>
-            <#if me.id == teacher.id>
+            <#if me?? && me.id == teacher.id>
                 <a class="btn btn-outline-light mt-2" href="/confirmations"><@s.message 'page.teacher.confirmations'/></a>
                 <a class="btn btn-light mt-2" href="/competences/edit"><@s.message 'page.teacher.competences.edit'/></a>
                 <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.teacher.info.edit'/></a>

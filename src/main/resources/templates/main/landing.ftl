@@ -1,7 +1,11 @@
 <#import "*/page.ftl" as p>
 <#import "/spring.ftl" as s>
 <@p.page title="Grade&Work">
-    <@p.navbar/>
+    <#if me??>
+        <@p.navbar exit=true/>
+    <#else>
+        <@p.navbar/>
+    </#if>
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="text-center"><@s.message 'landing.header'/></h3>

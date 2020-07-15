@@ -4,7 +4,7 @@
     <@s.message 'sign.up.employer.title'/> - Grade&Work
 </#assign>
 <@p.page title=title>
-    <@p.navbar/>
+    <@p.navbar />
     <script src="${rc.getContextPath()}/static/js/add-list.js"></script>
     <script>
         window.onload = function () {

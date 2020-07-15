@@ -4,7 +4,7 @@
     <@s.message 'resume.create.title'/> - Grade&Work
 </#assign>
 <@p.page title=title>
-    <@p.navbar/>
+    <@p.navbar exit=true/>
     <script src="${rc.getContextPath()}/static/js/add-list.js"></script>
     <script>
         window.onload = function () {

@@ -21,6 +21,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -31,19 +32,19 @@ public class SecurityConfig {
     @Configuration
     @Order(0)
     @AllArgsConstructor
-    public static class GeneralCOnfig extends WebSecurityConfigurerAdapter {
+    public static class GeneralConfig extends WebSecurityConfigurerAdapter {
 
         private final UserDetailsService userDetailsService;
         private final PasswordEncoder passwordEncoder;
         private final DataSource dataSource;
 
-        @Bean
-        public PersistentTokenRepository persistentTokenRepository() {
-            var repository = new JdbcTokenRepositoryImpl();
-            repository.setDataSource(dataSource);
-
-            return repository;
-        }
+//        @Bean
+//        public PersistentTokenRepository persistentTokenRepository() {
+//            var repository = new JdbcTokenRepositoryImpl();
+//            repository.setDataSource(dataSource);
+//
+//            return repository;
+//        }
 
         @Override
         public void configure(WebSecurity web) {
@@ -55,18 +56,24 @@ public class SecurityConfig {
             http.authorizeRequests();
 
             http.formLogin()
-                    .loginPage("/sign_in")
+                    .loginPage("/signIn")
                     .usernameParameter("login")
                     .passwordParameter("password")
+                    .defaultSuccessUrl("/user")
+                    .failureUrl("/signIn?error")
                     .permitAll();
 
             http.logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/signOut", "GET"))
+                    .logoutSuccessUrl("/")
+//                    .deleteCookies("JSESSIONID", "remember-me")
                     .permitAll();
 
-            http.rememberMe()
-                    .alwaysRemember(true)
-                    .tokenRepository(persistentTokenRepository());
+//            http.rememberMe()
+//                    .rememberMeParameter("remember-me")
+//                    .tokenRepository(persistentTokenRepository())
+//                    .alwaysRemember(true)
+//                    .tokenRepository(persistentTokenRepository());
         }
 
         @Override

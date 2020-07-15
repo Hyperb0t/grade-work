@@ -3,6 +3,7 @@ package ru.itis.jaboderzhateli.gradework.security;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.itis.jaboderzhateli.gradework.models.Role;
 import ru.itis.jaboderzhateli.gradework.models.User;
 
 import java.util.Collection;
@@ -45,5 +46,17 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Long getId() {
+        return user.getId();
+    }
+
+    public Role getRole() {
+        return user.getRole();
     }
 }

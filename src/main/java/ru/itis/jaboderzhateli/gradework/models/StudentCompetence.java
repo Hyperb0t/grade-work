@@ -22,7 +22,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "student_competence")
-@IdClass(StudentCompetence.StudentCompetenceKey.class)
+@IdClass(StudentCompetenceKey.class)
 public class StudentCompetence {
 
     private Boolean confirmed;
@@ -36,9 +36,4 @@ public class StudentCompetence {
     @ManyToOne
     @JoinColumn
     private Competence competence;
-
-    public class StudentCompetenceKey implements Serializable {
-        private Student student;
-        private Competence competence;
-    }
 }

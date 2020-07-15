@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="d-inline-flex m-2">
-            <#if exit=false>
+            <#if exit == false>
                 <a class="btn btn-light nav-sign-in" href="/signIn"><@s.message 'navbar.sign.in'/></a>
                 <span class="nav-or mx-2"><@s.message 'navbar.or'/></span>
                 <a class="btn btn-outline-light nav-employee" href="/signUp"><@s.message 'navbar.sign.up'/></a>

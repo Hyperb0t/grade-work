@@ -6,13 +6,17 @@
 <#assign me_title>
     <@s.message 'page.my.title'/> - Grade&Work
 </#assign>
-<#if me.id == employer.id>
+<#if me?? && me.id == employer.id>
     <#assign title = me_title>
 <#else>
     <#assign title = employer_title>
 </#if>
 <@p.page title=title>
-    <@p.navbar exit=true />
+    <#if me??>
+        <@p.navbar exit=true/>
+    <#else>
+        <@p.navbar/>
+    </#if>
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="text-center"><@s.message 'page.employer.header'/></h3>
@@ -25,7 +29,7 @@
             <span><@s.message 'sign.contact.email'/>: ${employer.email}</span>
             <span><@s.message 'sign.contact.phone'/>: ${employer.phone}</span>
             <hr>
-            <#if me.id == employer.id>
+            <#if me?? && me.id == employer.id>
                 <a class="btn btn-outline-light mt-2" href="/applications"><@s.message 'page.employer.applications'/></a>
                 <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.employer.info.edit'/></a>
             <#else>

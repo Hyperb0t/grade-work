@@ -11,9 +11,11 @@
             <form method="POST">
                 <input id="csrf" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                <div class="alert alert-danger p-0 m-0 mb-2" role="alert">
-                    <h5><@s.message 'sign.in.error'/></h5>
-                </div>
+                <#if error?? && error == "USER_NOT_FOUND">
+                    <div class="alert alert-danger p-0 m-0 mb-2" role="alert">
+                        <h5><@s.message 'sign.in.error'/></h5>
+                    </div>
+                </#if>
 
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
