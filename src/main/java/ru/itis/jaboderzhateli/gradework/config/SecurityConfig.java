@@ -72,8 +72,7 @@ public class SecurityConfig {
 //            http.rememberMe()
 //                    .rememberMeParameter("remember-me")
 //                    .tokenRepository(persistentTokenRepository())
-//                    .alwaysRemember(true)
-//                    .tokenRepository(persistentTokenRepository());
+//                    .alwaysRemember(true);
         }
 
         @Override
