@@ -30,7 +30,7 @@ public class SignUpController {
 
     private final SignUpService signUpService;
     private final InstituteService instituteService;
-    private final FacultieService facultieService;
+    private final FacultyService facultieService;
     private final CompetenceService competenceService;
     private final DynamicArgumentsParser parser;
 

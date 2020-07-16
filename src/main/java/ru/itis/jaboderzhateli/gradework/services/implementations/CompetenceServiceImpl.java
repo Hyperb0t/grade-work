@@ -18,4 +18,15 @@ public class CompetenceServiceImpl implements CompetenceService {
     public List<Competence> getAllCompetences() {
         return competenceRepository.findAll();
     }
+
+    @Override
+    public Competence getCompetence(String competenceName) {
+        Competence competence;
+        var competenceCandidate = competenceRepository.findByName(competenceName);
+        competence = competenceCandidate.orElseThrow(() -> new IllegalArgumentException(
+                "Competence with specified name " + competenceName + " does not exist"));
+        return competence;
+    }
+
+
 }

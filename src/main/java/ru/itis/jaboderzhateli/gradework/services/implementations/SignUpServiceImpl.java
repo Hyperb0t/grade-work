@@ -12,8 +12,7 @@ import ru.itis.jaboderzhateli.gradework.dto.poijiDto.StudentPoijiDto;
 import ru.itis.jaboderzhateli.gradework.dto.poijiDto.TeacherPoijiDto;
 import ru.itis.jaboderzhateli.gradework.models.*;
 import ru.itis.jaboderzhateli.gradework.repositories.*;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.ConverterService;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.SignUpService;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.*;
 import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
 
 import java.io.IOException;
@@ -29,12 +28,12 @@ public class SignUpServiceImpl implements SignUpService {
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
     private final EmployerRepository employerRepository;
-    private final FacultyRepository facultyRepository;
     private final PasswordEncoder passwordEncoder;
     private final FileToPOJOHandler poiHandler;
     private final ConverterService converterService;
-    private final InstituteRepository instituteRepository;
-    private final CompetenceRepository competenceRepository;
+    private final CompetenceService competenceService;
+    private final FacultyService facultyService;
+    private final InstituteService instituteService;
 
     @Override
     public Employer signUp(SignUpEmployerForm form) {
@@ -62,8 +61,8 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public Student signUp(SignUpStudentForm form) {
 
-        Institute institute = checkInstitute(form.getInstitute());
-        Faculty faculty = checkFaculty(form.getFaculty());
+        Institute institute = instituteService.getInstitute(form.getInstitute());
+        Faculty faculty = facultyService.getFaculty(form.getFaculty());
 
         var student = Student.builder()
                 .name(form.getName())
@@ -89,12 +88,10 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public Teacher signUp(SignUpTeacherForm form) {
 
-        Institute institute;
-        var instituteName = form.getInstitute();
-        institute = checkInstitute(instituteName);
+        var institute = instituteService.getInstitute(form.getInstitute());
 
         var competences = form.getCompetence().stream()
-                .map(this::checkCompetence)
+                .map(competenceService::getCompetence)
                 .collect(Collectors.toList());
 
         var teacher = Teacher.builder()
@@ -171,27 +168,4 @@ public class SignUpServiceImpl implements SignUpService {
         return header;
     }
 
-    private Institute checkInstitute(String instituteName) {
-        Institute institute;
-        var instituteCandidate = instituteRepository.findByName(instituteName);
-        institute = instituteCandidate.orElseThrow(() -> new IllegalArgumentException(
-                "Institute with specified name " + instituteName + " does not exist"));
-        return institute;
-    }
-
-    private Faculty checkFaculty(String facultyName) {
-        Faculty faculty;
-        var facultyCandidate = facultyRepository.findByName(facultyName);
-        faculty = facultyCandidate.orElseThrow(() -> new IllegalArgumentException(
-                "Faculty with specified name " + facultyName + " does not exist"));
-        return faculty;
-    }
-
-    private Competence checkCompetence(String competenceName){
-        Competence competence;
-        var competenceCandidate = competenceRepository.findByName(competenceName);
-        competence = competenceCandidate.orElseThrow(() -> new IllegalArgumentException(
-                "Faculty with specified name "  + competenceName +  " does not exist"));
-        return competence;
-    }
 }
