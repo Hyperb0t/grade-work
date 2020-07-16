@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 import ru.itis.jaboderzhateli.gradework.dto.StudentDto;
 import ru.itis.jaboderzhateli.gradework.models.Student;
 
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentPoijiDto{
+public class StudentPoijiDto {
 
     @ExcelCellName("Год начала обучения")
     private Integer yearStart;
@@ -38,6 +40,14 @@ public class StudentPoijiDto{
     private String phone;
     @ExcelCellName("Институт")
     private String institute;
+    @ExcelCellName("Ссылка")
+    private String link;
+    @ExcelCellName("Факультет")
+    private String faculty;
+    @ExcelCellName("Дата рождения")
+    private Date birth;
+    @ExcelCellName("Средний балл")
+    private Integer average;
 
     public static StudentPoijiDto from(StudentDto student) {
         return StudentPoijiDto.builder()

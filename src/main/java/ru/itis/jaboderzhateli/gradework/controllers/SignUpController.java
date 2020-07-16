@@ -17,12 +17,10 @@ import ru.itis.jaboderzhateli.gradework.dto.forms.SignUpTeacherForm;
 import ru.itis.jaboderzhateli.gradework.models.Competence;
 import ru.itis.jaboderzhateli.gradework.models.Faculty;
 import ru.itis.jaboderzhateli.gradework.models.Institute;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.CompetenceService;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.FacultieService;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.InstituteService;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.SignUpService;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -34,6 +32,7 @@ public class SignUpController {
     private final InstituteService instituteService;
     private final FacultieService facultieService;
     private final CompetenceService competenceService;
+    private final DynamicArgumentsParser parser;
 
     @GetMapping("/teacher")
     public String getTeacherSignUpForm(ModelMap map) {
@@ -75,10 +74,12 @@ public class SignUpController {
     }
 
     @PostMapping("/employer")
-    public String signUpEmployer(@Valid SignUpEmployerForm form, BindingResult bindingResult) {
+    public String signUpEmployer(@Valid SignUpEmployerForm form, BindingResult bindingResult, @RequestParam Map<String, String> allParams) {
 //        if (bindingResult.hasErrors()) {
 //            return "auth/sign_up_employer";
 //        }
+        var links = parser.parse(allParams, "link-[0-9]*");
+        form.setLink(links);
 
         try {
             signUpService.signUp(form);
@@ -103,7 +104,11 @@ public class SignUpController {
     }
 
     @PostMapping("/teacher")
-    public String signUpTeacher(@Valid SignUpTeacherForm form, BindingResult bindingResult) {
+    public String signUpTeacher(@Valid SignUpTeacherForm form, BindingResult bindingResult, @RequestParam Map<String, String> allParams) {
+
+        var competences = parser.parse(allParams, "competence-[0-9]*");
+        form.setCompetence(competences);
+
         try {
             signUpService.signUp(form);
         } catch (Exception e) {

@@ -1,19 +1,19 @@
 package ru.itis.jaboderzhateli.gradework.services.implementations;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.jaboderzhateli.gradework.dto.StudentDto;
 import ru.itis.jaboderzhateli.gradework.dto.poijiDto.StudentPoijiDto;
 import ru.itis.jaboderzhateli.gradework.dto.poijiDto.TeacherPoijiDto;
-import ru.itis.jaboderzhateli.gradework.models.Institute;
-import ru.itis.jaboderzhateli.gradework.models.Role;
-import ru.itis.jaboderzhateli.gradework.models.Student;
-import ru.itis.jaboderzhateli.gradework.models.Teacher;
+import ru.itis.jaboderzhateli.gradework.models.*;
+import ru.itis.jaboderzhateli.gradework.repositories.FacultyRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.InstituteRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.ConverterService;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 public class ConverterServiceImpl implements ConverterService {
 
     private final InstituteRepository instituteRepository;
+    private final FacultyRepository facultyRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Student convert(StudentPoijiDto studentDto) {
@@ -29,18 +31,25 @@ public class ConverterServiceImpl implements ConverterService {
         Institute institute = instituteCandidate.orElseGet(() -> Institute.builder()
                 .name(studentDto.getInstitute())
                 .build());
+        var facultyCandidate = facultyRepository.findByName(studentDto.getInstitute());
+        Faculty faculty = facultyCandidate.orElseGet(() -> Faculty.builder()
+                .name(studentDto.getFaculty())
+                .build());
 
         var student = Student.builder()
-                .yearStart(studentDto.getYearStart().shortValue())
-                .yearGraduate(studentDto.getYearGraduate().shortValue())
-                .course(studentDto.getCourse().byteValue())
-                .bio(studentDto.getBio())
                 .name(studentDto.getName())
                 .surname(studentDto.getSurname())
-                .group(studentDto.getGroup())
-                .email(studentDto.getEmail())
-                .phone(studentDto.getPhone())
+                .middleName(studentDto.getMiddleName())
+                .login(studentDto.getLogin())
+                .link(studentDto.getLink())
                 .institute(institute)
+                .group(studentDto.getGroup())
+                .faculty(faculty)
+                .average(studentDto.getAverage().byteValue())
+                .yearStart(studentDto.getYearStart().shortValue())
+                .yearGraduate(studentDto.getYearGraduate().shortValue())
+                .birthday(studentDto.getBirth())
+                .password(passwordEncoder.encode(UUID.randomUUID().toString()))
                 .build();
 
         student.setLogin(studentDto.getLogin());

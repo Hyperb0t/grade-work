@@ -34,6 +34,7 @@ public class StudentDto extends UserDto {
     private List<JobApplication> jobApplications;
 
     public static StudentDto from(Student student) {
+
         var tempStudentDto = StudentDto.builder()
                 .yearStart(student.getYearStart())
                 .yearGraduate(student.getYearGraduate())
@@ -54,8 +55,10 @@ public class StudentDto extends UserDto {
                 .projects(student.getProjects())
                 .jobApplications(student.getJobApplications())
                 .build();
+
         tempStudentDto.setLogin(student.getLogin());
         tempStudentDto.setRole(Role.STUDENT);
+
         return tempStudentDto;
     }
 }

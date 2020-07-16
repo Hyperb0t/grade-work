@@ -34,13 +34,16 @@ public class SignUpServiceImpl implements SignUpService {
     private final FileToPOJOHandler poiHandler;
     private final ConverterService converterService;
     private final InstituteRepository instituteRepository;
+    private final CompetenceRepository competenceRepository;
 
     @Override
     public Employer signUp(SignUpEmployerForm form) {
 
+        var bio = String.join("\n", form.getLink());
+
         var employer = Employer.builder()
                 .email(form.getEmail())
-//                .bio(form.getLink().get(0))
+                .bio(bio)
                 .login(form.getLogin())
                 .name(form.getName())
                 .companyName(form.getOrganisationName())
@@ -59,23 +62,14 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public Student signUp(SignUpStudentForm form) {
 
-        Institute institute;
-        var instituteCandidate = instituteRepository.findByName(form.getInstitute());
-        institute = instituteCandidate.orElseGet(() -> instituteRepository.save(Institute.builder()
-                .name(form.getInstitute())
-                .build()));
-
-        Faculty faculty;
-        var facultyCandidate = facultyRepository.findByName(form.getFaculty());
-        faculty = facultyCandidate.orElseGet(() -> facultyRepository.save(Faculty.builder()
-                .name(form.getFaculty())
-                .build()));
+        Institute institute = checkInstitute(form.getInstitute());
+        Faculty faculty = checkFaculty(form.getFaculty());
 
         var student = Student.builder()
                 .name(form.getName())
                 .surname(form.getSurname())
                 .middleName(form.getMiddleName())
-                .login(form.getLogin())
+                .email(form.getLogin())
                 .link(form.getLink())
                 .institute(institute)
                 .group(form.getGroup())
@@ -96,13 +90,15 @@ public class SignUpServiceImpl implements SignUpService {
     public Teacher signUp(SignUpTeacherForm form) {
 
         Institute institute;
-        var instituteCandidate = instituteRepository.findByName(form.getInstitute());
-        institute = instituteCandidate.orElseGet(() -> instituteRepository.save(Institute.builder()
-                .name(form.getInstitute())
-                .build()));
+        var instituteName = form.getInstitute();
+        institute = checkInstitute(instituteName);
+
+        var competences = form.getCompetence().stream()
+                .map(this::checkCompetence)
+                .collect(Collectors.toList());
 
         var teacher = Teacher.builder()
-//                .competence(form.getCompetence())
+                .competence(competences)
                 .institute(institute)
                 .link(form.getLink())
                 .login(form.getLogin())
@@ -130,13 +126,13 @@ public class SignUpServiceImpl implements SignUpService {
 
             return studentRepository.saveAll(students);
 
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             return Collections.emptyList();
         }
+
     }
 
-
-    //TODO validation
     @Override
     public List<Teacher> signUpTeachers(MultipartFile file) {
 
@@ -175,4 +171,27 @@ public class SignUpServiceImpl implements SignUpService {
         return header;
     }
 
+    private Institute checkInstitute(String instituteName) {
+        Institute institute;
+        var instituteCandidate = instituteRepository.findByName(instituteName);
+        institute = instituteCandidate.orElseThrow(() -> new IllegalArgumentException(
+                "Institute with specified name " + instituteName + " does not exist"));
+        return institute;
+    }
+
+    private Faculty checkFaculty(String facultyName) {
+        Faculty faculty;
+        var facultyCandidate = facultyRepository.findByName(facultyName);
+        faculty = facultyCandidate.orElseThrow(() -> new IllegalArgumentException(
+                "Faculty with specified name " + facultyName + " does not exist"));
+        return faculty;
+    }
+
+    private Competence checkCompetence(String competenceName){
+        Competence competence;
+        var competenceCandidate = competenceRepository.findByName(competenceName);
+        competence = competenceCandidate.orElseThrow(() -> new IllegalArgumentException(
+                "Faculty with specified name "  + competenceName +  " does not exist"));
+        return competence;
+    }
 }
