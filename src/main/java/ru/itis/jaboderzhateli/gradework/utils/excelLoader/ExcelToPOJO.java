@@ -63,7 +63,7 @@ public class ExcelToPOJO implements FileToPOJOHandler {
     @SneakyThrows
     public void downloadTeachers(List<Map<Teacher, String>> list) {
         Workbook book = new HSSFWorkbook();
-        Sheet sheet = book.createSheet("Students");
+        Sheet sheet = book.createSheet("Teachers");
         int i = 0;
         for (Map<Teacher, String> teachers : list) {
             for (Map.Entry<Teacher, String> teacher : teachers.entrySet()) {
