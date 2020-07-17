@@ -39,7 +39,7 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public Employer signUp(SignUpEmployerForm form) {
 
-        var bio = String.join("\n", form.getLink());
+        var bio = String.join("<br>", form.getLink());
 
         var employer = Employer.builder()
                 .email(form.getEmail())
