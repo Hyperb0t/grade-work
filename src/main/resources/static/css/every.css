@@ -153,9 +153,12 @@ hr {
     line-height: 1.22rem;
     text-align: center;
 }
+.line-breaker {
+    line-height: 1.22rem;
+}
 
 /* INPUTS */
-.input-group-prepend .input-group-text {
+.input-group-text {
     min-width: 9.1rem;
     font-family: PT-Sans-Bold;
     font-size: 1.1rem;
@@ -242,6 +245,12 @@ hr {
     resize: none;
     font-size: 1.2rem;
     color: var(--act-black);
+}
+.w-90 {
+    width: 85%;
+}
+.w-10 {
+    width: 15%;
 }
 
 /* ALERTS */

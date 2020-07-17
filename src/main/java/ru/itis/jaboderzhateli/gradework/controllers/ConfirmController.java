@@ -30,17 +30,17 @@ public class ConfirmController {
     private TeacherRepository teacherRepository;
 
     @PreAuthorize("hasRole('TEACHER')")
-    @GetMapping("/confirmations")
+    @GetMapping("/confirm/competences")
     public String getConfirmationsPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) { ;
         model.addAttribute("teacher", teacherRepository.findById(userDetails.getId()).get());
         model.addAttribute("competences", confirmService.getCompetencesToConfirm(userDetails.getId()));
-        return "main/confirmations";
+        return "main/teacher_confirm";
     }
 
     @PreAuthorize("hasRole('TEACHER')")
-    @PostMapping("/confirmations")
-    public String receiveConfirmed(@RequestParam Map<String, String> params, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        log.info("received POST from /confirmations");
+    @PostMapping("/confirm/competences")
+    public String receiveConfirmed(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Map<String, String> params) {
+        log.info("received POST from /confirm/competences");
         params.entrySet().stream().forEach(e -> log.info(e.toString()));
         confirmService.confirmFromRequest(params);
         return "redirect:/user";

@@ -34,7 +34,7 @@
                 <hr>
             </#if>
             <#if me?? && me.id == teacher.id>
-                <a class="btn btn-outline-light mt-2" href="/confirmations"><@s.message 'page.teacher.confirmations'/></a>
+                <a class="btn btn-outline-light mt-2" href="/confirm/competences"><@s.message 'page.teacher.confirmations'/></a>
                 <a class="btn btn-light mt-2" href="/competences/edit"><@s.message 'page.teacher.competences.edit'/></a>
                 <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.teacher.info.edit'/></a>
             <#else>

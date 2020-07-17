@@ -72,6 +72,9 @@ public class RootConfig {
         competenceRepository.save(competence1);
         competenceRepository.save(competence2);
         studentRepository.save(student);
+        studentCompetenceRepository.save(new StudentCompetence(student, competence1, false));
+        studentCompetenceRepository.save(new StudentCompetence(student, competence2, false));
+
 
         Teacher teacher = Teacher.builder()
                 .login("teacher")
