@@ -56,7 +56,7 @@ public class ExcelToPOJO implements FileToPOJOHandler {
             }
         }
 
-        book.write(new FileOutputStream("test"));
+        book.write(new FileOutputStream("students"));
         book.close();
     }
 
@@ -74,7 +74,7 @@ public class ExcelToPOJO implements FileToPOJOHandler {
             }
         }
 
-        book.write(new FileOutputStream("test"));
+        book.write(new FileOutputStream("teachers"));
         book.close();
 
     }
