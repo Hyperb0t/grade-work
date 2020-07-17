@@ -34,7 +34,7 @@ public class StudentPoijiDto {
     private String middleName;
     @ExcelCellName("Группа")
     private String group;
-    @ExcelCellName("Email")
+    @ExcelCellName("Почта")
     private String email;
     @ExcelCellName("Телефон")
     private String phone;

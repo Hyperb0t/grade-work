@@ -88,7 +88,7 @@ public class SignUpController {
         }
 
         System.out.println("Successfully saved student");
-        return "redirect:/signIn";
+        return "redirect:/user";
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
@@ -123,21 +123,33 @@ public class SignUpController {
         }
 
         System.out.println("Successfully saved teacher");
-        return "redirect:/signIn";
+        return "redirect:/user";
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRATION')")
+    @GetMapping("/teacher/file")
+    public String getTeacherSignUpFileForm() {
+        return "auth/sign_up_teacher_file";
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/teacher/file")
     public String signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile) {
         signUpService.signUpTeachers(multipartFile);
-        return "forward:/";
+        return "redirect:/user";
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRATION')")
+    @GetMapping("/student/file")
+    public String getStudentSignUpFileForm() {
+        return "auth/sign_up_student_file";
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/student/file")
     public String signUpStudentFile(@RequestParam("file") MultipartFile multipartFile) {
         signUpService.signUpStudents(multipartFile);
-        return "forward:/";
+        return "redirect:/user";
     }
 
 }

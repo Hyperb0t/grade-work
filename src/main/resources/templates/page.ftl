@@ -27,7 +27,7 @@
     <nav class="navbar sticky-top p-0 d-flex">
         <div class="navbar-brand d-inline-flex m-0">
             <a class="d-inline-flex nav-logo" href="/">
-                <img class="ml-2 kfu-logo align-self-center" src="../static/defaults/kfu-logo-true.png" alt="<@s.message 'img.alt.kfu.logo'/>">
+                <img class="ml-2 kfu-logo align-self-center" src="${rc.getContextPath()}/static/defaults/kfu-logo-true.png" alt="<@s.message 'img.alt.kfu.logo'/>">
                 <span>Grade&Work</span>
             </a>
             <div class="align-self-center">
@@ -41,6 +41,7 @@
                 <span class="nav-or mx-2"><@s.message 'navbar.or'/></span>
                 <a class="btn btn-outline-light nav-employee" href="/signUp"><@s.message 'navbar.sign.up'/></a>
             <#else>
+                <a class="btn btn-light mr-2" href="/user"><@s.message 'navbar.user'/></a>
                 <a class="btn btn-outline-light nav-employee" href="/signOut"><@s.message 'navbar.sign.out'/></a>
             </#if>
         </div>

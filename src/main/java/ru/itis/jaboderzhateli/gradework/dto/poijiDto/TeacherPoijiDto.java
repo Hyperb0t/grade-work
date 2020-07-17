@@ -20,7 +20,7 @@ public class TeacherPoijiDto{
     private String surname;
     @ExcelCellName("Отчество")
     private String middleName;
-    @ExcelCellName("Email")
+    @ExcelCellName("Почта")
     private String email;
     @ExcelCellName("Телефон")
     private String phone;

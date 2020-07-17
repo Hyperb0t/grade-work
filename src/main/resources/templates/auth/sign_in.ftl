@@ -21,19 +21,19 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="login"><@s.message 'sign.login'/></span>
                     </div>
-                    <input type="text" class="form-control" name="login" aria-describedby="login" required>
+                    <input type="text" tabindex="1" class="form-control" name="login" aria-describedby="login" required>
                 </div>
 
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="password"><@s.message 'sign.password'/></span>
                     </div>
-                    <input type="password" class="form-control" name="password" aria-describedby="password" required>
+                    <input type="password" tabindex="2" class="form-control" name="password" aria-describedby="password" required>
                 </div>
 
                 <div class="btn-group-toggle mt-2" data-toggle="buttons">
                     <label class="btn btn-light w-100 agree-button">
-                        <input type="checkbox" name="remember-me" autocomplete="off" value="true"><@s.message 'sign.in.remember.me'/>
+                        <input type="checkbox" tabindex="3" name="remember-me" autocomplete="off" value="true"><@s.message 'sign.in.remember.me'/>
                     </label>
                 </div>
 
@@ -54,7 +54,7 @@
 
 <#--                <button type="button" id="competence-adder" class="mt-2 btn btn-light w-100">Добавить компетенцию</button>-->
 
-                <button type="submit" class="btn btn-outline-light w-100 mt-2"><@s.message 'sign.in.submit'/></button>
+                <button type="submit" tabindex="4" class="btn btn-outline-light w-100 mt-2"><@s.message 'sign.in.submit'/></button>
             </form>
         </div>
     </div>

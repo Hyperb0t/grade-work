@@ -143,6 +143,16 @@ hr {
 .link:hover {
     text-decoration: none;
 }
+.main-table {
+    border-width: 3px;
+    border-style: solid;
+    border-color: var(--main-blue);
+    font-family: PT-Sans;
+    color: var(--main-blue);
+    height: 2.644rem;
+    line-height: 1.22rem;
+    text-align: center;
+}
 
 /* INPUTS */
 .input-group-prepend .input-group-text {
