@@ -45,6 +45,10 @@ public class ConverterServiceImpl implements ConverterService {
                 .institute(institute)
                 .group(studentDto.getGroup())
                 .faculty(faculty)
+                .course(studentDto.getCourse().byteValue())
+                .email(studentDto.getEmail())
+                .bio(studentDto.getBio())
+                .phone(studentDto.getPhone())
                 .average(studentDto.getAverage().byteValue())
                 .yearStart(studentDto.getYearStart().shortValue())
                 .yearGraduate(studentDto.getYearGraduate().shortValue())
@@ -65,6 +69,7 @@ public class ConverterServiceImpl implements ConverterService {
                 .name(teacherDto.getName())
                 .phone(teacherDto.getPhone())
                 .surname(teacherDto.getSurname())
+                .middleName(teacherDto.getMiddleName())
                 .build();
 
         teacher.setLogin(teacherDto.getLogin());

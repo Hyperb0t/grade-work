@@ -13,6 +13,7 @@ import ru.itis.jaboderzhateli.gradework.dto.poijiDto.TeacherPoijiDto;
 import ru.itis.jaboderzhateli.gradework.models.*;
 import ru.itis.jaboderzhateli.gradework.repositories.*;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.*;
+import ru.itis.jaboderzhateli.gradework.utils.excelLoader.ExtensionParser;
 import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class SignUpServiceImpl implements SignUpService {
     private final CompetenceService competenceService;
     private final FacultyService facultyService;
     private final InstituteService instituteService;
+    private final ExtensionParser extensionParser;
 
     @Override
     public Employer signUp(SignUpEmployerForm form) {
@@ -115,7 +117,7 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public List<Student> signUpStudents(MultipartFile file) {
 
-        Enum<?> header = parseFileExtension(file);
+        Enum<?> header = extensionParser.parseFileExtension(file);
 
         try {
             var studentsTemp = poiHandler.upload(file.getInputStream(), StudentPoijiDto.class, header);
@@ -123,17 +125,15 @@ public class SignUpServiceImpl implements SignUpService {
 
             return studentRepository.saveAll(students);
 
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             return Collections.emptyList();
         }
-
     }
 
     @Override
     public List<Teacher> signUpTeachers(MultipartFile file) {
 
-        Enum<?> header = parseFileExtension(file);
+        Enum<?> header = extensionParser.parseFileExtension(file);
 
         try {
             var teacherTemp = poiHandler.upload(file.getInputStream(), TeacherPoijiDto.class, header);
@@ -144,28 +144,6 @@ public class SignUpServiceImpl implements SignUpService {
         } catch (IOException e) {
             return Collections.emptyList();
         }
-    }
-
-    private Enum<?> parseFileExtension(MultipartFile file) {
-        var fileName = file.getOriginalFilename();
-        var filenamePostfix = Objects.requireNonNull(fileName).substring(fileName.lastIndexOf('.'));
-
-        //TODO Review код
-
-        Enum<?> header;
-
-        switch (filenamePostfix) {
-            case ("xlsx"):
-                header = PoijiExcelType.XLSX;
-                break;
-//            case ("xls"):
-//                header = PoijiExcelType.XLS;
-//                break;
-            default:
-                header = PoijiExcelType.XLS;
-                break;
-        }
-        return header;
     }
 
 }

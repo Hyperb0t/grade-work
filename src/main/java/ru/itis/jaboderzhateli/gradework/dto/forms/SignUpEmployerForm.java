@@ -1,6 +1,8 @@
 package ru.itis.jaboderzhateli.gradework.dto.forms;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.itis.jaboderzhateli.gradework.utils.FieldMatch;
 
 import javax.validation.constraints.AssertTrue;
@@ -10,6 +12,8 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @FieldMatch(first = "password", second = "passwordRepeat")
 public class SignUpEmployerForm {
 

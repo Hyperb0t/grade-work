@@ -1,17 +1,17 @@
 package ru.itis.jaboderzhateli.gradework.dto.forms;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.itis.jaboderzhateli.gradework.utils.FieldMatch;
-
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @FieldMatch(first = "password", second = "passwordRepeat")
 public class SignUpStudentForm {
 
@@ -20,11 +20,15 @@ public class SignUpStudentForm {
     @Size(min = 6, max = 40, message = "Минимальная длина пароля 6 символов")
     private String password;
     private String passwordRepeat;
+    @NotBlank
     private String name;
     private String surname;
     private String middleName;
+    @NotBlank
     private String faculty;
+    @NotBlank
     private String institute;
+    @NotBlank
     private String group;
     private String link;
     private Short yearStart;

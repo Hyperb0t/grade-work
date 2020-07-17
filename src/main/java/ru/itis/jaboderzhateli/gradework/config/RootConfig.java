@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -25,37 +26,20 @@ import java.util.concurrent.Executors;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-
+@AllArgsConstructor
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = "ru.itis.jaboderzhateli.gradework")
 public class RootConfig {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private TeacherRepository teacherRepository;
-
-    @Autowired
-    private EmployerRepository employerRepository;
-
-    @Autowired
-    private FacultyRepository facultyRepository;
-
-    @Autowired
-    private InstituteRepository instituteRepository;
-
-    @Autowired
-    private CompetenceRepository competenceRepository;
-
-    @Autowired
-    private StudentCompetenceRepository studentCompetenceRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
+    private final EmployerRepository employerRepository;
+    private final FacultyRepository facultyRepository;
+    private final InstituteRepository instituteRepository;
+    private final CompetenceRepository competenceRepository;
+    private final StudentCompetenceRepository studentCompetenceRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     private void loadEntities() {
