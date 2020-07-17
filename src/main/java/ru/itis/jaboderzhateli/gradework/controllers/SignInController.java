@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +13,7 @@ import ru.itis.jaboderzhateli.gradework.security.UserDetailsImpl;
 @RequestMapping("/signIn")
 public class SignInController {
 
+    @PreAuthorize("isAnonymous()")
     @GetMapping
     public String getForm(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam(value = "error", required = false) String error, ModelMap map) {
         if(userDetails != null) {

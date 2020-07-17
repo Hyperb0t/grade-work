@@ -1,6 +1,7 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ public class UserPageController {
     @Autowired
     private UserRepository userRepository;
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/user")
     public String getPage(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         if(userDetails != null) {
@@ -42,6 +44,7 @@ public class UserPageController {
         }
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/user/{user-id}")
     public String getPage(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("user-id") String userId, ModelMap map) {
         if(userDetails != null) {
