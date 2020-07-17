@@ -68,6 +68,7 @@ public class SignUpServiceImpl implements SignUpService {
 
         var student = Student.builder()
                 .name(form.getName())
+                .phone(form.getPhone())
                 .surname(form.getSurname())
                 .middleName(form.getMiddleName())
                 .email(form.getLogin())

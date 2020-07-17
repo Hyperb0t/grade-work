@@ -31,6 +31,7 @@ public class SignUpStudentForm {
     @NotBlank
     private String group;
     private String link;
+    private String phone;
     private Short yearStart;
     private Short yearGraduate;
     private Byte average;

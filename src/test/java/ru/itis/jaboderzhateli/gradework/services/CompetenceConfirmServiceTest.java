@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class CompetenceConfirmServiceTest {
@@ -39,7 +37,7 @@ public class CompetenceConfirmServiceTest {
 
     //Doesn't exist in repo
     @Test(expected = IllegalStateException.class)
-    public void asd(){
+    public void exceptionWhenUserDoesntExist(){
         Map<String, String> map = new HashMap<>();
         map.put("1_1","yes");
         competenceConfirmService.confirmFromRequest(map);
