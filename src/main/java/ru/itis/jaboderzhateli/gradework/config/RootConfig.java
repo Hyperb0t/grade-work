@@ -43,6 +43,26 @@ public class RootConfig {
 
     @PostConstruct
     private void loadEntities() {
+        instituteRepository.save(Institute.builder().name("Институт экологии и природопользования").build());
+        instituteRepository.save(Institute.builder().name("Институт геологии и нефтегазовых технологий").build());
+        instituteRepository.save(Institute.builder().name("Институт математики и механики им. Н.И. Лобачевского").build());
+        instituteRepository.save(Institute.builder().name("Институт физики").build());
+        instituteRepository.save(Institute.builder().name("Химический институт им. А.М. Бутлерова").build());
+        instituteRepository.save(Institute.builder().name("Юридический факультет").build());
+        instituteRepository.save(Institute.builder().name("Институт вычислительной математики и информационных технологий").build());
+        instituteRepository.save(Institute.builder().name("Институт филологии и межкультурной коммуникации").build());
+        instituteRepository.save(Institute.builder().name("Высшая школа информационных технологий и интеллектуальных систем").build());
+        instituteRepository.save(Institute.builder().name("Институт фундаментальной медицины и биологии").build());
+        instituteRepository.save(Institute.builder().name("Инженерный институт").build());
+        instituteRepository.save(Institute.builder().name("Институт международных отношений").build());
+        instituteRepository.save(Institute.builder().name("Высшая школа бизнеса").build());
+        instituteRepository.save(Institute.builder().name("Институт социально-философских наук и массовых коммуникаций").build());
+        instituteRepository.save(Institute.builder().name("Институт управления, экономики и финансов").build());
+        instituteRepository.save(Institute.builder().name("Высшая школа государственного и муниципального управления").build());
+        instituteRepository.save(Institute.builder().name("Институт передовых образовательных технологий").build());
+        instituteRepository.save(Institute.builder().name("Набережночелнинский институт КФУ").build());
+        instituteRepository.save(Institute.builder().name("Елабужский институт КФУ").build());
+
         userRepository.save(User.builder().login("admin").password(passwordEncoder.encode("123")).role(Role.ADMINISTRATION).build());
 
         Student student = Student.builder()
@@ -64,9 +84,7 @@ public class RootConfig {
         Faculty faculty = Faculty.builder().name("Программная инженерия").build();
         facultyRepository.save(faculty);
         student.setFaculty(faculty);
-        Institute institute = Institute.builder().name("ВШ ИТИС").build();
-        instituteRepository.save(institute);
-        student.setInstitute(institute);
+        student.setInstitute(Institute.builder().id(9L).build());
         Competence competence1 = Competence.builder().name("Java").build();
         Competence competence2 = Competence.builder().name("Data mining").build();
         competenceRepository.save(competence1);
@@ -83,7 +101,7 @@ public class RootConfig {
                 .role(Role.TEACHER)
                 .surname("Счастливцев")
                 .middleName("Александрович")
-                .institute(institute)
+                .institute(Institute.builder().id(9L).build())
                 .experience((byte) 30)
                 .position("Основной работник, гений")
                 .phone("89503135579")
