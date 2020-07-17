@@ -44,6 +44,7 @@ public class RootConfig {
     @PostConstruct
     private void loadEntities() {
         userRepository.save(User.builder().login("admin").password(passwordEncoder.encode("123")).role(Role.ADMINISTRATION).build());
+
         Student student = Student.builder()
                 .login("student")
                 .password(passwordEncoder.encode("123"))
@@ -71,21 +72,7 @@ public class RootConfig {
         competenceRepository.save(competence1);
         competenceRepository.save(competence2);
         studentRepository.save(student);
-        StudentCompetence studentCompetence1 = StudentCompetence.builder().confirmed(false).student(student).competence(competence1).build();
-        StudentCompetence studentCompetence2 = StudentCompetence.builder().confirmed(false).student(student).competence(competence2).build();
-        studentCompetenceRepository.save(studentCompetence1);
-        studentCompetenceRepository.save(studentCompetence2);
 
-        ///////////////// CHECK HERE
-        Optional<StudentCompetence> studentCompetence3 = studentCompetenceRepository.findById(new StudentCompetenceId(2L, 1L));
-        System.out.println("#################### sc3:" + studentCompetence3.get().getStudent());/// .getCompetences()); // @OneToMany - F
-        ////////////////////////
-
-        List<StudentCompetence> competences = new ArrayList<>();
-        competences.add(studentCompetence1);
-        competences.add(studentCompetence2);
-        student.setCompetences(competences);
-        studentRepository.save(student);
         Teacher teacher = Teacher.builder()
                 .login("teacher")
                 .password(passwordEncoder.encode("123"))
@@ -104,6 +91,7 @@ public class RootConfig {
         competences1.add(competence2);
         teacher.setCompetence(competences1);
         teacherRepository.save(teacher);
+
         Employer employer = Employer.builder()
                 .login("employer")
                 .password(passwordEncoder.encode("123"))

@@ -30,8 +30,13 @@
             <#if student.competences?? && student.competences?size gt 0>
                 <span class="bold"><@s.message 'page.student.competences'/></span>
                 <#list student.competences as competence>
-                    <span class="bold link">${competence.competence.name}</span>
+                    <#if competence.confirmed>
+                        <span class="bold link">${competence.competence.name}</span>
+                    </#if>
                 </#list>
+                <#if unconfirmed == true>
+                    <span class="regular link"><@s.message 'page.student.confirmation.wait'/></span>
+                </#if>
                 <hr>
             </#if>
             <#if student.email?? || student.phone??>
@@ -47,7 +52,7 @@
             <#if student.projects?? && student.projects?size gt 0>
                 <span class="bold"><@s.message 'page.student.projects'/></span>
                 <#list student.projects as project>
-                    <span><a class="bold link" href="${project.link}">${project.name}</a></span>
+                    <span><a class="regular link" href="${project.link}">${project.name}</a></span>
                 </#list>
                 <hr>
             </#if>
@@ -59,9 +64,9 @@
             <#if me?? && me.id == student.id>
 <#--                <#if student.competences?? || student.competences?size gt 0>-->
 <#--                    <a class="btn btn-outline-light mt-2" href="/requests"><@s.message 'page.student.requests'/></a>-->
-<#--                    <a class="btn btn-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.edit'/></a>-->
+<#--                    <a class="btn btn-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.create'/></a>-->
 <#--                <#else>-->
-                    <a class="btn btn-outline-light mt-2" href="/resume/create"><@s.message 'page.student.resume.create'/></a>
+                    <a class="btn btn-outline-light mt-2" href="/resume/create"><@s.message 'page.student.resume.edit'/></a>
 <#--                </#if>-->
                 <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.student.info.edit'/></a>
             <#else>

@@ -225,6 +225,14 @@ hr {
 .right-border-none {
     border-right-style: none;
 }
+.area {
+    border-radius: 0;
+    border-width: 3px;
+    border-color: var(--main-blue);
+    resize: none;
+    font-size: 1.2rem;
+    color: var(--act-black);
+}
 
 /* ALERTS */
 .alert {

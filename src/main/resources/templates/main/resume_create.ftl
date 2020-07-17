@@ -31,8 +31,9 @@
                         </div>
 
                         <select class="custom-select" name="competence-1">
+                            <option><@s.message 'sign.competence.placeholder'/></option>
                             <#list competences as competence>
-                                <option>${competence}</option>
+                                <option>${competence.name}</option>
                             </#list>
                         </select>
                         <button type="button" onclick="removeList(this, 'competence-')" class="btn btn-icon ml-2 d-flex justify-content-center align-items-center"><i class="fas fa-times"></i></button>
@@ -47,14 +48,21 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="phone"><@s.message 'sign.contact.phone'/></span>
                     </div>
-                    <input type="text" class="form-control" name="phone" aria-describedby="phone" required>
+                    <input type="text" class="form-control" name="phone" aria-describedby="phone">
                 </div>
 
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="email"><@s.message 'sign.contact.email'/></span>
                     </div>
-                    <input type="email" class="form-control" name="email" aria-describedby="email" required>
+                    <input type="email" class="form-control" name="email" aria-describedby="email">
+                </div>
+
+                <div class="input-group mt-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="email"><@s.message 'sign.bio'/></span>
+                    </div>
+                    <textarea class="area regular form-control" name="bio" rows="3" maxlength="300"></textarea>
                 </div>
 
                 <span class="text-center"><@s.message 'resume.projects'/></span>

@@ -8,10 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import ru.itis.jaboderzhateli.gradework.models.Employer;
-import ru.itis.jaboderzhateli.gradework.models.Student;
-import ru.itis.jaboderzhateli.gradework.models.Teacher;
-import ru.itis.jaboderzhateli.gradework.models.User;
+import ru.itis.jaboderzhateli.gradework.models.*;
 import ru.itis.jaboderzhateli.gradework.repositories.EmployerRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.TeacherRepository;
@@ -56,10 +53,22 @@ public class UserPageController {
             return "main/landing";
         }
         User user = userOptional.get();
+        boolean me = false;
+        if(userDetails != null && user.getId().equals(userDetails.getId())) {
+            me = true;
+        }
         switch (user.getRole()) {
             case STUDENT:
                 Optional<Student> studentOptional = studentRepository.findById(id);
                 if(studentOptional.isPresent()) {
+                    boolean hasUnconfirmed = false;
+                    for(StudentCompetence competence : studentOptional.get().getCompetences()) {
+                        if(!competence.getConfirmed()) {
+                            hasUnconfirmed = true;
+                            break;
+                        }
+                    }
+                    map.put("unconfirmed", hasUnconfirmed);
                     map.put("student", studentOptional.get());
                     return "main/student_page";
                 }
