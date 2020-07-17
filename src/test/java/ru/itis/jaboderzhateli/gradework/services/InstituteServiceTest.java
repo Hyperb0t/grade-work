@@ -31,7 +31,7 @@ public class InstituteServiceTest {
 
     @Before
     public void setup(){
-        Institute institute = Institute.builder().name("ВШ ИТИС").build();
+        Institute institute = Institute.builder().name("Высшая школа информационных технологий и интеллектуальных систем").build();
         Mockito.when(instituteRepository.findByName(institute.getName())).thenReturn(Optional.of(institute));
     }
 
@@ -43,7 +43,7 @@ public class InstituteServiceTest {
 
     @Test
     public void whenValid_found(){
-        var name = "ВШ ИТИС";
+        var name = "Высшая школа информационных технологий и интеллектуальных систем";
         var institute = instituteService.getInstitute(name);
 
         assertThat(institute.getName().equals(name));

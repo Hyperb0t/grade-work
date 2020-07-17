@@ -29,12 +29,12 @@ public class EmployerFormValidation {
     void whenNull403() throws Exception {
         var form = new SignUpEmployerForm();
 
-        mockMvc.perform(post("/signUp/employer")
+        mockMvc.perform(post("/signUp")
                 .content(objectMapper.writeValueAsString(form))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .with(csrf()))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().is4xxClientError());
     }
 
 //    @Test

@@ -32,7 +32,7 @@ public class StudentFormValidation {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .with(csrf()))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().is3xxRedirection());
     }
 
 //    @Test
