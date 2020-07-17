@@ -2,6 +2,7 @@ package ru.itis.jaboderzhateli.gradework.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -34,46 +35,14 @@ public class SignUpController {
     private final CompetenceService competenceService;
     private final DynamicArgumentsParser parser;
 
-    @GetMapping("/teacher")
-    public String getTeacherSignUpForm(ModelMap map) {
-
-        var institutes = instituteService.getAllInstitutes()
-                .stream()
-                .map(Institute::getName)
-                .collect(Collectors.toList());
-        var competences = competenceService.getAllCompetences()
-                .stream()
-                .map(Competence::getName)
-                .collect(Collectors.toList());
-
-        map.put("institutes", institutes);
-        map.put("competences", competences);
-        return "auth/sign_up_teacher";
-    }
-
+    @PreAuthorize("isAnonymous()")
     @GetMapping
     public String getEmployerSignUpForm() {
         return "auth/sign_up_employer";
     }
 
-    @GetMapping("/student")
-    public String getStudentSignUpForm(ModelMap map) {
-
-        var institutes = instituteService.getAllInstitutes()
-                .stream()
-                .map(Institute::getName)
-                .collect(Collectors.toList());
-        var faculties = facultieService.getAllFaculties()
-                .stream()
-                .map(Faculty::getName)
-                .collect(Collectors.toList());
-
-        map.put("institutes", institutes);
-        map.put("faculties", faculties);
-        return "auth/sign_up_student";
-    }
-
-    @PostMapping("/employer")
+    @PreAuthorize("isAnonymous()")
+    @PostMapping
     public String signUpEmployer(@Valid SignUpEmployerForm form, BindingResult bindingResult, @RequestParam Map<String, String> allParams) {
 //        if (bindingResult.hasErrors()) {
 //            return "auth/sign_up_employer";
@@ -91,6 +60,25 @@ public class SignUpController {
         return "redirect:/signIn";
     }
 
+    @PreAuthorize("hasRole('ADMINISTRATION')")
+    @GetMapping("/student")
+    public String getStudentSignUpForm(ModelMap map) {
+
+        var institutes = instituteService.getAllInstitutes()
+                .stream()
+                .map(Institute::getName)
+                .collect(Collectors.toList());
+        var faculties = facultieService.getAllFaculties()
+                .stream()
+                .map(Faculty::getName)
+                .collect(Collectors.toList());
+
+        map.put("institutes", institutes);
+        map.put("faculties", faculties);
+        return "auth/sign_up_student";
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/student")
     public String signUpStudent(@Valid SignUpStudentForm form, BindingResult bindingResult) {
         try {
@@ -103,6 +91,25 @@ public class SignUpController {
         return "redirect:/signIn";
     }
 
+    @PreAuthorize("hasRole('ADMINISTRATION')")
+    @GetMapping("/teacher")
+    public String getTeacherSignUpForm(ModelMap map) {
+
+        var institutes = instituteService.getAllInstitutes()
+                .stream()
+                .map(Institute::getName)
+                .collect(Collectors.toList());
+        var competences = competenceService.getAllCompetences()
+                .stream()
+                .map(Competence::getName)
+                .collect(Collectors.toList());
+
+        map.put("institutes", institutes);
+        map.put("competences", competences);
+        return "auth/sign_up_teacher";
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/teacher")
     public String signUpTeacher(@Valid SignUpTeacherForm form, BindingResult bindingResult, @RequestParam Map<String, String> allParams) {
 
@@ -119,12 +126,14 @@ public class SignUpController {
         return "redirect:/signIn";
     }
 
+    @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/teacher/file")
     public String signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile) {
         signUpService.signUpTeachers(multipartFile);
         return "forward:/";
     }
 
+    @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/student/file")
     public String signUpStudentFile(@RequestParam("file") MultipartFile multipartFile) {
         signUpService.signUpStudents(multipartFile);

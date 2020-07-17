@@ -2,6 +2,7 @@ package ru.itis.jaboderzhateli.gradework.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,17 +29,17 @@ public class ConfirmController {
     @Autowired
     private TeacherRepository teacherRepository;
 
+    @PreAuthorize("hasRole('TEACHER')")
     @GetMapping("/confirmations")
     public String getConfirmationsPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) { ;
-        User user = userDetails.getUser();
-        Long userId = userDetails.getUser().getId();
-        model.addAttribute("teacher", teacherRepository.findById(userId).get());
-        model.addAttribute("competences", confirmService.getCompetencesToConfirm(userId));
+        model.addAttribute("teacher", teacherRepository.findById(userDetails.getId()).get());
+        model.addAttribute("competences", confirmService.getCompetencesToConfirm(userDetails.getId()));
         return "main/confirmations";
     }
 
+    @PreAuthorize("hasRole('TEACHER')")
     @PostMapping("/confirmations")
-    public String receiveConfirmed(@RequestParam Map<String, String> params,@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public String receiveConfirmed(@RequestParam Map<String, String> params, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         log.info("received POST from /confirmations");
         params.entrySet().stream().forEach(e -> log.info(e.toString()));
         confirmService.confirmFromRequest(params);
