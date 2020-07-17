@@ -31,7 +31,7 @@ public class SignUpServiceTest {
     @Test
     public void signUpStudentFull_shouldEqual(){
         var form = new SignUpStudentForm("login","password", "password", "name",
-                "sur","mid","Программная инженерия", "ВШ ИТИС", "11-804",
+                "sur","mid","Программная инженерия", "Высшая школа информационных технологий и интеллектуальных систем", "11-804",
                 "link","phone",Short.valueOf("2000"), Short.valueOf("2004"), Byte.valueOf("90"), new Date(2));
         var student = signUpService.signUp(form);
         assertThat(student.equals(Student.builder()
@@ -45,7 +45,7 @@ public class SignUpServiceTest {
                 .group("11-804")
                 .email("login")
                 .phone("phone")
-                .institute(Institute.builder().id(1L).name("ВШ ИТИС").build())
+                .institute(Institute.builder().id(1L).name("Высшая школа информационных технологий и интеллектуальных систем").build())
                 .link("link")
                 .faculty(Faculty.builder().id(1L).name("Программная инженерия").build())
                 .birthday(new Date(2))
@@ -56,11 +56,11 @@ public class SignUpServiceTest {
     @Test
     public void signUpEmployerFull_shouldEqual(){
         var form = new SignUpTeacherForm("login","password","passwrod", "name", "surname","mid", Byte.valueOf("2"),
-                "ВШ ИТИС", "position", "link", Collections.emptyList());
+                "Высшая школа информационных технологий и интеллектуальных систем", "position", "link", Collections.emptyList());
         var teacher = signUpService.signUp(form);
         assertThat(teacher.equals(Teacher.builder()
                 .competence(Collections.emptyList())
-                .institute(Institute.builder().id(1L).name("ВШ ИТИС").build())
+                .institute(Institute.builder().id(1L).name("Высшая школа информационных технологий и интеллектуальных систем").build())
                 .link(form.getLink())
                 .login(form.getLogin())
                 .middleName(form.getMiddleName())

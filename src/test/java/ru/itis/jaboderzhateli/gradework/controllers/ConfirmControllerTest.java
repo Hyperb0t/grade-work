@@ -32,6 +32,6 @@ public class ConfirmControllerTest {
     @WithUserDetails(value = "teacher", userDetailsServiceBeanName = "userDetailsServiceImpl")
     void whenAuth200() throws Exception {
         mockMvc.perform(get("/confirmations"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNotFound());
     }
 }
