@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,12 +26,14 @@ public class SignUpControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    @WithMockUser(roles = "ADMINISTRATION")
     public void getSignUpTeacherForm200() throws Exception {
-        mockMvc.perform(get("/signUp/teacher"))
+        mockMvc.perform( get("/signUp/teacher"))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(roles = "ADMINISTRATION")
     public void getSignUpStudentForm200() throws Exception {
         mockMvc.perform(get("/signUp/student"))
                 .andExpect(status().isOk());
