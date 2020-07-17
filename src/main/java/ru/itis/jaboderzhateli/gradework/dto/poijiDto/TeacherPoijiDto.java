@@ -26,6 +26,7 @@ public class TeacherPoijiDto{
     private String phone;
     @ExcelCellName("Логин")
     private String login;
+    private String password;
 
     public static TeacherPoijiDto from(TeacherDto teacherDto) {
         return TeacherPoijiDto.builder()

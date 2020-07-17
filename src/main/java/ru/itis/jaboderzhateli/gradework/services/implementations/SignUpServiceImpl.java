@@ -17,9 +17,7 @@ import ru.itis.jaboderzhateli.gradework.utils.excelLoader.ExtensionParser;
 import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,6 +34,7 @@ public class SignUpServiceImpl implements SignUpService {
     private final FacultyService facultyService;
     private final InstituteService instituteService;
     private final ExtensionParser extensionParser;
+    private final PasswordGenerationService passwordGenerationService;
 
     @Override
     public Employer signUp(SignUpEmployerForm form) {
@@ -123,6 +122,15 @@ public class SignUpServiceImpl implements SignUpService {
         try {
             var studentsTemp = poiHandler.upload(file.getInputStream(), StudentPoijiDto.class, header);
             var students = converterService.convertStudents(studentsTemp);
+            Map<Student, String> map = new HashMap<>();
+
+            students.forEach(student -> {
+                var password = passwordGenerationService.generate();
+                student.setPassword(password);
+                map.put(student,password);
+            });
+
+            poiHandler.downloadStudents(Collections.singletonList(map));
 
             return studentRepository.saveAll(students);
 
@@ -139,6 +147,16 @@ public class SignUpServiceImpl implements SignUpService {
         try {
             var teacherTemp = poiHandler.upload(file.getInputStream(), TeacherPoijiDto.class, header);
             var teachers = converterService.convertTeachers(teacherTemp);
+
+            Map<Teacher, String> map = new HashMap<>();
+
+            teachers.forEach(student -> {
+                var password = passwordGenerationService.generate();
+                student.setPassword(password);
+                map.put(student,password);
+            });
+
+            poiHandler.downloadTeachers(Collections.singletonList(map));
 
             return teacherRepository.saveAll(teachers);
 

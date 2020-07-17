@@ -46,7 +46,7 @@ public class ConverterServiceTest {
     public void equalStudentWhenValid() {
         var dto = new StudentPoijiDto(2000, "login", 2010, 2, "me", "name",
                 "surname", "mid", "11-804", "email", "phone",
-                "institute", "link", "faculty", new Date(2), 12);
+                "institute", "link", "faculty", new Date(2), 12, "password");
         var student = converterService.convert(dto);
         assertThat(student).isEqualTo(Student.builder()
                 .yearGraduate(Short.valueOf("2010"))
@@ -64,12 +64,13 @@ public class ConverterServiceTest {
                 .faculty(Faculty.builder().name("faculty").build())
                 .birthday(new Date(2))
                 .average(Byte.valueOf("12"))
+                .password("password")
                 .build());
     }
 
     @Test
     public void equalTeacherWhenValid(){
-        var dto = new TeacherPoijiDto("name","surname","mid", "email","phone","login");
+        var dto = new TeacherPoijiDto("name","surname","mid", "email","phone","login","password");
         var teacher = converterService.convert(dto);
         assertThat(teacher).isEqualTo(Teacher.builder()
                 .name("name")
@@ -78,6 +79,7 @@ public class ConverterServiceTest {
                 .email("email")
                 .phone("phone")
                 .login("login")
+                .password("password")
                 .build());
     }
 

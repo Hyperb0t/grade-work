@@ -48,6 +48,7 @@ public class StudentPoijiDto {
     private Date birth;
     @ExcelCellName("Средний балл")
     private Integer average;
+    private String password;
 
     public static StudentPoijiDto from(StudentDto student) {
         return StudentPoijiDto.builder()
