@@ -123,6 +123,13 @@ body {
     margin: 0.5rem 0 0 0;
     font-family: PT-Sans;
 }
+.inst-card {
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--main-blue);
+    background-color: white;
+    padding: 0.345rem;
+}
 
 /* TEXT */
 .bold {

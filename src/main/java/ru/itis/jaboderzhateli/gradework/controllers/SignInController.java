@@ -13,7 +13,6 @@ import ru.itis.jaboderzhateli.gradework.security.UserDetailsImpl;
 @RequestMapping("/signIn")
 public class SignInController {
 
-    @PreAuthorize("isAnonymous()")
     @GetMapping
     public String getForm(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam(value = "error", required = false) String error, ModelMap map) {
         if(userDetails != null) {
