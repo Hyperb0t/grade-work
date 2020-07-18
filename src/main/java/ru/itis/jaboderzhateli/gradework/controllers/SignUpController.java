@@ -138,7 +138,7 @@ public class SignUpController {
     @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/teacher/file")
     public void signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile, HttpServletResponse response) {
-        response.setHeader("Content-Disposition", "attachment; filename=\"Students.xls\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"Teachers.xls\"");
         handler.downloadTeachers(signUpService.signUpTeachers(multipartFile), response);
     }
 
@@ -151,7 +151,7 @@ public class SignUpController {
     @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/student/file")
     public void signUpStudentFile(@RequestParam("file") MultipartFile multipartFile, HttpServletResponse response) {
-        response.setHeader("Content-Disposition", "attachment; filename=\"Teachers.xls\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"Students.xls\"");
         handler.downloadStudents(signUpService.signUpStudents(multipartFile), response);
     }
 

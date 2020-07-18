@@ -53,7 +53,7 @@ public class ExcelToPOJO implements FileToPOJOHandler {
             for (Map.Entry<Student, String> student : students.entrySet()) {
                 Row row = sheet.createRow(i);
                 i++;
-                row.createCell(0).setCellValue(student.getKey().getEmail());
+                row.createCell(0).setCellValue(student.getKey().getLogin());
                 row.createCell(1).setCellValue(student.getValue());
             }
         }
@@ -72,7 +72,7 @@ public class ExcelToPOJO implements FileToPOJOHandler {
             for (Map.Entry<Teacher, String> teacher : teachers.entrySet()) {
                 Row row = sheet.createRow(i);
                 i++;
-                row.createCell(0).setCellValue(teacher.getKey().getEmail());
+                row.createCell(0).setCellValue(teacher.getKey().getLogin());
                 row.createCell(1).setCellValue(teacher.getValue());
             }
         }
