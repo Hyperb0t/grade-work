@@ -34,9 +34,12 @@ public class EmployerController {
     private StudentRepository studentRepository;
 
     @GetMapping("/employers")
-    public String employersPage(Model model) {
+    public String employersPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        if(userDetails != null) {
+            model.addAttribute("me", userDetails.getUser());
+        }
         model.addAttribute("employers", employerRepository.findAll());
-        return "main/employers_list";
+        return "main/employers";
     }
 
     @GetMapping("/applications")

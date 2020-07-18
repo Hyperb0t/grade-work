@@ -4,11 +4,7 @@
     <@s.message 'page.error.title'/> - Grade&Work
 </#assign>
 <@p.page title=title>
-    <#if me??>
-        <@p.navbar exit=true/>
-    <#else>
-        <@p.navbar/>
-    </#if>
+    <@p.navbar account=false />
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="m-0 regular text-center"><@s.message 'page.error.header'/> ${code}</h3>

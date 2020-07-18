@@ -23,7 +23,7 @@
     </html>
 </#macro>
 
-<#macro navbar exit=false>
+<#macro navbar exit=false account=true>
     <nav class="navbar sticky-top p-0 d-flex">
         <div class="navbar-brand d-inline-flex m-0">
             <a class="d-inline-flex nav-logo" href="/">
@@ -33,18 +33,20 @@
             <div class="align-self-center">
                 <a class="pl-2 nav-part" href="/institutes"><i class="fas fa-university icon"></i><@s.message 'navbar.institutes'/></a>
                 <a class="pl-2 nav-part" href="/search"><i class="fas fa-search act-white icon"></i><@s.message 'navbar.search'/></a>
-                <a class="pl-2 nav-part" href="/employers"><i class="fas fa-briefcase act-white icon"></i>Работодатели</a>
+                <a class="pl-2 nav-part" href="/employers"><i class="fas fa-briefcase act-white icon"></i><@s.message 'navbar.employers'/></a>
             </div>
         </div>
-        <div class="d-inline-flex m-2">
-            <#if exit == false>
-                <a class="btn btn-light nav-sign-in" href="/signIn"><@s.message 'navbar.sign.in'/></a>
-                <span class="nav-or mx-2"><@s.message 'navbar.or'/></span>
-                <a class="btn btn-outline-light nav-employee" href="/signUp"><@s.message 'navbar.sign.up'/></a>
-            <#else>
-                <a class="btn btn-light mr-2" href="/user"><@s.message 'navbar.user'/></a>
-                <a class="btn btn-outline-light nav-employee" href="/signOut"><@s.message 'navbar.sign.out'/></a>
-            </#if>
-        </div>
+        <#if account>
+            <div class="d-inline-flex m-2">
+                <#if exit == false>
+                    <a class="btn btn-light nav-sign-in" href="/signIn"><@s.message 'navbar.sign.in'/></a>
+                    <span class="nav-or mx-2"><@s.message 'navbar.or'/></span>
+                    <a class="btn btn-outline-light nav-employee" href="/signUp"><@s.message 'navbar.sign.up'/></a>
+                <#else>
+                    <a class="btn btn-light mr-2" href="/user"><@s.message 'navbar.user'/></a>
+                    <a class="btn btn-outline-light nav-employee" href="/signOut"><@s.message 'navbar.sign.out'/></a>
+                </#if>
+            </div>
+        </#if>
     </nav>
 </#macro>

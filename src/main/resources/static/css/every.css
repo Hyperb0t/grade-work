@@ -184,6 +184,18 @@ hr {
     border-right-style: none;
     border-color: var(--main-blue);
 }
+.input-group .input-group-text-apply {
+    min-width: 9.1rem;
+    font-family: PT-Sans-Bold;
+    font-size: 1.1rem;
+    color: var(--main-blue);
+    background-color: var(--sec-white);
+    border-radius: 0;
+    height: 44.8px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: var(--main-blue);
+}
 .input-group input {
     font-family: PT-Sans;
     font-size: 1.2rem;
