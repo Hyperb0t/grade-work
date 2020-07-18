@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
     List<JobApplication> findAllByEmployer(Employer employer);
-    List<JobApplication> findAllByEmployerAndRead(Employer employer, Boolean read);
+    List<JobApplication> findAllByEmployerAndReadIs(Employer employer, Boolean read);
 }

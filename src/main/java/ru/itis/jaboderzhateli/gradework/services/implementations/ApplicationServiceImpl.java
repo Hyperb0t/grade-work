@@ -31,7 +31,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public List<JobApplication> getApplications(Employer employer, Boolean read) {
-        return applicationRepository.findAllByEmployerAndRead(employer, read);
+        return applicationRepository.findAllByEmployerAndReadIs(employer, read);
     }
 
     @Override
