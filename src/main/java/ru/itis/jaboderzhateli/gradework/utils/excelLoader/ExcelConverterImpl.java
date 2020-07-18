@@ -14,18 +14,15 @@ import ru.itis.jaboderzhateli.gradework.models.Student;
 import ru.itis.jaboderzhateli.gradework.models.Teacher;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.ConverterService;
 
-import java.io.Closeable;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
 @Component
 @AllArgsConstructor
-public class ExcelToPOJO implements FileToPOJOHandler {
-
-    private final ConverterService converterService;
+public class ExcelConverterImpl implements ExcelConverter {
 
     @Override
     public <T> List<T> upload(File file, Class<T> clazz) {
@@ -43,7 +40,8 @@ public class ExcelToPOJO implements FileToPOJOHandler {
     }
 
     @SneakyThrows
-    public void downloadStudents(List<Map<Student, String>> list) {
+    @Override
+    public void downloadStudents(List<Map<Student, String>> list, HttpServletResponse response) {
         Workbook book = new HSSFWorkbook();
         Sheet sheet = book.createSheet("Students");
         int i = 0;
@@ -51,17 +49,18 @@ public class ExcelToPOJO implements FileToPOJOHandler {
             for (Map.Entry<Student, String> student : students.entrySet()) {
                 Row row = sheet.createRow(i);
                 i++;
-                row.createCell(0).setCellValue(student.getKey().getEmail());
+                row.createCell(0).setCellValue(student.getKey().getLogin());
                 row.createCell(1).setCellValue(student.getValue());
             }
         }
-
-        book.write(new FileOutputStream("students"));
+        book.write(response.getOutputStream());
+        response.flushBuffer();
         book.close();
     }
 
     @SneakyThrows
-    public void downloadTeachers(List<Map<Teacher, String>> list) {
+    @Override
+    public void downloadTeachers(List<Map<Teacher, String>> list, HttpServletResponse response) {
         Workbook book = new HSSFWorkbook();
         Sheet sheet = book.createSheet("Teachers");
         int i = 0;
@@ -69,12 +68,13 @@ public class ExcelToPOJO implements FileToPOJOHandler {
             for (Map.Entry<Teacher, String> teacher : teachers.entrySet()) {
                 Row row = sheet.createRow(i);
                 i++;
-                row.createCell(0).setCellValue(teacher.getKey().getEmail());
+                row.createCell(0).setCellValue(teacher.getKey().getLogin());
                 row.createCell(1).setCellValue(teacher.getValue());
             }
         }
 
-        book.write(new FileOutputStream("teachers"));
+        book.write(response.getOutputStream());
+        response.flushBuffer();
         book.close();
 
     }
