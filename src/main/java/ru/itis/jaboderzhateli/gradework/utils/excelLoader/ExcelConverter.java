@@ -7,13 +7,14 @@ import org.hibernate.jdbc.Work;
 import ru.itis.jaboderzhateli.gradework.models.Student;
 import ru.itis.jaboderzhateli.gradework.models.Teacher;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.Closeable;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-public interface FileToPOJOHandler {
+public interface ExcelConverter {
 
     <T> List<T> upload(File file, Class<T> clazz);
 
@@ -21,8 +22,8 @@ public interface FileToPOJOHandler {
 
     void download(Workbook workbook);
 
-    void downloadStudents(List<Map<Student, String>> list);
+    void downloadStudents(List<Map<Student, String>> list, HttpServletResponse response);
 
-    void downloadTeachers(List<Map<Teacher, String>> list);
+    void downloadTeachers(List<Map<Teacher, String>> list, HttpServletResponse response);
 
 }

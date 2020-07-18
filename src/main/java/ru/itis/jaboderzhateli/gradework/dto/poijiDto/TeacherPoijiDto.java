@@ -27,6 +27,14 @@ public class TeacherPoijiDto{
     @ExcelCellName("Логин")
     private String login;
     private String password;
+    @ExcelCellName("Должность")
+    private String position;
+    @ExcelCellName("Ссылка")
+    private String link;
+    @ExcelCellName("Стаж работы")
+    private Integer experience;
+    @ExcelCellName("Институт")
+    private String institute;
 
     public static TeacherPoijiDto from(TeacherDto teacherDto) {
         return TeacherPoijiDto.builder()

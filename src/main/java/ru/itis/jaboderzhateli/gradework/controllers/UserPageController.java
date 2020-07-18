@@ -91,6 +91,6 @@ public class UserPageController {
                 map.put("administration", user);
                 return "main/administration_page";
         }
-        return "main/landing";
+        return "redirect:/";
     }
 }

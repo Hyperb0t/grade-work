@@ -20,6 +20,10 @@
                         <th scope="col" class="main-table"><@s.message 'sign.contact.email'/></th>
                         <th scope="col" class="main-table"><@s.message 'sign.contact.phone'/></th>
                         <th scope="col" class="main-table"><@s.message 'sign.login'/></th>
+                        <th scope="col" class="main-table"><@s.message 'sign.up.teacher.experience'/></th>
+                        <th scope="col" class="main-table"><@s.message 'sign.contact.link'/></th>
+                        <th scope="col" class="main-table"><@s.message 'sign.up.teacher.position'/></th>
+                        <th scope="col" class="main-table"><@s.message 'sign.institute'/></th>
                     </tr>
                 </table>
 

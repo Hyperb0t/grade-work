@@ -9,6 +9,7 @@ import ru.itis.jaboderzhateli.gradework.models.Student;
 import ru.itis.jaboderzhateli.gradework.models.Teacher;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SignUpService {
 
@@ -18,9 +19,9 @@ public interface SignUpService {
 
     Teacher signUp(SignUpTeacherForm form);
 
-    Iterable<Student> signUpStudents(MultipartFile file);
+    List<Map<Student, String>> signUpStudents(MultipartFile file);
 
-    Iterable<Teacher> signUpTeachers(MultipartFile file);
+    List<Map<Teacher, String>> signUpTeachers(MultipartFile file);
 
 
 }

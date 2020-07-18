@@ -16,7 +16,7 @@
             <span class="regular"><@s.message 'page.institutes.info'/></span>
 
             <#list institutes as institute>
-                <a class="inst-card <#if !institute?is_last>mb-2</#if> bold link" href="/search?i=${institute.name}">${institute.name}</a>
+                <a class="inst-card <#if !institute?is_last>mb-2</#if> bold link" href="/search?i=${institute.id}">${institute.name}</a>
             </#list>
         </div>
     </div>

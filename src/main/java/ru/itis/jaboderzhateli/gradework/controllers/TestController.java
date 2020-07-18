@@ -7,14 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.jaboderzhateli.gradework.models.*;
-import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
-import ru.itis.jaboderzhateli.gradework.repositories.UserRepository;
+import ru.itis.jaboderzhateli.gradework.repositories.*;
 import ru.itis.jaboderzhateli.gradework.security.UserDetailsImpl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @PreAuthorize("hasRole('ADMINISTRATION')")
@@ -26,6 +22,15 @@ public class TestController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private InstituteRepository instituteRepository;
+
+    @Autowired
+    private FacultyRepository facultyRepository;
+
+    @Autowired
+    private CompetenceRepository competenceRepository;
 
     @GetMapping("/me")
     @ResponseBody
