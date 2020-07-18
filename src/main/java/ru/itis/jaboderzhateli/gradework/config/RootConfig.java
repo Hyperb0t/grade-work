@@ -76,6 +76,7 @@ public class RootConfig {
                 .group("11-804")
                 .yearStart((short) 2018)
                 .yearGraduate((short) 2020)
+                .course((byte)3)
                 .average((byte) 93)
                 .phone("89503135579")
                 .email("rodsher111@gmail.com")
@@ -90,7 +91,7 @@ public class RootConfig {
         competenceRepository.save(competence1);
         competenceRepository.save(competence2);
         studentRepository.save(student);
-        studentCompetenceRepository.save(new StudentCompetence(student, competence1, false));
+        studentCompetenceRepository.save(new StudentCompetence(student, competence1, true));
         studentCompetenceRepository.save(new StudentCompetence(student, competence2, false));
 
 
