@@ -64,8 +64,18 @@ public class ConverterServiceImpl implements ConverterService {
 
     @Override
     public Teacher convert(TeacherPoijiDto teacherDto) {
+
+        var instituteCandidate = instituteRepository.findByName(teacherDto.getInstitute());
+        Institute institute = instituteCandidate.orElseGet(() -> Institute.builder()
+                .name(teacherDto.getInstitute())
+                .build());
+
         var teacher = Teacher.builder()
                 .email(teacherDto.getEmail())
+                .institute(institute)
+                .experience(teacherDto.getExperience().byteValue())
+                .link(teacherDto.getLink())
+                .position(teacherDto.getPosition())
                 .name(teacherDto.getName())
                 .phone(teacherDto.getPhone())
                 .surname(teacherDto.getSurname())

@@ -69,10 +69,12 @@ public class ConverterServiceTest {
     }
 
     @Test
-    public void equalTeacherWhenValid(){
-        var dto = new TeacherPoijiDto("name","surname","mid", "email","phone","login","password");
+    public void equalTeacherWhenValid() {
+        var dto = new TeacherPoijiDto("name", "surname", "mid", "email", "phone",
+                "login", "password", "position", "link",
+                2, "Инженерный институт");
         var teacher = converterService.convert(dto);
-        assertThat(teacher).isEqualTo(Teacher.builder()
+        assertThat(teacher.equals(Teacher.builder()
                 .name("name")
                 .surname("surname")
                 .middleName("mid")
@@ -80,7 +82,11 @@ public class ConverterServiceTest {
                 .phone("phone")
                 .login("login")
                 .password("password")
-                .build());
+                .position("position")
+                .link("link")
+                .experience(Byte.valueOf("2"))
+                .institute(Institute.builder().id(11L).name("Инженерный институт").build())
+                .build()));
     }
 
 

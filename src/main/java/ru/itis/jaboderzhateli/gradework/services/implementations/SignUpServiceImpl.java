@@ -150,10 +150,10 @@ public class SignUpServiceImpl implements SignUpService {
 
             Map<Teacher, String> map = new HashMap<>();
 
-            teachers.forEach(student -> {
+            teachers.forEach(teacher -> {
                 var password = passwordGenerationService.generate();
-                student.setPassword(password);
-                map.put(student,password);
+                teacher.setPassword(password);
+                map.put(teacher,password);
             });
 
             poiHandler.downloadTeachers(Collections.singletonList(map));
