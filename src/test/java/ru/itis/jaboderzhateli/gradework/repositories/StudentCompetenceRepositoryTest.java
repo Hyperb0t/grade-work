@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.itis.jaboderzhateli.gradework.models.Student;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.stream.StreamSupport;
 
 /**
@@ -34,6 +36,15 @@ public class StudentCompetenceRepositoryTest {
 //        studentRepository = context.getBean(StudentRepository.class);
 //        competenceRepository = context.getBean(CompetenceRepository.class);
 //    }
+
+    @Test
+    void dbUrl(@Autowired DataSource dataSource) {
+        String url = "unknown";
+        try {
+            url = dataSource.getConnection().getMetaData().getURL();
+        }catch (Exception ignored) {}
+        log.info("USING DATASOURCE: " + url);
+    }
 
     @Test
     void studentSaveIdGeneration() {
