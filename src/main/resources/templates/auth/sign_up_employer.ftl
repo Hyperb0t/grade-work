@@ -16,7 +16,7 @@
     <div class="d-flex flex-column justify-content-center my-auto mx-auto card-width">
         <div class="card">
             <h3 class="m-0 regular text-center mb-2"><@s.message 'sign.up.employer.header'/></h3>
-            <form method="POST" action="/signUp/employer">
+            <form method="POST" action="/signUp">
                 <input id="csrf" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="input-group mb-2">

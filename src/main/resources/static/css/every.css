@@ -163,6 +163,13 @@ hr {
 .line-breaker {
     line-height: 1.22rem;
 }
+.search-block {
+    border-style: solid;
+    border-color: var(--main-blue);
+    border-width: 3px;
+    background-color: var(--sec-white);
+    text-align: center;
+}
 
 /* INPUTS */
 .input-group-text {
@@ -259,6 +266,20 @@ hr {
 .w-10 {
     width: 15%;
 }
+.border-top-none {
+    border-top-width: 0;
+    border-top-style: none;
+}
+.border-left-none {
+    border-left-width: 0;
+    border-left-style: none;
+}
+.border-right {
+    border-right-style: solid;
+    border-right-width: 3px;
+    border-right-color: var(--main-blue);
+}
+
 
 /* ALERTS */
 .alert {
