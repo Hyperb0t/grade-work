@@ -31,7 +31,7 @@ public class ConverterServiceImpl implements ConverterService {
         Institute institute = instituteCandidate.orElseGet(() -> Institute.builder()
                 .name(studentDto.getInstitute())
                 .build());
-        var facultyCandidate = facultyRepository.findByName(studentDto.getInstitute());
+        var facultyCandidate = facultyRepository.findByName(studentDto.getFaculty());
         Faculty faculty = facultyCandidate.orElseGet(() -> Faculty.builder()
                 .name(studentDto.getFaculty())
                 .build());
