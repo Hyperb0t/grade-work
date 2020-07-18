@@ -121,15 +121,24 @@ public class SearchServiceImpl implements SearchService {
         return true;
     }
 
-    private Boolean instituteSpecified(Map<String, String> params) {
-        if (params.containsKey("i")) {
-            return !params.get("i").equals("-1");
-        } else return false;
+    private Boolean studentHasMostCompetences(Student st, List<Competence> competences, Integer missingAllowed) {
+        for(Competence comp : competences) {
+            boolean hasThisComp = false;
+            int missing = 0;
+            for(StudentCompetence stComp : st.getCompetences()) {
+                if(stComp.getConfirmed() && stComp.getCompetence().getId().equals(comp.getId())) {
+                    hasThisComp = true;
+                    break;
+                }
+            }
+            if(!hasThisComp) {
+                missing++;
+                if(missing > missingAllowed) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    private Boolean facultySpecified(Map<String, String> params) {
-        if (params.containsKey("f")) {
-            return !params.get("f").equals("-1");
-        } else return false;
-    }
 }

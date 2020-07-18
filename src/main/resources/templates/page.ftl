@@ -33,6 +33,7 @@
             <div class="align-self-center">
                 <a class="pl-2 nav-part" href="/institutes"><i class="fas fa-university icon"></i><@s.message 'navbar.institutes'/></a>
                 <a class="pl-2 nav-part" href="/search"><i class="fas fa-search act-white icon"></i><@s.message 'navbar.search'/></a>
+                <a class="pl-2 nav-part" href="/employers"><i class="fas fa-briefcase act-white icon"></i>Работодатели</a>
             </div>
         </div>
         <div class="d-inline-flex m-2">
