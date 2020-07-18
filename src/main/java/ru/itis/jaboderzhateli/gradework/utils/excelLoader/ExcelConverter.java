@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-public interface FileToPOJOHandler {
+public interface ExcelConverter {
 
     <T> List<T> upload(File file, Class<T> clazz);
 

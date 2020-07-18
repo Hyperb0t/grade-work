@@ -19,7 +19,7 @@ import ru.itis.jaboderzhateli.gradework.models.Competence;
 import ru.itis.jaboderzhateli.gradework.models.Faculty;
 import ru.itis.jaboderzhateli.gradework.models.Institute;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.*;
-import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
+import ru.itis.jaboderzhateli.gradework.utils.excelLoader.ExcelConverter;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -36,7 +36,7 @@ public class SignUpController {
     private final FacultyService facultyService;
     private final CompetenceService competenceService;
     private final DynamicArgumentsParser parser;
-    private final FileToPOJOHandler handler;
+    private final ExcelConverter handler;
 
     @PreAuthorize("isAnonymous()")
     @GetMapping

@@ -15,18 +15,14 @@ import ru.itis.jaboderzhateli.gradework.models.Teacher;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.ConverterService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.Closeable;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
 @Component
 @AllArgsConstructor
-public class ExcelToPOJO implements FileToPOJOHandler {
-
-    private final ConverterService converterService;
+public class ExcelConverterImpl implements ExcelConverter {
 
     @Override
     public <T> List<T> upload(File file, Class<T> clazz) {

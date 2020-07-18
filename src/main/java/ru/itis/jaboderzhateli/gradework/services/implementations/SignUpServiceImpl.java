@@ -1,6 +1,5 @@
 package ru.itis.jaboderzhateli.gradework.services.implementations;
 
-import com.poiji.exception.PoijiExcelType;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import ru.itis.jaboderzhateli.gradework.models.*;
 import ru.itis.jaboderzhateli.gradework.repositories.*;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.*;
 import ru.itis.jaboderzhateli.gradework.utils.excelLoader.ExtensionParser;
-import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
+import ru.itis.jaboderzhateli.gradework.utils.excelLoader.ExcelConverter;
 
 import java.io.IOException;
 import java.util.*;
@@ -28,7 +27,7 @@ public class SignUpServiceImpl implements SignUpService {
     private final TeacherRepository teacherRepository;
     private final EmployerRepository employerRepository;
     private final PasswordEncoder passwordEncoder;
-    private final FileToPOJOHandler poiHandler;
+    private final ExcelConverter poiHandler;
     private final ConverterService converterService;
     private final CompetenceService competenceService;
     private final FacultyService facultyService;
