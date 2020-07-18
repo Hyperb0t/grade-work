@@ -14,6 +14,7 @@ import ru.itis.jaboderzhateli.gradework.models.Student;
 import ru.itis.jaboderzhateli.gradework.models.Teacher;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.ConverterService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,7 +44,8 @@ public class ExcelToPOJO implements FileToPOJOHandler {
     }
 
     @SneakyThrows
-    public void downloadStudents(List<Map<Student, String>> list) {
+    @Override
+    public void downloadStudents(List<Map<Student, String>> list, HttpServletResponse response) {
         Workbook book = new HSSFWorkbook();
         Sheet sheet = book.createSheet("Students");
         int i = 0;
@@ -55,13 +57,14 @@ public class ExcelToPOJO implements FileToPOJOHandler {
                 row.createCell(1).setCellValue(student.getValue());
             }
         }
-
-        book.write(new FileOutputStream("students"));
+        book.write(response.getOutputStream());
+        response.flushBuffer();
         book.close();
     }
 
     @SneakyThrows
-    public void downloadTeachers(List<Map<Teacher, String>> list) {
+    @Override
+    public void downloadTeachers(List<Map<Teacher, String>> list, HttpServletResponse response) {
         Workbook book = new HSSFWorkbook();
         Sheet sheet = book.createSheet("Teachers");
         int i = 0;
@@ -74,7 +77,8 @@ public class ExcelToPOJO implements FileToPOJOHandler {
             }
         }
 
-        book.write(new FileOutputStream("teachers"));
+        book.write(response.getOutputStream());
+        response.flushBuffer();
         book.close();
 
     }

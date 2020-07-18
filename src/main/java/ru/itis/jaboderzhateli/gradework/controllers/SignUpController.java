@@ -19,7 +19,9 @@ import ru.itis.jaboderzhateli.gradework.models.Competence;
 import ru.itis.jaboderzhateli.gradework.models.Faculty;
 import ru.itis.jaboderzhateli.gradework.models.Institute;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.*;
+import ru.itis.jaboderzhateli.gradework.utils.excelLoader.FileToPOJOHandler;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,9 +33,10 @@ public class SignUpController {
 
     private final SignUpService signUpService;
     private final InstituteService instituteService;
-    private final FacultyService facultieService;
+    private final FacultyService facultyService;
     private final CompetenceService competenceService;
     private final DynamicArgumentsParser parser;
+    private final FileToPOJOHandler handler;
 
     @PreAuthorize("isAnonymous()")
     @GetMapping
@@ -68,7 +71,7 @@ public class SignUpController {
                 .stream()
                 .map(Institute::getName)
                 .collect(Collectors.toList());
-        var faculties = facultieService.getAllFaculties()
+        var faculties = facultyService.getAllFaculties()
                 .stream()
                 .map(Faculty::getName)
                 .collect(Collectors.toList());
@@ -134,9 +137,9 @@ public class SignUpController {
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/teacher/file")
-    public String signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile) {
-        signUpService.signUpTeachers(multipartFile);
-        return "redirect:/user";
+    public void signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile, HttpServletResponse response) {
+        response.setHeader("Content-Disposition", "attachment; filename=\"Students.xls\"");
+        handler.downloadTeachers(signUpService.signUpTeachers(multipartFile), response);
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
@@ -147,9 +150,9 @@ public class SignUpController {
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/student/file")
-    public String signUpStudentFile(@RequestParam("file") MultipartFile multipartFile) {
-        signUpService.signUpStudents(multipartFile);
-        return "redirect:/user";
+    public void signUpStudentFile(@RequestParam("file") MultipartFile multipartFile, HttpServletResponse response) {
+        response.setHeader("Content-Disposition", "attachment; filename=\"Teachers.xls\"");
+        handler.downloadStudents(signUpService.signUpStudents(multipartFile), response);
     }
 
 }

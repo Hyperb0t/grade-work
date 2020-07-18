@@ -115,7 +115,7 @@ public class SignUpServiceImpl implements SignUpService {
     }
 
     @Override
-    public List<Student> signUpStudents(MultipartFile file) {
+    public List<Map<Student, String>> signUpStudents(MultipartFile file) {
 
         Enum<?> header = extensionParser.parseFileExtension(file);
 
@@ -130,9 +130,8 @@ public class SignUpServiceImpl implements SignUpService {
                 map.put(student,password);
             });
 
-            poiHandler.downloadStudents(Collections.singletonList(map));
-
-            return studentRepository.saveAll(students);
+            studentRepository.saveAll(students);
+            return Collections.singletonList(map);
 
         } catch (IOException e) {
             return Collections.emptyList();
@@ -140,7 +139,7 @@ public class SignUpServiceImpl implements SignUpService {
     }
 
     @Override
-    public List<Teacher> signUpTeachers(MultipartFile file) {
+    public List<Map<Teacher, String>> signUpTeachers(MultipartFile file) {
 
         Enum<?> header = extensionParser.parseFileExtension(file);
 
@@ -156,9 +155,8 @@ public class SignUpServiceImpl implements SignUpService {
                 map.put(teacher,password);
             });
 
-            poiHandler.downloadTeachers(Collections.singletonList(map));
-
-            return teacherRepository.saveAll(teachers);
+            teacherRepository.saveAll(teachers);
+            return Collections.singletonList(map);
 
         } catch (IOException e) {
             return Collections.emptyList();

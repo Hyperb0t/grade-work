@@ -7,6 +7,7 @@ import org.hibernate.jdbc.Work;
 import ru.itis.jaboderzhateli.gradework.models.Student;
 import ru.itis.jaboderzhateli.gradework.models.Teacher;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.Closeable;
 import java.io.File;
 import java.io.InputStream;
@@ -21,8 +22,8 @@ public interface FileToPOJOHandler {
 
     void download(Workbook workbook);
 
-    void downloadStudents(List<Map<Student, String>> list);
+    void downloadStudents(List<Map<Student, String>> list, HttpServletResponse response);
 
-    void downloadTeachers(List<Map<Teacher, String>> list);
+    void downloadTeachers(List<Map<Teacher, String>> list, HttpServletResponse response);
 
 }
