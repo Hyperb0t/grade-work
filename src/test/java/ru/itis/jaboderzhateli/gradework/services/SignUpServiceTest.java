@@ -55,7 +55,7 @@ public class SignUpServiceTest {
 
     @Test
     public void signUpEmployerFull_shouldEqual(){
-        var form = new SignUpTeacherForm("login","password","passwrod", "name", "surname","mid", Byte.valueOf("2"),
+        var form = new SignUpTeacherForm("login","password","password", "name", "surname","mid", Byte.valueOf("2"),
                 "Высшая школа информационных технологий и интеллектуальных систем", "position", "link", Collections.emptyList());
         var teacher = signUpService.signUp(form);
         assertThat(teacher.equals(Teacher.builder()
