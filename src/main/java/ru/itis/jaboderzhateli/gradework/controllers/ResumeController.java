@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,14 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
-@RequestMapping("resume")
+@RequestMapping("/resume")
+@AllArgsConstructor
 public class ResumeController {
 
-    @Autowired
-    private ResumeService resumeService;
-
-    @Autowired
-    private CompetenceService competenceService;
+    private final ResumeService resumeService;
+    private final CompetenceService competenceService;
 
     @PreAuthorize("hasRole('STUDENT')")
     @GetMapping("/create")

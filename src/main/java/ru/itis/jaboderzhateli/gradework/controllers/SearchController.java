@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -20,19 +21,14 @@ import java.util.Map;
 
 @Controller
 @Slf4j
+@AllArgsConstructor
 public class SearchController {
 
-    @Autowired
-    private MessageSource messageSource;
-
-    @Autowired
-    private InstituteRepository instituteRepository;
-    @Autowired
-    private FacultyRepository facultyRepository;
-    @Autowired
-    private CompetenceRepository competenceRepository;
-    @Autowired
-    private SearchService searchService;
+    private final MessageSource messageSource;
+    private final InstituteRepository instituteRepository;
+    private final FacultyRepository facultyRepository;
+    private final CompetenceRepository competenceRepository;
+    private final SearchService searchService;
 
     @GetMapping("/search")
     public String searchPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model, @RequestParam Map<String, String> params) {

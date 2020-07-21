@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,22 +16,14 @@ import java.util.*;
 @Controller
 @PreAuthorize("hasRole('ADMINISTRATION')")
 @RequestMapping("/test")
+@AllArgsConstructor
 public class TestController {
 
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private InstituteRepository instituteRepository;
-
-    @Autowired
-    private FacultyRepository facultyRepository;
-
-    @Autowired
-    private CompetenceRepository competenceRepository;
+    private final StudentRepository studentRepository;
+    private final UserRepository userRepository;
+    private final InstituteRepository instituteRepository;
+    private final FacultyRepository facultyRepository;
+    private final CompetenceRepository competenceRepository;
 
     @GetMapping("/me")
     @ResponseBody
