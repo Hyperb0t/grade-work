@@ -1,45 +1,32 @@
 package ru.itis.jaboderzhateli.gradework.services;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
 import ru.itis.jaboderzhateli.gradework.dto.poijiDto.StudentPoijiDto;
 import ru.itis.jaboderzhateli.gradework.dto.poijiDto.TeacherPoijiDto;
 import ru.itis.jaboderzhateli.gradework.models.*;
-import ru.itis.jaboderzhateli.gradework.repositories.FacultyRepository;
-import ru.itis.jaboderzhateli.gradework.repositories.InstituteRepository;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.ConverterService;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class ConverterServiceTest {
 
     @Autowired
     private ConverterService converterService;
 
-
-    @Before
-    public void setup() {
-    }
-
-    @Test(expected = NullPointerException.class)
+    @Test
     public void nullWhen_NotValid() {
-        var dto = new StudentPoijiDto();
-        var student = converterService.convert(dto);
-        assertThat(student).isEqualTo(new Student());
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            var dto = new StudentPoijiDto();
+            var student = converterService.convert(dto);
+            assertThat(student).isEqualTo(new Student());
+        });
+
     }
 
     @Test

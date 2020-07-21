@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.services.implementations;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,22 +16,16 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class SearchServiceImpl implements SearchService {
 
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private CompetenceRepository competenceRepository;
-    @Autowired
-    private InstituteRepository instituteRepository;
-    @Autowired
-    private FacultyRepository facultyRepository;
-    @Autowired
-    private StudentCompetenceRepository studentCompetenceRepository;
+    private final StudentRepository studentRepository;
+    private final CompetenceRepository competenceRepository;
+    private final StudentCompetenceRepository studentCompetenceRepository;
 
     @Override
     public List<Student> findFromRequest(Map<String, String> params) {
-        if(params.isEmpty()) {
+        if (params.isEmpty()) {
             return Collections.emptyList();
         }
         List<Long> competenceId = new LinkedList<>();
@@ -62,26 +57,24 @@ public class SearchServiceImpl implements SearchService {
 
         //the code is long, but asks DB as little as it can
         //and also it doesn't fuckin work
-        if(competenceId.isEmpty()) {
-            if(instituteId != null) {
-                if(facultyId != null)
+        if (competenceId.isEmpty()) {
+            if (instituteId != null) {
+                if (facultyId != null)
                     return studentRepository.findAllByInstituteIdAndFacultyId(instituteId, facultyId);
                 else
                     return studentRepository.findAllByInstituteId(instituteId);
-            }
-            else {
-                if(facultyId != null)
+            } else {
+                if (facultyId != null)
                     return studentRepository.findAllByFacultyId(facultyId);
                 else
                     return Collections.emptyList();
             }
-        }
-        else {
+        } else {
             List<Competence> competences = competenceRepository.findAllByIdIn(competenceId);
             log.info("found compet. by ids: " + competences.toString());
             List<StudentCompetence> studentCompetences = studentCompetenceRepository.findAllByConfirmedIsAndCompetenceIn(true, competences);
             log.info(studentCompetences.toString());
-            if(instituteId != null) {
+            if (instituteId != null) {
                 if (facultyId != null)
                     return studentRepository.findAllByInstituteIdAndFacultyId(instituteId, facultyId).stream().
                             filter(s -> studentHasAllCompetences(s, competences))
@@ -90,8 +83,7 @@ public class SearchServiceImpl implements SearchService {
                     return studentRepository.findAllByInstituteId(instituteId).stream().
                             filter(s -> studentHasAllCompetences(s, competences))
                             .collect(Collectors.toList());
-            }
-            else {
+            } else {
                 if (facultyId != null)
                     return studentRepository.findAllByFacultyId(facultyId).stream().
                             filter(s -> studentHasAllCompetences(s, competences))
@@ -100,21 +92,21 @@ public class SearchServiceImpl implements SearchService {
                     return studentRepository.findAll().stream().
                             filter(s -> studentHasAllCompetences(s, competences))
                             .collect(Collectors.toList());
-                    //return studentRepository.findAllByCompetencesIn(studentCompetences);
+                //return studentRepository.findAllByCompetencesIn(studentCompetences);
             }
         }
     }
 
     private Boolean studentHasAllCompetences(Student st, List<Competence> competences) {
-        for(Competence comp : competences) {
+        for (Competence comp : competences) {
             boolean hasThisComp = false;
-            for(StudentCompetence stComp : st.getCompetences()) {
-                if(stComp.getConfirmed() && stComp.getCompetence().getId().equals(comp.getId())) {
+            for (StudentCompetence stComp : st.getCompetences()) {
+                if (stComp.getConfirmed() && stComp.getCompetence().getId().equals(comp.getId())) {
                     hasThisComp = true;
                     break;
                 }
             }
-            if(!hasThisComp) {
+            if (!hasThisComp) {
                 return false;
             }
         }
@@ -122,18 +114,18 @@ public class SearchServiceImpl implements SearchService {
     }
 
     private Boolean studentHasMostCompetences(Student st, List<Competence> competences, Integer missingAllowed) {
-        for(Competence comp : competences) {
+        for (Competence comp : competences) {
             boolean hasThisComp = false;
             int missing = 0;
-            for(StudentCompetence stComp : st.getCompetences()) {
-                if(stComp.getConfirmed() && stComp.getCompetence().getId().equals(comp.getId())) {
+            for (StudentCompetence stComp : st.getCompetences()) {
+                if (stComp.getConfirmed() && stComp.getCompetence().getId().equals(comp.getId())) {
                     hasThisComp = true;
                     break;
                 }
             }
-            if(!hasThisComp) {
+            if (!hasThisComp) {
                 missing++;
-                if(missing > missingAllowed) {
+                if (missing > missingAllowed) {
                     return false;
                 }
             }

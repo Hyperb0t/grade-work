@@ -37,20 +37,6 @@ public class EmployerFormValidation {
                 .andExpect(status().is4xxClientError());
     }
 
-//    @Test
-//    void whenFull200() throws Exception {
-//        var form = new SignUpEmployerForm("login", "12345678", "12345678",
-//                "organisation", "psrn", "name", "sur",
-//                "middle", "phone", "sample@exit.com", Collections.singletonList("link"), true);
-//
-//        mockMvc.perform(post("/signUp/teacher")
-//                .content(objectMapper.writeValueAsString(form))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .with(csrf()))
-//                .andExpect(status().isOk());
-//    }
-
     @Test
     void whenNoCsrf403() throws Exception {
         var form = new SignUpEmployerForm();
