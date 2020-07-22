@@ -26,10 +26,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ChatController {
 
-    private ChatService chatService;
-    private StudentRepository studentRepository;
-    private TeacherRepository teacherRepository;
-    private EmployerRepository employerRepository;
+    private final ChatService chatService;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
+    private final EmployerRepository employerRepository;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/chat")

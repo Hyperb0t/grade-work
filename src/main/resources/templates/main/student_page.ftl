@@ -68,7 +68,7 @@
 <#--                <#else>-->
                     <a class="btn btn-outline-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.edit'/></a>
 <#--                </#if>-->
-                <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.student.info.edit'/></a>
+                <a class="btn btn-light mt-2" href="/user/${student.id}/edit"><@s.message 'page.student.info.edit'/></a>
             <#else>
                 <#if channelId??>
                     <a class="btn btn-outline-light mt-2" href="/chat?ch=${channelId}"><@s.message 'page.chat'/></a>
