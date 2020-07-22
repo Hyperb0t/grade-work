@@ -76,7 +76,7 @@ public class RootConfig {
                 .group("11-804")
                 .yearStart((short) 2018)
                 .yearGraduate((short) 2020)
-                .course((byte)3)
+                .course((byte) 3)
                 .average((byte) 93)
                 .phone("89503135579")
                 .email("rodsher111@gmail.com")
@@ -130,7 +130,9 @@ public class RootConfig {
 
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multiPartResolver() {
-        return new CommonsMultipartResolver();
+        var resolver = new CommonsMultipartResolver();
+        resolver.setMaxUploadSize(52428800);
+        return resolver;
     }
 
     @Bean
