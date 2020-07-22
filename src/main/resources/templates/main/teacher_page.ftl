@@ -35,8 +35,7 @@
             </#if>
             <#if me?? && me.id == teacher.id>
                 <a class="btn btn-outline-light mt-2" href="/confirm/competences"><@s.message 'page.teacher.confirmations'/></a>
-                <a class="btn btn-light mt-2" href="/competences/edit"><@s.message 'page.teacher.competences.edit'/></a>
-                <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.teacher.info.edit'/></a>
+                <a class="btn btn-light mt-2" href="/user/${teacher.id}/edit"><@s.message 'page.teacher.info.edit'/></a>
             <#else>
                 <#if channelId??>
                     <a class="btn btn-outline-light mt-2" href="/chat?ch=${channelId}"><@s.message 'page.chat'/></a>
