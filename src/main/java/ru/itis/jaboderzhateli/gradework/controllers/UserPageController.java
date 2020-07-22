@@ -36,6 +36,7 @@ public class UserPageController {
     private final ChatService chatService;
     private final FacultyService facultyService;
     private final InstituteService instituteService;
+    private final CompetenceService competenceService;
 
     @PreAuthorize("permitAll()")
     @GetMapping("/user")
@@ -119,11 +120,23 @@ public class UserPageController {
                             .stream()
                             .map(Faculty::getName)
                             .collect(Collectors.toList());
-
                     map.put("institutes", institutes);
                     map.put("faculties", faculties);
                     map.put("user", studentRepository.findById(userId).get());
                     return "main/student_page_edit";
+                case TEACHER:
+                    var instits = instituteService.getAllInstitutes()
+                            .stream()
+                            .map(Institute::getName)
+                            .collect(Collectors.toList());
+                    var competences = competenceService.getAllCompetences()
+                            .stream()
+                            .map(Competence::getName)
+                            .collect(Collectors.toList());
+                    map.put("institutes", instits);
+                    map.put("competences", competences);
+                    map.put("user", teacherRepository.findById(userId).get());
+                    return "main/teacher_page_edit";
             }
             return "redirect:/";
         }

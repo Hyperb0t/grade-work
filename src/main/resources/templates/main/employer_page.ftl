@@ -31,7 +31,7 @@
             <hr>
             <#if me?? && me.id == employer.id>
                 <a class="btn btn-outline-light mt-2" href="/applications"><@s.message 'page.employer.applications'/></a>
-                <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.employer.info.edit'/></a>
+                <a class="btn btn-light mt-2" href="/user/${employer.id}/edit"><@s.message 'page.employer.info.edit'/></a>
             <#else>
                 <#if me?? && me.role == "STUDENT">
                     <a class="btn btn-outline-light mt-2" href="/apply/${employer.id}"><@s.message 'page.employer.apply'/></a>
