@@ -37,15 +37,15 @@ public class ChatControllerTest {
 
     @Test
     public void getChatPageNotAuth_isRedirect() throws Exception {
-        mockMvc.perform(get("/chat/1"))
+        mockMvc.perform(get("/chat?ch=1"))
                 .andExpect(status().is3xxRedirection());
     }
 
     @Test
     @WithUserDetails(value = "admin", userDetailsServiceBeanName = "userDetailsServiceImpl")
     public void getChatPageAuth_isOk() throws Exception {
-        mockMvc.perform(get("/chat/1"))
-                .andExpect(status().isOk());
+        mockMvc.perform(get("/user/2/createChat"))
+                .andExpect(status().is3xxRedirection());
     }
 
 }
