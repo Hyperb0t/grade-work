@@ -66,7 +66,7 @@
 <#--                    <a class="btn btn-outline-light mt-2" href="/requests"><@s.message 'page.student.requests'/></a>-->
 <#--                    <a class="btn btn-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.create'/></a>-->
 <#--                <#else>-->
-                    <a class="btn btn-outline-light mt-2" href="/resume/create"><@s.message 'page.student.resume.edit'/></a>
+                    <a class="btn btn-outline-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.edit'/></a>
 <#--                </#if>-->
                 <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.student.info.edit'/></a>
             <#else>

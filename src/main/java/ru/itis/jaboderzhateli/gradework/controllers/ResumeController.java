@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
 import ru.itis.jaboderzhateli.gradework.security.UserDetailsImpl;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.CompetenceService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.ResumeService;
@@ -24,16 +25,18 @@ public class ResumeController {
 
     private final ResumeService resumeService;
     private final CompetenceService competenceService;
+    private final StudentRepository studentRepository;
 
     @PreAuthorize("hasRole('STUDENT')")
-    @GetMapping("/create")
+    @GetMapping("/edit")
     public String getResumeCreateForm(@AuthenticationPrincipal UserDetailsImpl userDetails, ModelMap map) {
+        map.put("user", studentRepository.findById(userDetails.getId()).get());
         map.put("competences", competenceService.getAllCompetences());
-        return "main/resume_create";
+        return "main/resume_edit";
     }
 
     @PreAuthorize("hasRole('STUDENT')")
-    @PostMapping("/create")
+    @PostMapping("/edit")
     public String createResume(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Map<String, String> params, ModelMap map, HttpServletRequest request) {
         resumeService.createResume(userDetails.getUser(), params, request.getLocale());
         return "redirect:/user";

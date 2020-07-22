@@ -43,18 +43,24 @@ public class ResumeServiceImpl implements ResumeService {
                     if(!param.getValue().trim().equals("") && param.getValue().length() < 14) {
                         student.setPhone(param.getValue());
                         studentChanged = true;
+                    } else {
+                        student.setPhone(null);
                     }
                     break;
                 case "email":
                     if(param.getValue().matches(".+@.+\\..+")) {
                         student.setEmail(param.getValue());
                         studentChanged = true;
+                    } else {
+                        student.setEmail(null);
                     }
                     break;
                 case "bio":
                     if(!param.getValue().trim().equals("")) {
                         student.setBio(param.getValue().replaceAll("\\r\\n", "<br>"));
                         studentChanged = true;
+                    } else {
+                        student.setBio(null);
                     }
                     break;
                 default:
@@ -73,9 +79,8 @@ public class ResumeServiceImpl implements ResumeService {
                     break;
             }
         }
-        if(studentChanged) {
-            studentRepository.save(student);
-        }
+        studentRepository.save(student);
+        studentCompetenceRepository.deleteByStudentId(student.getId());
         if(competences.size() > 0) {
             competences.forEach(name -> {
                 Optional<Competence> competenceOptional = competenceRepository.findByName(name);
@@ -86,6 +91,7 @@ public class ResumeServiceImpl implements ResumeService {
                 });
             });
         }
+        projectRepository.deleteByStudent_Id(student.getId());
         if(projects.size() > 0) {
             projects.forEach((key, value) -> {
                 projectRepository.save(Project.builder().name(key).link(value).student(student).build());
