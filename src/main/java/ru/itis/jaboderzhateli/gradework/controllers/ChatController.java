@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,12 +23,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
+@AllArgsConstructor
 public class ChatController {
 
-    private ChatService chatService;
-    private StudentRepository studentRepository;
-    private TeacherRepository teacherRepository;
-    private EmployerRepository employerRepository;
+    private final ChatService chatService;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
+    private final EmployerRepository employerRepository;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/chat")

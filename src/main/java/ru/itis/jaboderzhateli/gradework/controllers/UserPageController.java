@@ -49,28 +49,28 @@ public class UserPageController {
     @PreAuthorize("permitAll()")
     @GetMapping("/user/{user-id}")
     public String getPage(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("user-id") String userId, ModelMap map) {
-        if(userDetails != null) {
+        if (userDetails != null) {
             map.put("me", userDetails.getUser());
         }
         long id = Long.parseLong(userId);
         Optional<User> userOptional = userRepository.findById(id);
-        if(userOptional.isEmpty()) {
+        if (userOptional.isEmpty()) {
             return "main/landing";
         }
         User user = userOptional.get();
-        if(userDetails != null && !user.getId().equals(userDetails.getId())) {
+        if (userDetails != null && !user.getId().equals(userDetails.getId())) {
             List<Channel> suitables = chatService.checkIfChannelExistsForUsers(userDetails.getId(), id);
-            if(!suitables.isEmpty()) {
+            if (!suitables.isEmpty()) {
                 map.put("channelId", suitables.get(0).getId());
             }
         }
         switch (user.getRole()) {
             case STUDENT:
                 Optional<Student> studentOptional = studentRepository.findById(id);
-                if(studentOptional.isPresent()) {
+                if (studentOptional.isPresent()) {
                     boolean hasUnconfirmed = false;
-                    for(StudentCompetence competence : studentOptional.get().getCompetences()) {
-                        if(!competence.getConfirmed()) {
+                    for (StudentCompetence competence : studentOptional.get().getCompetences()) {
+                        if (!competence.getConfirmed()) {
                             hasUnconfirmed = true;
                             break;
                         }
@@ -82,14 +82,14 @@ public class UserPageController {
                 break;
             case EMPLOYER:
                 Optional<Employer> employerOptional = employerRepository.findById(id);
-                if(employerOptional.isPresent()) {
+                if (employerOptional.isPresent()) {
                     map.put("employer", employerOptional.get());
                     return "main/employer_page";
                 }
                 break;
             case TEACHER:
-                Optional<Teacher> teacherOptional =  teacherRepository.findById(id);
-                if(teacherOptional.isPresent()) {
+                Optional<Teacher> teacherOptional = teacherRepository.findById(id);
+                if (teacherOptional.isPresent()) {
                     map.put("teacher", teacherOptional.get());
                     return "main/teacher_page";
                 }
@@ -123,6 +123,12 @@ public class UserPageController {
 
         return "redirect:/";
     }
+
+//    @GetMapping("/user/{user-id/edit}")
+//    @PreAuthorize("isAuthenticated()")
+//    public String getEditPage() {
+//
+//    }
 
     private String resolveForUser(@PathVariable("user-id") Long userId, ModelMap map, User user, User currentUser, Map<String, String> params) {
         switch (user.getRole()) {
