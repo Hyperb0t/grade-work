@@ -3,7 +3,6 @@ package ru.itis.jaboderzhateli.gradework.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,9 @@ import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.TeacherRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.UserRepository;
 import ru.itis.jaboderzhateli.gradework.security.UserDetailsImpl;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.ChatService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -30,6 +31,9 @@ public class UserPageController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ChatService chatService;
 
     @PreAuthorize("permitAll()")
     @GetMapping("/user")
@@ -53,9 +57,11 @@ public class UserPageController {
             return "main/landing";
         }
         User user = userOptional.get();
-        boolean me = false;
-        if(userDetails != null && user.getId().equals(userDetails.getId())) {
-            me = true;
+        if(userDetails != null && !user.getId().equals(userDetails.getId())) {
+            List<Channel> suitables = chatService.checkIfChannelExistsForUsers(userDetails.getId(), id);
+            if(!suitables.isEmpty()) {
+                map.put("channelId", suitables.get(0).getId());
+            }
         }
         switch (user.getRole()) {
             case STUDENT:

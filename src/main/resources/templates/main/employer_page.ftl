@@ -36,7 +36,11 @@
                 <#if me?? && me.role == "STUDENT">
                     <a class="btn btn-outline-light mt-2" href="/apply/${employer.id}"><@s.message 'page.employer.apply'/></a>
                 </#if>
-                <a class="btn btn-outline-light mt-2" href="/chat/${employer.id}"><@s.message 'page.chat'/></a>
+                <#if channelId??>
+                    <a class="btn btn-outline-light mt-2" href="/chat?ch=${channelId}"><@s.message 'page.chat'/></a>
+                <#else>
+                    <a class="btn btn-outline-light mt-2" href="/user/${employer.id}/createChat"><@s.message 'page.chat'/></a>
+                </#if>
             </#if>
         </div>
     </div>

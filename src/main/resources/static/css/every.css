@@ -310,3 +310,13 @@ hr {
     margin: 0;
     padding: 0.525rem;
 }
+
+/* CHAT */
+#chat_window {
+    overflow-y: scroll;
+    word-break: break-word;
+    display: flex;
+    flex: 1 1 0;
+    flex-flow: column;
+    min-height: 73vh;
+}
