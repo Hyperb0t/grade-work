@@ -14,6 +14,7 @@ import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.TeacherRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.UserRepository;
 import ru.itis.jaboderzhateli.gradework.security.UserDetailsImpl;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.ChatService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.EmployerService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.StudentService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.TeacherService;
@@ -32,6 +33,7 @@ public class UserPageController {
     private final StudentService studentService;
     private final TeacherService teacherService;
     private final EmployerService employerService;
+    private final ChatService chatService;
 
     @PreAuthorize("permitAll()")
     @GetMapping("/user")
