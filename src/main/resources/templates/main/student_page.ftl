@@ -70,7 +70,11 @@
 <#--                </#if>-->
                 <a class="btn btn-light mt-2" href="/user/${student.id}/edit"><@s.message 'page.student.info.edit'/></a>
             <#else>
-                <a class="btn btn-outline-light mt-2" href="/chat/${student.id}"><@s.message 'page.chat'/></a>
+                <#if channelId??>
+                    <a class="btn btn-outline-light mt-2" href="/chat?ch=${channelId}"><@s.message 'page.chat'/></a>
+                <#else>
+                    <a class="btn btn-outline-light mt-2" href="/user/${student.id}/createChat"><@s.message 'page.chat'/></a>
+                </#if>
             </#if>
         </div>
     </div>

@@ -50,3 +50,25 @@
         </#if>
     </nav>
 </#macro>
+
+<#macro message message author me>
+    <div class="d-flex">
+
+        <div class="d-inline-flex justify-content-between w-100">
+            <div class="d-flex flex-column w-90 mr-2">
+                <a href="/user/${message.author.id}" class="link regular">
+                    <#if me.id == author.id>
+                        Вы</a>
+                    <#else>
+                        <#if author.role == "ADMINISTRATION">
+                            Деканат</a>
+                        <#else>
+                            ${author.surname} ${author.name} ${author.middleName}</a>
+                        </#if>
+                    </#if>
+                <span class="m-0">${message.content}</span>
+            </div>
+            <span class="w-10 add-grey align-self-center">${message.createdAt}</span>
+        </div>
+    </div>
+</#macro>

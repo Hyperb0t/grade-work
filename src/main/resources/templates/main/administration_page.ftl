@@ -32,7 +32,11 @@
                     <a class="btn btn-light mt-2 ml-2" href="/signUp/student/file"><@s.message 'page.administration.sign.up.file'/></a>
                 </div>
             <#else>
-                <a class="btn btn-outline-light mt-2" href="/chat/${administration.id}"><@s.message 'page.chat'/></a>
+                <#if channelId??>
+                    <a class="btn btn-outline-light mt-2" href="/chat?ch=${channelId}"><@s.message 'page.chat'/></a>
+                <#else>
+                    <a class="btn btn-outline-light mt-2" href="/user/${administration.id}/createChat"><@s.message 'page.chat'/></a>
+                </#if>
             </#if>
         </div>
     </div>

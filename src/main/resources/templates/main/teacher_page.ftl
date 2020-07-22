@@ -38,7 +38,11 @@
                 <a class="btn btn-light mt-2" href="/competences/edit"><@s.message 'page.teacher.competences.edit'/></a>
                 <a class="btn btn-light mt-2" href="/edit"><@s.message 'page.teacher.info.edit'/></a>
             <#else>
-                <a class="btn btn-outline-light mt-2" href="/chat/${teacher.id}"><@s.message 'page.chat'/></a>
+                <#if channelId??>
+                    <a class="btn btn-outline-light mt-2" href="/chat?ch=${channelId}"><@s.message 'page.chat'/></a>
+                <#else>
+                    <a class="btn btn-outline-light mt-2" href="/user/${teacher.id}/createChat"><@s.message 'page.chat'/></a>
+                </#if>
             </#if>
         </div>
     </div>
