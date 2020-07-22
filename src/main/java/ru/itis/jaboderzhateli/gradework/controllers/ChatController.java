@@ -23,16 +23,10 @@ import java.util.UUID;
 
 @Controller
 public class ChatController {
-    @Autowired
+
     private ChatService chatService;
-
-    @Autowired
     private StudentRepository studentRepository;
-
-    @Autowired
     private TeacherRepository teacherRepository;
-
-    @Autowired
     private EmployerRepository employerRepository;
 
     @PreAuthorize("isAuthenticated()")
