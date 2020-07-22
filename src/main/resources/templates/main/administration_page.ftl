@@ -21,7 +21,7 @@
         <div class="card">
             <h3 class="text-center"><@s.message 'page.administration.header'/></h3>
             <#if me?? && me.id == administration.id>
-<#--                <a class="btn btn-outline-light" href="/confirm/resumes"><@s.message 'page.administration.confirmations.resumes'/></a>-->
+                <a class="btn btn-outline-light mb-2" href="/users"><@s.message 'page.administration.button.users'/></a>
 <#--                <a class="btn btn-outline-light mt-2" href="/confirm/accounts"><@s.message 'page.administration.confirmations.accounts'/></a>-->
                 <div class="d-inline-flex">
                     <a class="btn btn-light w-100" href="/signUp/teacher"><@s.message 'page.administration.sign.up.teacher'/></a>

@@ -179,4 +179,13 @@ public class UserPageController {
                 break;
         }
     }
+
+    @PreAuthorize("hasRole('ADMINISTRATION')")
+    @GetMapping("/users")
+    public String getUsersListPage(@AuthenticationPrincipal UserDetailsImpl userDetails, ModelMap map) {
+        map.put("students", studentRepository.findAll());
+        map.put("employers", employerRepository.findAll());
+        map.put("teachers", teacherRepository.findAll());
+        return "main/administration_list";
+    }
 }
