@@ -1,6 +1,7 @@
 package ru.itis.jaboderzhateli.gradework.services.implementations;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class SignUpServiceImpl implements SignUpService {
 
     private final StudentRepository studentRepository;
@@ -69,6 +71,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .phone(form.getPhone())
                 .surname(form.getSurname())
                 .middleName(form.getMiddleName())
+                .login(form.getLogin())
                 .email(form.getLogin())
                 .link(form.getLink())
                 .institute(institute)
@@ -80,7 +83,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .birthday(form.getBirth())
                 .password(passwordEncoder.encode(form.getPassword()))
                 .build();
-
+        log.info("registering student from admin with pass: " + form.getPassword());
         student.setRole(Role.STUDENT);
 
         return studentRepository.save(student);

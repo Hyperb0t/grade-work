@@ -12,7 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.itis.jaboderzhateli.gradework.config.RootConfig;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -20,46 +22,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureWebMvc
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {RootConfig.class})
-public class UserPageControllerTest {
+public class ErrorPageControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    @WithUserDetails(value = "teacher", userDetailsServiceBeanName = "userDetailsServiceImpl")
-    public void whenAuth30x() throws Exception {
-        mockMvc.perform(get("/user"))
-                .andExpect(status().is3xxRedirection());
-    }
-
-    @Test
-    public void whenNotAuth() throws Exception {
-        mockMvc.perform(get("/user"))
-                .andExpect(status().is3xxRedirection());
-    }
-
-    @Test
-    public void whenRequestAdmin() throws Exception {
-        mockMvc.perform(get("/user/1"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void whenRequestStudent() throws Exception {
-        mockMvc.perform(get("/user/2"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void whenRequestEmpl() throws Exception {
-        mockMvc.perform(get("/user/4"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void whenRequestTeacher() throws Exception {
-        mockMvc.perform(get("/user/3"))
-                .andExpect(status().isOk());
+    public void getPage_isOk() throws Exception {
+        mockMvc.perform(get("/error")).andExpect(status().isOk());
     }
 
 }

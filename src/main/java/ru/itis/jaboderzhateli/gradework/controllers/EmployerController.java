@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,16 +23,13 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
+@AllArgsConstructor
 public class EmployerController {
 
-    @Autowired
-    private EmployerRepository employerRepository;
-    @Autowired
-    private JobApplicationRepository applicationRepository;
-    @Autowired
-    private ApplicationService applicationService;
-    @Autowired
-    private StudentRepository studentRepository;
+    private final EmployerRepository employerRepository;
+    private final JobApplicationRepository applicationRepository;
+    private final ApplicationService applicationService;
+    private final StudentRepository studentRepository;
 
     @GetMapping("/employers")
     public String employersPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
@@ -56,17 +54,6 @@ public class EmployerController {
         return "main/employer_applications";
     }
 
-    @PostMapping("/applications")
-    public String markRead(@RequestParam Map<String, String> params) {
-        for(Map.Entry<String, String> e : params.entrySet()) {
-            try {
-                Long applicationId = Long.parseLong(e.getKey());
-                applicationService.setRead(applicationRepository.findById(applicationId).get(), true);
-            }catch (Exception ignored) {}
-        }
-        return "redirect:/applications";
-    }
-
     @GetMapping("/apply/{user-id}")
     @PreAuthorize("hasRole('STUDENT')")
     public String createApplication (@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("user-id") Long userId, ModelMap map){
@@ -76,5 +63,16 @@ public class EmployerController {
             applicationService.apply(studentOptional.get(), employerOptional.get());
         }
         return "redirect:/employers";
+    }
+
+    @PostMapping("/applications")
+    public String markRead(@RequestParam Map<String, String> params) {
+        for(Map.Entry<String, String> e : params.entrySet()) {
+            try {
+                Long applicationId = Long.parseLong(e.getKey());
+                applicationService.setRead(applicationRepository.findById(applicationId).get(), true);
+            }catch (Exception ignored) {}
+        }
+        return "redirect:/applications";
     }
 }

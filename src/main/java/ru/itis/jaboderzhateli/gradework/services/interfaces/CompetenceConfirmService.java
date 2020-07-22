@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface CompetenceConfirmService {
-    public List<StudentCompetence> getCompetencesToConfirm(Long teacherId);
+    List<StudentCompetence> getCompetencesToConfirm(Long teacherId);
 
-    public List<StudentCompetence> getCompetencesToConfirm(Teacher teacher);
+    List<StudentCompetence> getCompetencesToConfirm(Teacher teacher);
 
-    public void confirmFromRequest(Map<String, String> params);
+    void confirmFromRequest(Map<String, String> params);
 
-    public void confirmCompetence(StudentCompetence studentCompetence);
+    void confirmCompetence(StudentCompetence studentCompetence);
 
-    public void deleteCompetence(StudentCompetence studentCompetence);
+    void deleteCompetence(StudentCompetence studentCompetence);
 }

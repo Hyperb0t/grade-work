@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.services.implementations;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -14,22 +15,14 @@ import java.util.*;
 import java.util.function.Consumer;
 
 @Service
+@AllArgsConstructor
 public class ResumeServiceImpl implements ResumeService {
 
-    @Autowired
-    private MessageSource messageSource;
-
-    @Autowired
-    private StudentCompetenceRepository studentCompetenceRepository;
-
-    @Autowired
-    private CompetenceRepository competenceRepository;
-
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private StudentRepository studentRepository;
+    private final MessageSource messageSource;
+    private final StudentCompetenceRepository studentCompetenceRepository;
+    private final CompetenceRepository competenceRepository;
+    private final ProjectRepository projectRepository;
+    private final StudentRepository studentRepository;
 
     @Override
     public void createResume(User user, Map<String, String> params, Locale locale) {

@@ -44,23 +44,16 @@ public class SignUpController {
         return "auth/sign_up_employer";
     }
 
-    @PreAuthorize("isAnonymous()")
-    @PostMapping
-    public String signUpEmployer(@Valid SignUpEmployerForm form, BindingResult bindingResult, @RequestParam Map<String, String> allParams) {
-//        if (bindingResult.hasErrors()) {
-//            return "auth/sign_up_employer";
-//        }
-        var links = parser.parse(allParams, "link-[0-9]*");
-        form.setLink(links);
+    @PreAuthorize("hasRole('ADMINISTRATION')")
+    @GetMapping("/student/file")
+    public String getStudentSignUpFileForm() {
+        return "auth/sign_up_student_file";
+    }
 
-        try {
-            signUpService.signUp(form);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-        }
-
-        System.out.println("Successfully saved employer");
-        return "redirect:/signIn";
+    @PreAuthorize("hasRole('ADMINISTRATION')")
+    @GetMapping("/teacher/file")
+    public String getTeacherSignUpFileForm() {
+        return "auth/sign_up_teacher_file";
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
@@ -82,19 +75,6 @@ public class SignUpController {
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
-    @PostMapping("/student")
-    public String signUpStudent(@Valid SignUpStudentForm form, BindingResult bindingResult) {
-        try {
-            signUpService.signUp(form);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-        }
-
-        System.out.println("Successfully saved student");
-        return "redirect:/user";
-    }
-
-    @PreAuthorize("hasRole('ADMINISTRATION')")
     @GetMapping("/teacher")
     public String getTeacherSignUpForm(ModelMap map) {
 
@@ -110,6 +90,36 @@ public class SignUpController {
         map.put("institutes", institutes);
         map.put("competences", competences);
         return "auth/sign_up_teacher";
+    }
+
+    @PreAuthorize("isAnonymous()")
+    @PostMapping
+    public String signUpEmployer(@Valid SignUpEmployerForm form, BindingResult bindingResult, @RequestParam Map<String, String> allParams) {
+
+        var links = parser.parse(allParams, "link-[0-9]*");
+        form.setLink(links);
+
+        try {
+            signUpService.signUp(form);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
+
+        System.out.println("Successfully saved employer");
+        return "redirect:/signIn";
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRATION')")
+    @PostMapping("/student")
+    public String signUpStudent(@Valid SignUpStudentForm form, BindingResult bindingResult) {
+        try {
+            signUpService.signUp(form);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
+
+        System.out.println("Successfully saved student");
+        return "redirect:/user";
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
@@ -130,22 +140,10 @@ public class SignUpController {
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
-    @GetMapping("/teacher/file")
-    public String getTeacherSignUpFileForm() {
-        return "auth/sign_up_teacher_file";
-    }
-
-    @PreAuthorize("hasRole('ADMINISTRATION')")
     @PostMapping("/teacher/file")
     public void signUpTeacherFile(@RequestParam("file") MultipartFile multipartFile, HttpServletResponse response) {
         response.setHeader("Content-Disposition", "attachment; filename=\"Teachers.xls\"");
         handler.downloadTeachers(signUpService.signUpTeachers(multipartFile), response);
-    }
-
-    @PreAuthorize("hasRole('ADMINISTRATION')")
-    @GetMapping("/student/file")
-    public String getStudentSignUpFileForm() {
-        return "auth/sign_up_student_file";
     }
 
     @PreAuthorize("hasRole('ADMINISTRATION')")
@@ -154,5 +152,4 @@ public class SignUpController {
         response.setHeader("Content-Disposition", "attachment; filename=\"Students.xls\"");
         handler.downloadStudents(signUpService.signUpStudents(multipartFile), response);
     }
-
 }

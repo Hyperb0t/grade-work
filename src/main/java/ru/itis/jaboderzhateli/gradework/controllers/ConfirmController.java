@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,12 +23,11 @@ import java.util.Map;
 
 @Controller
 @Slf4j
+@AllArgsConstructor
 public class ConfirmController {
 
-    @Autowired
-    private CompetenceConfirmService confirmService;
-    @Autowired
-    private TeacherRepository teacherRepository;
+    private final CompetenceConfirmService confirmService;
+    private final TeacherRepository teacherRepository;
 
     @PreAuthorize("hasRole('TEACHER')")
     @GetMapping("/confirm/competences")

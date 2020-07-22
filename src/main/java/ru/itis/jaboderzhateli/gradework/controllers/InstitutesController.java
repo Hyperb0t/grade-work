@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,10 +11,10 @@ import ru.itis.jaboderzhateli.gradework.repositories.InstituteRepository;
 import ru.itis.jaboderzhateli.gradework.security.UserDetailsImpl;
 
 @Controller
+@AllArgsConstructor
 public class InstitutesController {
 
-    @Autowired
-    private InstituteRepository instituteRepository;
+    private final InstituteRepository instituteRepository;
 
     @PreAuthorize("permitAll()")
     @GetMapping("/institutes")

@@ -1,5 +1,6 @@
 package ru.itis.jaboderzhateli.gradework.services.implementations;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.jaboderzhateli.gradework.models.Employer;
@@ -12,10 +13,10 @@ import java.time.Instant;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
 
-    @Autowired
-    private JobApplicationRepository applicationRepository;
+    private final JobApplicationRepository applicationRepository;
 
     @Override
     public void apply(Student student, Employer employer) {
