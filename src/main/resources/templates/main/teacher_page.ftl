@@ -42,6 +42,9 @@
                 <#else>
                     <a class="btn btn-outline-light mt-2" href="/user/${teacher.id}/createChat"><@s.message 'page.chat'/></a>
                 </#if>
+                <#if me?? && me.role == "ADMINISTRATION">
+                    <a class="btn btn-light mt-2" href="/user/${teacher.id}/edit"><@s.message 'page.teacher.info.edit'/></a>
+                </#if>
             </#if>
         </div>
     </div>

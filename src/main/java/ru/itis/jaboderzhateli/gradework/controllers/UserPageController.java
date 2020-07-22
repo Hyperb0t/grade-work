@@ -137,8 +137,10 @@ public class UserPageController {
                     map.put("competences", competences);
                     map.put("user", teacherRepository.findById(userId).get());
                     return "main/teacher_page_edit";
+                case EMPLOYER:
+                    map.put("user", employerRepository.findById(userId).get());
+                    return "main/employer_page_edit";
             }
-            return "redirect:/";
         }
         return "redirect:/user";
     }

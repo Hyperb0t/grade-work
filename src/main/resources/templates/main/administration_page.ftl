@@ -21,11 +21,11 @@
         <div class="card">
             <h3 class="text-center"><@s.message 'page.administration.header'/></h3>
             <#if me?? && me.id == administration.id>
-                <a class="btn btn-outline-light mt-2" href="/confirm/resumes"><@s.message 'page.administration.confirmations.resumes'/></a>
-                <a class="btn btn-outline-light mt-2" href="/confirm/accounts"><@s.message 'page.administration.confirmations.accounts'/></a>
+<#--                <a class="btn btn-outline-light" href="/confirm/resumes"><@s.message 'page.administration.confirmations.resumes'/></a>-->
+<#--                <a class="btn btn-outline-light mt-2" href="/confirm/accounts"><@s.message 'page.administration.confirmations.accounts'/></a>-->
                 <div class="d-inline-flex">
-                    <a class="btn btn-light mt-2 w-100" href="/signUp/teacher"><@s.message 'page.administration.sign.up.teacher'/></a>
-                    <a class="btn btn-light mt-2 ml-2" href="/signUp/teacher/file"><@s.message 'page.administration.sign.up.file'/></a>
+                    <a class="btn btn-light w-100" href="/signUp/teacher"><@s.message 'page.administration.sign.up.teacher'/></a>
+                    <a class="btn btn-light ml-2" href="/signUp/teacher/file"><@s.message 'page.administration.sign.up.file'/></a>
                 </div>
                 <div class="d-inline-flex">
                     <a class="btn btn-light mt-2 w-100" href="/signUp/student"><@s.message 'page.administration.sign.up.student'/></a>

@@ -11,6 +11,8 @@ import ru.itis.jaboderzhateli.gradework.services.interfaces.InstituteService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.ResumeService;
 import ru.itis.jaboderzhateli.gradework.services.interfaces.StudentService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
@@ -37,9 +39,10 @@ public class StudentServiceImpl implements StudentService {
 
         student.setInstitute(instituteService.getInstitute(params.get("institute")));
         student.setAverage(Byte.valueOf(params.get("average")));
-        student.setBirthday(Date.from(Instant.parse(params.get("birthday"))));
+        try {
+            student.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(params.get("birth")));
+        } catch (ParseException e) {}
         student.setFaculty(facultyService.getFaculty(params.get("faculty")));
-        student.setCourse(Byte.valueOf(params.get("course")));
         student.setGroup(params.get("group"));
         student.setLink(params.get("link"));
         student.setName(params.get("name"));

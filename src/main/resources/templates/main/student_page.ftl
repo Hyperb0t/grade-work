@@ -66,7 +66,7 @@
 <#--                    <a class="btn btn-outline-light mt-2" href="/requests"><@s.message 'page.student.requests'/></a>-->
 <#--                    <a class="btn btn-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.create'/></a>-->
 <#--                <#else>-->
-                    <a class="btn btn-outline-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.edit'/></a>
+                <a class="btn btn-outline-light mt-2" href="/resume/edit"><@s.message 'page.student.resume.edit'/></a>
 <#--                </#if>-->
                 <a class="btn btn-light mt-2" href="/user/${student.id}/edit"><@s.message 'page.student.info.edit'/></a>
             <#else>
@@ -74,6 +74,9 @@
                     <a class="btn btn-outline-light mt-2" href="/chat?ch=${channelId}"><@s.message 'page.chat'/></a>
                 <#else>
                     <a class="btn btn-outline-light mt-2" href="/user/${student.id}/createChat"><@s.message 'page.chat'/></a>
+                </#if>
+                <#if me?? && me.role == "ADMINISTRATION">
+                    <a class="btn btn-light mt-2" href="/user/${student.id}/edit"><@s.message 'page.student.info.edit'/></a>
                 </#if>
             </#if>
         </div>
