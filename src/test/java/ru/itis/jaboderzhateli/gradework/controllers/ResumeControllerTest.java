@@ -41,7 +41,7 @@ public class ResumeControllerTest {
     @Test
     @WithUserDetails(value = "student", userDetailsServiceBeanName = "userDetailsServiceImpl")
     public void getFormAuth_isOk() throws Exception {
-        mockMvc.perform(get("/resume/create"))
+        mockMvc.perform(get("/resume/edit"))
                 .andExpect(status()
                         .isOk());
     }
@@ -49,7 +49,7 @@ public class ResumeControllerTest {
     @Test
     @WithUserDetails(value = "student", userDetailsServiceBeanName = "userDetailsServiceImpl")
     public void postFormAuth_is3xx() throws Exception {
-        mockMvc.perform(post("/resume/create")
+        mockMvc.perform(post("/resume/edit")
                 .with(csrf()))
                 .andExpect(status()
                         .is3xxRedirection());
