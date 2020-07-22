@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.itis.jaboderzhateli.gradework.models.*;
 import ru.itis.jaboderzhateli.gradework.repositories.EmployerRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
@@ -132,7 +133,7 @@ public class UserPageController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/user/{user-id}/edit")
     public String editUser(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("user-id") Long userId,
-                           ModelMap map, Map<String, String> params) {
+                           ModelMap map, @RequestParam Map<String, String> params) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
