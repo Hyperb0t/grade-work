@@ -14,14 +14,12 @@ import ru.itis.jaboderzhateli.gradework.repositories.StudentRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.TeacherRepository;
 import ru.itis.jaboderzhateli.gradework.repositories.UserRepository;
 import ru.itis.jaboderzhateli.gradework.security.UserDetailsImpl;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.ChatService;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.EmployerService;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.StudentService;
-import ru.itis.jaboderzhateli.gradework.services.interfaces.TeacherService;
+import ru.itis.jaboderzhateli.gradework.services.interfaces.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -35,6 +33,8 @@ public class UserPageController {
     private final TeacherService teacherService;
     private final EmployerService employerService;
     private final ChatService chatService;
+    private final FacultyService facultyService;
+    private final InstituteService instituteService;
 
     @PreAuthorize("permitAll()")
     @GetMapping("/user")
@@ -102,50 +102,65 @@ public class UserPageController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/user/{user-id}/edit")
+    public String getEditPage(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("user-id") Long userId, ModelMap map) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if(userOptional.isPresent()) {
+            map.put("me", userDetails.getUser());
+            User user = userOptional.get();
+            switch (user.getRole()) {
+                case STUDENT:
+                    var institutes = instituteService.getAllInstitutes()
+                            .stream()
+                            .map(Institute::getName)
+                            .collect(Collectors.toList());
+                    var faculties = facultyService.getAllFaculties()
+                            .stream()
+                            .map(Faculty::getName)
+                            .collect(Collectors.toList());
+
+                    map.put("institutes", institutes);
+                    map.put("faculties", faculties);
+                    map.put("user", studentRepository.findById(userId).get());
+                    return "main/student_page_edit";
+            }
+            return "redirect:/";
+        }
+        return "redirect:/user";
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/user/{user-id}/edit")
     public String editUser(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable("user-id") Long userId,
                            ModelMap map, Map<String, String> params) {
-
-        if (userDetails != null) {
-            map.put("me", userDetails.getUser());
-        }
-
         Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isEmpty()) {
-            return "main/landing";
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            resolveForUser(user, userDetails.getUser(), params);
+            return "redirect:/user/" + userId;
         }
-
-        User user = userOptional.get();
-        var currentUser = userDetails.getUser();
-        String page = resolveForUser(userId, map, user, currentUser, params);
-
-        if (page != null) return page;
-
-        return "redirect:/";
+        return "redirect:/user";
     }
 
-//    @GetMapping("/user/{user-id/edit}")
-//    @PreAuthorize("isAuthenticated()")
-//    public String getEditPage() {
-//
-//    }
-
-    private String resolveForUser(@PathVariable("user-id") Long userId, ModelMap map, User user, User currentUser, Map<String, String> params) {
+    private void resolveForUser(User user, User me, Map<String, String> params) {
         switch (user.getRole()) {
             case STUDENT:
-                if (userId.equals(currentUser.getId()) | currentUser.getRole().equals(Role.ADMINISTRATION))
-                    map.put("student", studentService.edit(user, params));
-                return "main/student_page";
+                if(user.getId().equals(me.getId()) || me.getRole().equals(Role.ADMINISTRATION)) {
+                    studentService.edit(user, params);
+                }
+                break;
             case EMPLOYER:
-                if (userId.equals(currentUser.getId()) | currentUser.getRole().equals(Role.ADMINISTRATION))
-                    map.put("employer", employerService.edit(user, params));
+                if(user.getId().equals(me.getId()) || me.getRole().equals(Role.ADMINISTRATION)) {
+                    employerService.edit(user, params);
+                }
+                break;
             case TEACHER:
-                if (userId.equals(currentUser.getId()) | currentUser.getRole().equals(Role.ADMINISTRATION))
-                    map.put("teacher", teacherService.edit(user, params));
-                return "main/student_page";
+                if(user.getId().equals(me.getId()) || me.getRole().equals(Role.ADMINISTRATION)) {
+                    teacherService.edit(user, params);
+                }
+                break;
             case ADMINISTRATION:
-                return "main/administration_page";
+                break;
         }
-        return null;
     }
 }

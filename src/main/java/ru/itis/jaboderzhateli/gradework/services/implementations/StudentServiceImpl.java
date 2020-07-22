@@ -35,9 +35,6 @@ public class StudentServiceImpl implements StudentService {
 
         var student = studentRepository.getOne(user.getId());
 
-        if (!params.get("bio").trim().equals(""))
-            student.setBio(params.get("bio").replaceAll("\\r\\n", "<br>"));
-
         student.setInstitute(instituteService.getInstitute(params.get("institute")));
         student.setAverage(Byte.valueOf(params.get("average")));
         student.setBirthday(Date.from(Instant.parse(params.get("birthday"))));
