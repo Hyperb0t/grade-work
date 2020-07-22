@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpHeaders;
@@ -33,25 +34,15 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
+@AllArgsConstructor
 public class MessagesController {
     private static final Map<Pair<String, Channel>, List<Long>> map = new HashMap<>();
 
-    @Autowired
     private ChatService chatService;
-
-    @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
     private FreeMarkerConfig freeMarkerConfig;
-
-    @Autowired
     private StudentRepository studentRepository;
-
-    @Autowired
     private TeacherRepository teacherRepository;
-
-    @Autowired
     private EmployerRepository employerRepository;
 
     @PreAuthorize("isAuthenticated()")
