@@ -39,13 +39,13 @@ public class SecurityConfig {
         private final PasswordEncoder passwordEncoder;
         private final DataSource dataSource;
 
-//        @Bean
-//        public PersistentTokenRepository persistentTokenRepository() {
-//            var repository = new JdbcTokenRepositoryImpl();
-//            repository.setDataSource(dataSource);
-//
-//            return repository;
-//        }
+        @Bean
+        public PersistentTokenRepository persistentTokenRepository() {
+            var repository = new JdbcTokenRepositoryImpl();
+            repository.setDataSource(dataSource);
+
+            return repository;
+        }
 
         @Override
         public void configure(WebSecurity web) {
@@ -67,13 +67,13 @@ public class SecurityConfig {
             http.logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/signOut", "GET"))
                     .logoutSuccessUrl("/")
-//                    .deleteCookies("JSESSIONID", "remember-me")
+                    .deleteCookies("JSESSIONID", "remember-me")
                     .permitAll();
 
-//            http.rememberMe()
-//                    .rememberMeParameter("remember-me")
-//                    .tokenRepository(persistentTokenRepository())
-//                    .alwaysRemember(true);
+            http.rememberMe()
+                    .rememberMeParameter("remember-me")
+                    .tokenRepository(persistentTokenRepository())
+                    .alwaysRemember(true);
         }
 
         @Override
