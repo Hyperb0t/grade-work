@@ -39,6 +39,7 @@ public class Student extends User{
     private String email;
     @Column(length = 13)
     private String phone;
+
     private Date birthday;
     private Byte average;
     private String link;
