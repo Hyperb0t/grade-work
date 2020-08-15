@@ -9,6 +9,7 @@
         <div class="card">
 
             <h3 class="m-0 regular text-center mb-2"><@s.message 'confirmation.teacher.header'/></h3>
+            <hr>
             <form method="POST" action="/confirm/competences">
                 <input id="csrf" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 

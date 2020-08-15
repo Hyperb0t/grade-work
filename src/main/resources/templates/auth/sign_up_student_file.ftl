@@ -9,6 +9,7 @@
         <div class="card">
 
             <h3 class="m-0 regular text-center mb-2"><@s.message 'sign.up.student.file.header'/></h3>
+            <hr>
             <form method="POST" action="/signUp/student/file?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 
                 <span class="text-center"><@s.message 'sign.up.student.file.hint'/></span>

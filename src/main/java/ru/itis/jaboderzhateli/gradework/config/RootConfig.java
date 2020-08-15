@@ -78,8 +78,8 @@ public class RootConfig {
                 .yearGraduate((short) 2020)
                 .course((byte) 3)
                 .average((byte) 93)
-                .phone("89503135579")
-                .email("rodsher111@gmail.com")
+                .phone("89000000000")
+                .email("email@gmail.com")
                 .bio("Гигант мысли")
                 .link("https://vk.com").build();
         Faculty faculty = Faculty.builder().name("Программная инженерия").build();
@@ -105,8 +105,8 @@ public class RootConfig {
                 .institute(Institute.builder().id(9L).build())
                 .experience((byte) 30)
                 .position("Основной работник, гений")
-                .phone("89503135579")
-                .email("rodsher111@gmail.com")
+                .phone("89000000000")
+                .email("email@gmail.com")
                 .link("https://vk.com").build();
         List<Competence> competences1 = new ArrayList<>();
         competences1.add(competence1);
@@ -121,8 +121,8 @@ public class RootConfig {
                 .name("Михаил")
                 .surname("Работодателев")
                 .middleName("Александрович")
-                .phone("89503135579")
-                .email("rodsher111@gmail.com")
+                .phone("89000000000")
+                .email("email@gmail.com")
                 .companyName("ООО 'ГЕНИЕПРОИЗВОДСТВО'")
                 .psrn("1231241352361").build();
         employerRepository.save(employer);
